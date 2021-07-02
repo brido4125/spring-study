@@ -1,9 +1,12 @@
 package hello.hellospring.repository;
 
 import hello.hellospring.domain.Member;
+import org.springframework.stereotype.Repository;
 
 import java.util.*;
 
+
+@Repository //MemberRepository에 어노테이션하면 안되는 이유?
 public class MemoryMemberRepository implements MemberRepository{
 
     private Map<Long,Member> store = new HashMap<>();
