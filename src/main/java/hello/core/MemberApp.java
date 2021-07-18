@@ -9,7 +9,8 @@ import hello.core.member.MemberServiceImpl;
 //순수 java 코드로 작성한 테스트
 public class MemberApp {
     public static void main(String[] args) {
-        MemberService memberService = new MemberServiceImpl();
+        AppConfig appConfig = new AppConfig();
+        MemberService  memberService = appConfig.memberService();
         Member member = new Member(1L, "brido", Grade.VIP);
         memberService.join(member);
 
