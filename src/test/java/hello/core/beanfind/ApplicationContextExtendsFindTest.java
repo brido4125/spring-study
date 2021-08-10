@@ -3,7 +3,6 @@ package hello.core.beanfind;
 import hello.core.discount.DiscountPolicy;
 import hello.core.discount.FixDiscountPolicy;
 import hello.core.discount.RateDiscountPolicy;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.NoUniqueBeanDefinitionException;
@@ -19,6 +18,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public class ApplicationContextExtendsFindTest {
     AnnotationConfigApplicationContext ac = new AnnotationConfigApplicationContext(TestConfig.class);
 
+    //자식이 동일한 타입이라서
     @Test
     @DisplayName("부모 타입으로 조회 시 자식이 둘 이상 있으면 중복 오류 발생하는 테스트")
     void findBeanByParentTypeDup() {
@@ -26,12 +26,13 @@ public class ApplicationContextExtendsFindTest {
                 () -> ac.getBean(DiscountPolicy.class));
     }
     @Test
-    @DisplayName("부모 타입으로 조회 시 자식이 둘 이상 있으면 각각 빈들에 이름을 지정하는 테스트")
+    @DisplayName("부모 타입으로 조회 시 자식이 둘 이상 있으면 각각 빈들에 이름을 지정하는 테스트")//중복 오류 해결
     void findBeanByParentTypeBeanName() {
         DiscountPolicy rateDiscountPolicy = ac.getBean("rateDiscountPolicy", DiscountPolicy.class);
         assertThat(rateDiscountPolicy).isInstanceOf(RateDiscountPolicy.class);
     }
 
+    //구현체에 의존하는 코드
     @Test
     @DisplayName("특정 하위 타입으로 지정")
     void findBeanBySubType() {
@@ -45,7 +46,7 @@ public class ApplicationContextExtendsFindTest {
         Map<String, DiscountPolicy> beansOfType = ac.getBeansOfType(DiscountPolicy.class);
         assertThat(beansOfType.size()).isEqualTo(2);
         for (String key : beansOfType.keySet()) {
-            System.out.println("key = " + key + "value = " + beansOfType.get(key));
+            System.out.println("key = " + key + " value = " + beansOfType.get(key));
         }
     }
 
@@ -54,7 +55,7 @@ public class ApplicationContextExtendsFindTest {
     void findAllBeanByObjectType() {
         Map<String, Object> beansOfType = ac.getBeansOfType(Object.class);
         for (String key : beansOfType.keySet()) {
-            System.out.println("key = " + key + "value = " + beansOfType.get(key));
+            System.out.println("key = " + key + " value = " + beansOfType.get(key));
         }
     }
 

@@ -24,7 +24,6 @@ public class AppConfig {
     public MemoryMemberRepository memberRepository() {
         return new MemoryMemberRepository();
     }
-
     @Bean
     public DiscountPolicy discountPolicy() {
         return new RateDiscountPolicy();

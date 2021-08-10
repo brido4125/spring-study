@@ -15,6 +15,8 @@ import java.util.Map;
 import static org.assertj.core.api.Assertions.*;
 
 public class ApplicationContextSameBeanFindTest {
+    //같은 타입인 빈 생성을 위해서 임의적인 SameBeanConfig 를 만들어서 구성정보로 활용!
+    // SameBeanConfig 는 내부 클래스로 횔용
     AnnotationConfigApplicationContext ac = new AnnotationConfigApplicationContext(SameBeanConfig.class);
 
     @Test
@@ -44,6 +46,7 @@ public class ApplicationContextSameBeanFindTest {
 
     @Configuration
     static class SameBeanConfig {
+        //컨테이너에 빈은 2개 등록시킴
         @Bean
         public MemberRepository memberRepository1() {
             return new MemoryMemberRepository();

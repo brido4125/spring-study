@@ -33,8 +33,9 @@ public class ApplicationContextBasicFindTest {
         assertThat(memberService).isInstanceOf(MemberServiceImpl.class);
     }
 
+    //구현에 의존하는 코드라서 자주 쓰이지는 않는다
     @Test
-    @DisplayName("구체 타입으로 빈 조회")
+    @DisplayName("구체 타입으로 빈 조회")//인터페이스의 타입이 아니라 구현체의 타입을 인자로 넘겨서 조회
     void findByName2() {
         MemberServiceImpl memberService = ac.getBean("memberService", MemberServiceImpl.class);
         assertThat(memberService).isInstanceOf(MemberServiceImpl.class);
