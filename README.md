@@ -14,5 +14,5 @@ Chapter 4 : [스프링 컨테이너와 스프링 빈](https://hongchangsub.com/s
 
 Chapter 5 : [스프링 싱글톤 컨테이너](https://hongchangsub.com/springcore5/)
 
-Chapter 6 : [컴포넌트 스캔]
+Chapter 6 : [컴포넌트 스캔](https://hongchangsub.com/springcore6/)
 
