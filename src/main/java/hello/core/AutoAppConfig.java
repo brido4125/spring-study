@@ -14,8 +14,8 @@ import org.springframework.context.annotation.FilterType;
 )
 public class AutoAppConfig {
     //자동 vs 수동 중복 빈 이름 비교를 위해 추가한 스프링 빈
-    @Bean(name = "memoryMemberRepository")
-    public MemberRepository memberRepository() {
-        return new MemoryMemberRepository();
-    }
+//    @Bean(name = "memoryMemberRepository")
+//    public MemberRepository memberRepository() {
+//        return new MemoryMemberRepository();
+//    }
 }
