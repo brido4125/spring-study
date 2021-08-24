@@ -5,6 +5,7 @@ import hello.core.member.Member;
 import hello.core.member.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 
@@ -13,14 +14,6 @@ import org.springframework.stereotype.Component;
 public class OrderServiceImpl implements OrderService {
     private final MemberRepository memberRepository;//final => null 로 할당안함
     private final DiscountPolicy discountPolicy;
-
-    /* RequiredArgsConstructor 가 해당 코드 만들어준다
-    @Autowired
-    public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
-        this.memberRepository = memberRepository;
-        this.discountPolicy = discountPolicy;
-    }
-     */
 
     @Override
     public Order createOrder(Long memberId, String itemName, int itemPrice) {
