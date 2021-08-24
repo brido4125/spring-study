@@ -3,22 +3,24 @@ package hello.core.order;
 import hello.core.discount.DiscountPolicy;
 import hello.core.member.Member;
 import hello.core.member.MemberRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+
 @Component
+@RequiredArgsConstructor
 public class OrderServiceImpl implements OrderService {
     private final MemberRepository memberRepository;//final => null 로 할당안함
     private final DiscountPolicy discountPolicy;
 
-    //생성자가 수정자보다 먼저 호출됨!
-    //생성자가 1개면 @Autowired 수정가능
-    //생성자 의존관계 주입은 스프링 빈이 생성되는 동시에 같이 발생함
+    /* RequiredArgsConstructor 가 해당 코드 만들어준다
     @Autowired
     public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
         this.memberRepository = memberRepository;
         this.discountPolicy = discountPolicy;
     }
+     */
 
     @Override
     public Order createOrder(Long memberId, String itemName, int itemPrice) {
