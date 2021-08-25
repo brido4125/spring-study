@@ -16,3 +16,8 @@ Chapter 5 : [스프링 싱글톤 컨테이너](https://hongchangsub.com/springco
 
 Chapter 6 : [컴포넌트 스캔](https://hongchangsub.com/springcore6/)
 
+Chapter 7 : [의존관계 자동 주입](https://hongchangsub.com/springcore7/)
+
+
+
+
