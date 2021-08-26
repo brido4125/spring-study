@@ -9,9 +9,10 @@ import org.springframework.context.annotation.Configuration;
 public class BeanLifeCycleTest {
     @Test
     public void lifeCycleTest(){
-        //close method 사용하려고 ConfigurableApplicationContext 사용
-        ConfigurableApplicationContext ac = new AnnotationConfigApplicationContext(LifeCycleConfig.class);
+        AnnotationConfigApplicationContext ac = new AnnotationConfigApplicationContext(LifeCycleConfig.class);
         NetworkClient networkClient = ac.getBean(NetworkClient.class);
+        ac.register();
+        ac.refresh();
         ac.close();
     }
 
