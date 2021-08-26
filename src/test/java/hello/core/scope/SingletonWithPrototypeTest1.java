@@ -3,9 +3,12 @@ package hello.core.scope;
 import lombok.RequiredArgsConstructor;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -35,18 +38,20 @@ public class SingletonWithPrototypeTest1 {
 
         ClientBean clientBean2 = ac.getBean(ClientBean.class);
         int count2 = clientBean2.logic();
-        assertThat(count2).isEqualTo(2);
+        assertThat(count2).isEqualTo(1);
 
     }
 
     @Scope("singleton")
-    @RequiredArgsConstructor
     static class ClientBean{
-        //생성시점에 주입되어서 동일한 PrototypeBean 이 계속 사용됨
-        // @Scope("prototype")를 활용해서 클라이언트가 요청할 때 마다 새로운 PrototypeBean 을 반환하게 하려면?
-        private final PrototypeBean prototypeBean;
+        private final ObjectProvider<PrototypeBean> objectProvider;
+
+        public ClientBean(ObjectProvider<PrototypeBean> objectProvider) {
+            this.objectProvider = objectProvider;
+        }
 
         public int logic() {
+            PrototypeBean prototypeBean = objectProvider.getObject();
             prototypeBean.addCount();
             return prototypeBean.getCount();
         }
