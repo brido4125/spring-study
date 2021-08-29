@@ -18,6 +18,9 @@ Chapter 6 : [컴포넌트 스캔](https://hongchangsub.com/springcore6/)
 
 Chapter 7 : [의존관계 자동 주입](https://hongchangsub.com/springcore7/)
 
+Chapter 8 : [스프링 컨테이너와 빈 생명주기 콜백](https://hongchangsub.com/springcore8/)
+
+
 
 
 
