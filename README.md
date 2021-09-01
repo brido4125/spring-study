@@ -20,6 +20,9 @@ Chapter 7 : [의존관계 자동 주입](https://hongchangsub.com/springcore7/)
 
 Chapter 8 : [스프링 컨테이너와 빈 생명주기 콜백](https://hongchangsub.com/springcore8/)
 
+Chapter 9 : [스프링 빈 스코프(프로토타입 스코프)](https://hongchangsub.com/springcore9/)
+
+
 
 
 
