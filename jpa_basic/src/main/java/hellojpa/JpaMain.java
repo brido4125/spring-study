@@ -4,7 +4,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
-import java.util.List;
 
 public class JpaMain {
     public static void main(String[] args) {
@@ -12,27 +11,15 @@ public class JpaMain {
         EntityManager em = emf.createEntityManager();
         EntityTransaction tx = em.getTransaction();
         tx.begin();
-//        Member member = new Member();
-//        member.setId(1L);
-//        member.setName("helloJPA");
-        //em.persist(member);
-
-
-        /*Member findMember = em.find(Member.class, 1L);
-        findMember.setName("수정된 이름");*/
-
         try {
-            /*
-            * JPQL : Entity Object 를 대상으로 query 작성 cf) SQL : Table 을 대상으로 query 작성
-            * setFirstResult, setMaxResults => 페이징 할때 갯수 조절 시 사용 가능
-            * */
-            List<Member> findAllMember = em.createQuery("select m from Member as m",Member.class)
-                    .getResultList();
-
-            for (Member member : findAllMember) {
-                System.out.println("member = " + member.getName());
-            }
-
+            //비영속성 상태
+            //영속 상태 => managed, DB에 저장되지 않고 1차 캐시에 저장. 이후 commit 시 DB에 저장
+            Member member = em.find(Member.class, 150L);
+            member.setName("대박이");
+            em.detach(member);
+            Member member2 = em.find(Member.class, 150L);
+            //1차 캐쉬에서 검색 후 반환!
+            em.flush();
             tx.commit();
         } catch (Exception e) {
             tx.rollback();
