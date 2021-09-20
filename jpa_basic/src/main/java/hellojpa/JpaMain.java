@@ -12,14 +12,12 @@ public class JpaMain {
         EntityTransaction tx = em.getTransaction();
         tx.begin();
         try {
-            //비영속성 상태
-            //영속 상태 => managed, DB에 저장되지 않고 1차 캐시에 저장. 이후 commit 시 DB에 저장
-            Member member = em.find(Member.class, 150L);
-            member.setName("대박이");
-            em.detach(member);
-            Member member2 = em.find(Member.class, 150L);
-            //1차 캐쉬에서 검색 후 반환!
-            em.flush();
+            Member member = new Member();
+            member.setId(1L);
+            member.setUsername("brido");
+            member.setRoleType(RoleType.USER);
+            em.persist(member);
+
             tx.commit();
         } catch (Exception e) {
             tx.rollback();
