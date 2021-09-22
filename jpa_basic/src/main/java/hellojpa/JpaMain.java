@@ -12,10 +12,9 @@ public class JpaMain {
         EntityTransaction tx = em.getTransaction();
         tx.begin();
         try {
-            Member member = new Member();
-            member.setId(1L);
+            User member = new User();
             member.setUsername("brido");
-            member.setRoleType(RoleType.USER);
+
             em.persist(member);
 
             tx.commit();

@@ -11,8 +11,10 @@ import java.util.Date;
 @Getter
 @Setter
 @Entity
-public class Member {
+@SequenceGenerator(name = "member_seq_generator", sequenceName = "member_seq")
+public class User {
     @Id //primary key 설정
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "member_seq_generator")
     private Long id;
     @Column(name = "name", nullable = false)
     private String username;
