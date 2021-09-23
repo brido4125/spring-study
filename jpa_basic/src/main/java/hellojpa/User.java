@@ -4,35 +4,27 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.Date;
 
 @Getter
 @Setter
 @Entity
-@SequenceGenerator(name = "member_seq_generator", sequenceName = "member_seq")
 public class User {
-    @Id //primary key 설정
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "member_seq_generator")
+    @Id @GeneratedValue @Column(name = "MEMBER_ID")
     private Long id;
-    @Column(name = "name", nullable = false)
+
+    @Column(name = "USERNAME")
     private String username;
-    private Integer age;
-    @Enumerated(EnumType.STRING)
-    private RoleType roleType;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date createdDate;
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date lastModifiedDate;
+//    @Column(name = "TEAM_ID")
+//    private Long teamId;
 
-    //java 8 이후는 @Temporal 보다 LocalDate, LocalDateTime 사용하면 됨
-    private LocalDate testLocalDate;
-    private LocalDateTime localDateTime;
+    /*
+    * 이런식으로 Entity 간의 연관 관계 설정해야함!
+    * */
+    @ManyToOne
+    @JoinColumn(name = "TEAM_ID")
+    private Team team;
 
-    @Lob
-    private String description;
 
 
 }

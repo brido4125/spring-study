@@ -12,7 +12,14 @@ public class JpaMain {
         EntityTransaction tx = em.getTransaction();
         tx.begin();
         try {
+            Team team = new Team();
+            team.setName("TeamA");
+            em.persist(team);
 
+            User user = new User();
+            user.setUsername("user1");
+            user.setTeam(team);
+            em.persist(user);
 
             tx.commit();
         } catch (Exception e) {
