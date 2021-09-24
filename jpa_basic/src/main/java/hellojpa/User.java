@@ -14,14 +14,15 @@ public class User {
 
     @Column(name = "USERNAME")
     private String username;
-
-//    @Column(name = "TEAM_ID")
-//    private Long teamId;
-
-    /*
-    * 이런식으로 Entity 간의 연관 관계 설정해야함!
-    * */
     @ManyToOne
     @JoinColumn(name = "TEAM_ID")
     private Team team;
+
+    /*
+    * 연관관계 편의 메서드 생성 => 항상 양쪽에 값을 설정하는 것이 가능!
+    * */
+    public void changeTeam(Team team) {
+        this.team = team;
+        team.getUserList().add(this);
+    }
 }

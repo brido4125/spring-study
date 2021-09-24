@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 
 @Setter
 @Getter
-@Entity
+//@Entity
 @Table(name = "ORDERS")
 public class Order {
     @Id @GeneratedValue @Column(name = "ORDER_ID")

@@ -20,8 +20,10 @@ public class JpaMain {
             User user = new User();
             user.setUsername("user1");
             user.setTeam(team);
+            user.changeTeam(team);
             em.persist(user);
 
+            //역방향만 연관관계 설정 => team.getUserList().add(user);
             em.flush();
             em.clear();
 

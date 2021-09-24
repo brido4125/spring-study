@@ -10,7 +10,7 @@ import javax.persistence.Id;
 
 @Getter
 @Setter
-@Entity
+//@Entity
 public class Member {
     @Id @GeneratedValue @Column(name = "MEMBER_ID")
     private Long id;
