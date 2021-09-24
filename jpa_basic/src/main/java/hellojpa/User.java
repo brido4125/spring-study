@@ -24,7 +24,4 @@ public class User {
     @ManyToOne
     @JoinColumn(name = "TEAM_ID")
     private Team team;
-
-
-
 }
