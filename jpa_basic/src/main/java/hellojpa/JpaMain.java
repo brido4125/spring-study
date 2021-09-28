@@ -1,5 +1,6 @@
 package hellojpa;
 
+import hellojpa.domain.Member;
 import hellojpa.domain.Order;
 import hellojpa.domain.OrderItem;
 
@@ -16,11 +17,16 @@ public class JpaMain {
         EntityTransaction tx = em.getTransaction();
         tx.begin();
         try {
-            /*
-            * 주문 객체에 주문할 아이템 추가하는 로직!
-            * */
-            Order order = new Order();
-            order.addOrderItem(new OrderItem());
+            User user = new User();
+            user.setUsername("user1");
+
+            em.persist(user);
+
+            Team team = new Team();
+            team.setName("team1");
+            team.getUserList().add(user);
+
+            em.persist(team);
             tx.commit();
         } catch (Exception e) {
             tx.rollback();
