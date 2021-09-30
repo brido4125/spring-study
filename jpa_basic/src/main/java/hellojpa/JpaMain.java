@@ -1,14 +1,12 @@
 package hellojpa;
 
-import hellojpa.domain.Member;
-import hellojpa.domain.Order;
-import hellojpa.domain.OrderItem;
+import hellojpa.domain.Movie;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
-import java.util.List;
+
 
 public class JpaMain {
     public static void main(String[] args) {
@@ -17,16 +15,11 @@ public class JpaMain {
         EntityTransaction tx = em.getTransaction();
         tx.begin();
         try {
-            User user = new User();
-            user.setUsername("user1");
-
-            em.persist(user);
-
-            Team team = new Team();
-            team.setName("team1");
-            team.getUserList().add(user);
-
-            em.persist(team);
+            Movie movie = new Movie();
+            movie.setDirector("AAA");
+            movie.setActor("BBB");
+            movie.setName("wind");
+            em.persist(movie);
             tx.commit();
         } catch (Exception e) {
             tx.rollback();
