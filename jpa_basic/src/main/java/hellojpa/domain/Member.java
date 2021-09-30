@@ -9,7 +9,7 @@ import java.util.List;
 
 @Getter
 @Setter
-@Entity
+//@Entity
 public class Member {
     @Id @GeneratedValue @Column(name = "MEMBER_ID")
     private Long id;

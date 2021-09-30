@@ -9,9 +9,9 @@ import java.util.List;
 
 @Getter
 @Setter
-@Entity
-@Inheritance(strategy = InheritanceType.JOINED)
-@DiscriminatorColumn // dtype에 Entity 명을 넣어줘서 구분해준다.
+//@Entity
+//@Inheritance(strategy = InheritanceType.JOINED)
+//@DiscriminatorColumn // dtype에 Entity 명을 넣어줘서 구분해준다.
 public abstract class Item {
     @Id @GeneratedValue @Column(name = "ITEM_ID")
     private Long id;

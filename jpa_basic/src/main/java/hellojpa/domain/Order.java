@@ -10,8 +10,8 @@ import java.util.List;
 
 @Setter
 @Getter
-@Entity
-@Table(name = "ORDERS")
+//@Entity
+//@Table(name = "ORDERS")
 public class Order {
     @Id @GeneratedValue @Column(name = "ORDER_ID")
     private Long id;

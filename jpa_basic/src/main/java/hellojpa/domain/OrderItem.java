@@ -8,7 +8,7 @@ import javax.persistence.*;
 
 @Setter
 @Getter
-@Entity
+//@Entity
 public class OrderItem {
     @Id @GeneratedValue @Column(name = "ORDER_ITEM_ID")
     private Long id;

@@ -7,7 +7,7 @@ import javax.persistence.Entity;
 
 @Getter
 @Setter
-@Entity
+//@Entity
 public class Album extends Item{
     private String artist;
 }

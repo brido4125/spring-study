@@ -1,11 +1,13 @@
 package hellojpa;
 
+import hellojpa.domain.Member;
 import hellojpa.domain.Movie;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
+import java.time.LocalDateTime;
 
 
 public class JpaMain {
@@ -15,11 +17,12 @@ public class JpaMain {
         EntityTransaction tx = em.getTransaction();
         tx.begin();
         try {
-            Movie movie = new Movie();
-            movie.setDirector("AAA");
-            movie.setActor("BBB");
-            movie.setName("wind");
-            em.persist(movie);
+            User user = new User();
+            user.setUsername("brido");
+            user.setCreatedBy("hong");
+            user.setCreatedDate(LocalDateTime.now());
+
+            em.persist(user);
             tx.commit();
         } catch (Exception e) {
             tx.rollback();

@@ -8,8 +8,8 @@ import javax.persistence.Entity;
 
 @Getter
 @Setter
-@Entity
-@DiscriminatorValue("M")
+//@Entity
+//@DiscriminatorValue("M")
 public class Movie extends Item {
     private String director;
     private String actor;
