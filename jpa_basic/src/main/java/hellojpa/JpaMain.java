@@ -23,26 +23,23 @@ public class JpaMain {
             user2.setUsername("제이피에이");
             em.persist(user2);
 
+            Team team = new Team();
+            team.setName("TeamA");
+            user1.setTeam(team);
+
+            em.persist(team);
+
             em.flush();
             em.clear();
 
-            User findUser1 = em.find(User.class, user1.getId());
-            User findRefUser1 = em.getReference(User.class, user1.getId());
-            //두가지 동일하다고 나온다.
-            System.out.println("findUser1.getClass() = " + findUser1.getClass());
-            System.out.println("findRefUser1.getClass() = " + findRefUser1.getClass());
+            //fetch = FetchType.LAZY -> proxy object 사용
+            User findUser = em.find(User.class, user1.getId());
+            //finUser.getTeam()은 proxy 객체를 가져오는 메서드이기 때문에 초기화 되어서 쿼리 날리지 않음
+            System.out.println("findUser.getTeam() = " + findUser.getTeam().getClass());
+            findUser.getTeam().getName();//이때 초기화 됨 -> 쿼리 날라감
 
-            //reference 를 먼저 초기화해도 두가지 클래스 타입은 동일하다고 출력된다.
-            User referenceUser2 = em.getReference(User.class, user2.getId());
-            System.out.println("referenceUser2.getClass() = " + referenceUser2.getClass());
-            User findUser2 = em.find(User.class, user2.getId());
-            System.out.println("findUser2.getClass() = " + findUser2.getClass());
 
-            //proxy 객체가 초기화 되었는지 판별하는 메서드
-            System.out.println("isLoaded" + emf.getPersistenceUnitUtil().isLoaded(findRefUser1));
-            Hibernate.initialize(findRefUser1); // 강제 초기화 메서드
-            findRefUser1.getUsername(); // proxy 객체가 영속성 context 에 초기화 요청 -> real query 날라감
-            System.out.println("isLoaded" + emf.getPersistenceUnitUtil().isLoaded(findRefUser1));
+
 
 
             tx.commit();
