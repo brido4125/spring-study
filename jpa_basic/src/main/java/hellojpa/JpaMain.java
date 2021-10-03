@@ -15,32 +15,26 @@ public class JpaMain {
         EntityTransaction tx = em.getTransaction();
         tx.begin();
         try {
-            User user1 = new User();
-            user1.setUsername("hello");
-            em.persist(user1);
+            Child child1 = new Child();
+            Child child2 = new Child();
 
-            User user2 = new User();
-            user2.setUsername("제이피에이");
-            em.persist(user2);
+            Parent parent = new Parent();
 
-            Team team = new Team();
-            team.setName("TeamA");
-            user1.setTeam(team);
+            parent.addChild(child1);
+            parent.addChild(child2);
+            em.persist(parent);
 
-            em.persist(team);
+            /* cascade = CascadeType.ALL => 자식 객체들에 대해서 생명주기 관리해줌
+            em.persist(child1);
+            em.persist(child2);
+            */
 
             em.flush();
             em.clear();
 
-            //fetch = FetchType.LAZY -> proxy object 사용
-            User findUser = em.find(User.class, user1.getId());
-            //finUser.getTeam()은 proxy 객체를 가져오는 메서드이기 때문에 초기화 되어서 쿼리 날리지 않음
-            System.out.println("findUser.getTeam() = " + findUser.getTeam().getClass());
-            findUser.getTeam().getName();//이때 초기화 됨 -> 쿼리 날라감
-
-
-
-
+            Parent findParent = em.find(Parent.class, parent.getId());
+            // orphanRemoval = true => 0 index의 child를 삭제시켜준다.
+            findParent.getChildList().remove(0);
 
             tx.commit();
         } catch (Exception e) {
