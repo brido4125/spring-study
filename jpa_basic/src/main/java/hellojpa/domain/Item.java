@@ -1,5 +1,6 @@
 package hellojpa.domain;
 
+import hellojpa.BaseEntity;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,9 +11,9 @@ import java.util.List;
 @Getter
 @Setter
 //@Entity
-//@Inheritance(strategy = InheritanceType.JOINED)
-//@DiscriminatorColumn // dtype에 Entity 명을 넣어줘서 구분해준다.
-public abstract class Item {
+@Inheritance(strategy = InheritanceType.JOINED)
+@DiscriminatorColumn // dtype에 Entity 명을 넣어줘서 구분해준다.
+public abstract class Item  extends BaseEntity {
     @Id @GeneratedValue @Column(name = "ITEM_ID")
     private Long id;
     private String name;
