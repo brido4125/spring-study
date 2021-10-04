@@ -30,7 +30,7 @@ public class Category {
     )
     private List<Item> items = new ArrayList<>();
 
-    @ManyToOne // 자식 입장에서 부모는 하나!
+    @ManyToOne(fetch = FetchType.LAZY) // 자식 입장에서 부모는 하나!
     @JoinColumn(name = "PARENT_ID")
     private Category parent;
 
