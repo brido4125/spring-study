@@ -1,4 +1,5 @@
 import java.sql.*;
+import java.util.Scanner;
 
 public class HelloJDBC {
 
@@ -17,6 +18,10 @@ public class HelloJDBC {
 
             //Connection conn = DriverManager.getConnection("jdbc:oracle:thin:@//localhost:1521/xepdb1", "scott", "tiger");
             Connection conn = DriverManager.getConnection("jdbc:oracle:thin:@database-1.cdh4acucb1ka.ap-northeast-2.rds.amazonaws.com:1521:orcl", "brido", "ckdtjq12");
+
+            Scanner sc = new Scanner(System.in);
+            String sid = sc.next();
+            String deptNo = sc.next();
 
 
             Statement stmt = conn.createStatement();
