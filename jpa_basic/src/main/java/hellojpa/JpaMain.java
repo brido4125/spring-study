@@ -15,27 +15,13 @@ public class JpaMain {
         EntityTransaction tx = em.getTransaction();
         tx.begin();
         try {
-            Child child1 = new Child();
-            Child child2 = new Child();
 
-            Parent parent = new Parent();
+            User user = new User();
+            user.setUsername("hello");
+            user.setAddress(new Address("daegu","daebak","23211"));
+            user.setPeriod(new Period());
 
-            parent.addChild(child1);
-            parent.addChild(child2);
-            em.persist(parent);
-
-            /* cascade = CascadeType.ALL => 자식 객체들에 대해서 생명주기 관리해줌
-            em.persist(child1);
-            em.persist(child2);
-            */
-
-            em.flush();
-            em.clear();
-
-            Parent findParent = em.find(Parent.class, parent.getId());
-            // orphanRemoval = true => 0 index의 child를 삭제시켜준다.
-            findParent.getChildList().remove(0);
-
+            em.persist(user);
             tx.commit();
         } catch (Exception e) {
             tx.rollback();
