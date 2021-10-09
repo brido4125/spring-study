@@ -12,7 +12,7 @@ import javax.persistence.Id;
 @Setter
 @Entity
 public class Employee {
-    @Id @GeneratedValue
+    @Id
     @Column(name = "employee_id")
     private Long id;
 

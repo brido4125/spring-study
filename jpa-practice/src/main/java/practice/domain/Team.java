@@ -14,7 +14,6 @@ import javax.persistence.Id;
 @Entity
 public class Team {
     @Id
-    @GeneratedValue
     @Column(name = "team_id")
     private Long id;
 

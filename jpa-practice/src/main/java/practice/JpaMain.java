@@ -17,26 +17,16 @@ public class JpaMain {
         tx.begin();
         try {
 
-            Employee employee = new Employee();
-            employee.setName("송예빈");
-            employee.setSalary(10000);
-
-            Employee employee1 = new Employee();
-            employee.setName("송예빈");
-            employee.setSalary(10000);
-
-
-            Team team = new Team();
-            team.setName("영남대");
-            team.setId(10L);
-
+            Team team = em.find(Team.class, 10L);
+            Employee employee = em.find(Employee.class, 2L);
             Work work = new Work();
-            work.setEmployee(employee);
+            work.setId(1L);
             work.setTeam(team);
-
-            em.persist(employee1);
-            em.persist(team);
+            work.setEmployee(employee);
             em.persist(work);
+
+            System.out.println("employee.getName() = " + employee.getName());
+            System.out.println("team.getName() = " + team.getName());
 
             tx.commit();
         } catch (Exception e) {

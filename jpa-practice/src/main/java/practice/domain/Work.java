@@ -10,7 +10,7 @@ import java.util.Date;
 @Setter
 @Entity
 public class Work {
-    @Id @GeneratedValue
+    @Id
     @Column(name = "work_id")
     private Long id;
 
