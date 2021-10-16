@@ -4,6 +4,7 @@ import com.example.studentsystem.model.Student;
 import com.example.studentsystem.service.StudentService;
 import com.example.studentsystem.service.StudentServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,5 +24,16 @@ public class StudentController {
     @GetMapping("/students")
     public  List<Student> getAllStudents() {
         return studentService.getAllStudents();
+    }
+
+    @DeleteMapping("/student/{id}")
+    public String delete(@PathVariable int id) {
+        try{
+            studentService.delete(id);
+            return "Delete Completion";
+
+        }catch (EmptyResultDataAccessException e){
+            return "존재하지 않는 ID 값입니다.";
+        }
     }
 }
