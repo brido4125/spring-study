@@ -9,18 +9,18 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/student")
+@RequestMapping("/")
 public class StudentController {
     @Autowired
     private StudentService studentService;
 
-    @PostMapping("/add")
+    @PostMapping("/student")
     public String add(@RequestBody Student student) {
         studentService.saveStudent(student);
         return "New student is added ";
     }
 
-    @GetMapping("/getAll")
+    @GetMapping("/students")
     public  List<Student> getAllStudents() {
         return studentService.getAllStudents();
     }
