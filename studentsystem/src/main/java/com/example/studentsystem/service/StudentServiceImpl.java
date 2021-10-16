@@ -15,7 +15,7 @@ public class StudentServiceImpl implements StudentService {
     private StudentRepository studentRepository;
 
     @Override
-    public Student saveStudent(Student student) {
+    public Student save(Student student) {
         return studentRepository.save(student);
     }
 
@@ -27,5 +27,10 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public void delete(int id) {
         studentRepository.deleteById(id);
+    }
+
+    @Override
+    public Student get(Integer id) {
+        return studentRepository.findById(id).get();
     }
 }
