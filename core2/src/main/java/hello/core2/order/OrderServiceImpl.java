@@ -3,23 +3,26 @@ package hello.core2.order;
 import hello.core2.discount.DiscountPolicy;
 import hello.core2.member.Member;
 import hello.core2.member.MemberRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
+@RequiredArgsConstructor
 public class OrderServiceImpl implements OrderService{
     private final MemberRepository memberRepository;
     private final DiscountPolicy discountPolicy;
-
     /*
     * 의존관계 생성자 주입
     * 생성자 하나일 경우 @Autowired 생략 가능
+    *  @Autowired
+    *    public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
+    *        this.memberRepository = memberRepository;
+    *        this.discountPolicy = discountPolicy;
+    *    }
+    *
     * */
-    @Autowired
-    public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
-        this.memberRepository = memberRepository;
-        this.discountPolicy = discountPolicy;
-    }
+
 
 
     /* 일반 메서드 주입 => filed에 final keyword를 없애야함.
