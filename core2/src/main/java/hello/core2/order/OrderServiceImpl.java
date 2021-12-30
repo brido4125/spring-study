@@ -22,7 +22,16 @@ public class OrderServiceImpl implements OrderService{
     }
 
 
+    /* 일반 메서드 주입 => filed에 final keyword를 없애야함.
+     * 항상 역할(real instance)에 대한 변경이 public으로 열려 있어야하는 문제점 존재!
+    public void init(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
+        this.memberRepository = memberRepository;
+        this.discountPolicy = discountPolicy;
+    }
+    */
+
     /* 수정자 주입 => filed에 final keyword를 없애야함.
+     * 항상 구현에 대한 역할(real instance)에 대한 변경이 public으로 열려 있어야하는 문제점 존재!
     @Autowired
     public void setMemberRepository(MemberRepository memberRepository) {
         this.memberRepository = memberRepository;
