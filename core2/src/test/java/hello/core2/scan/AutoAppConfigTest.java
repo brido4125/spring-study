@@ -24,7 +24,6 @@ public class AutoAppConfigTest {
                 beanCount++;
             }
         }
-        assertThat(beanCount).isEqualTo(5);
         assertThat(memberService).isInstanceOf(MemberService.class);
     }
 }

@@ -1,5 +1,6 @@
 package hello.core2.order;
 
+import hello.core2.annotation.MainDiscountPolicy;
 import hello.core2.discount.DiscountPolicy;
 import hello.core2.member.Member;
 import hello.core2.member.MemberRepository;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class OrderServiceImpl implements OrderService{
     private final MemberRepository memberRepository;
+
     private final DiscountPolicy discountPolicy;
     /*
     * 의존관계 생성자 주입
