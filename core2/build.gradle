@@ -23,8 +23,10 @@ repositories {
 
 dependencies {
 	implementation 'javax.inject:javax.inject:1'
-	implementation 'org.springframework.boot:spring-boot-starter'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	implementation 'org.springframework.boot:spring-boot-starter:2.6.2'
+	implementation 'org.springframework.boot:spring-boot-starter-web:2.6.2'
+
+	testImplementation 'org.springframework.boot:spring-boot-starter-test:2.6.2'
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
 	testCompileOnly 'org.projectlombok:lombok'
