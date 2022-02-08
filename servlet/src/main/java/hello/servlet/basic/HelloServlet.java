@@ -20,7 +20,7 @@ public class HelloServlet extends HttpServlet {
         System.out.println("username = " + username);
 
         response.setContentType("text/plain");
-        response.setCharacterEncoding("utf-8");
+        response.setCharacterEncoding("utf-8");//query parameter 에 한글
         response.getWriter().write("hello " + username);
     }
 }
