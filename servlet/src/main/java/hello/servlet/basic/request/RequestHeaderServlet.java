@@ -17,12 +17,13 @@ public class RequestHeaderServlet extends HttpServlet {
         printStartLine(request);
         printHeaders(request);
         printEtc(request);
+        printCookie(request,resp);
     }
 
     private void printStartLine(HttpServletRequest request) {
         System.out.println("--- REQUEST-LINE - start ---");
         System.out.println("request.getMethod() = " + request.getMethod()); //GET
-        System.out.println("request.getProtocal() = " + request.getProtocol()); // HTTP/1.1
+        System.out.println("request.getProtocol() = " + request.getProtocol()); // HTTP/1.1
         System.out.println("request.getScheme() = " + request.getScheme()); //http
         // http://localhost:8080/request-header
         System.out.println("request.getRequestURL() = " + request.getRequestURL());
@@ -54,11 +55,6 @@ public class RequestHeaderServlet extends HttpServlet {
                         locale -> System.out.println("locale = " + locale));
         System.out.println("request.getLocale() = " + request.getLocale());
         System.out.println();
-        System.out.println("[cookie 편의 조회]"); if (request.getCookies() != null) {
-            for (Cookie cookie : request.getCookies()) {
-                System.out.println(cookie.getName() + ": " + cookie.getValue());
-            } }
-        System.out.println();
         System.out.println("[Content 편의 조회]");
         System.out.println("request.getContentType() = " +
                 request.getContentType());
@@ -68,6 +64,17 @@ public class RequestHeaderServlet extends HttpServlet {
         System.out.println("--- Header 편의 조회 end ---");
         System.out.println();
     }
+
+    private void printCookie(HttpServletRequest request,HttpServletResponse response) throws IOException {
+        System.out.println("[cookie 편의 조회]"); if (request.getCookies() != null) {
+            for (Cookie cookie : request.getCookies()) {
+                System.out.println(cookie.getName() + ": " + cookie.getValue());
+                response.getWriter().write(cookie.getName() + " " + cookie.getValue());
+            } }
+        System.out.println();
+
+    }
+
     private void printEtc(HttpServletRequest request) { System.out.println("--- 기타 조회 start ---");
         System.out.println("[Remote 정보]");
         System.out.println("request.getRemoteHost() = " +
