@@ -12,10 +12,9 @@
     //request,response는 자동으로 사용 가능
     MemberRepository memberRepository = MemberRepository.getInstance();
     String username = request.getParameter("username");
-    String age = request.getParameter("age");
+    int age = Integer.parseInt(request.getParameter("age"));
 
-    Member member = new Member(username, Integer.parseInt(age));
-
+    Member member = new Member(username, age);
     memberRepository.save(member);
 %>
 <html>
@@ -25,9 +24,9 @@
 <body>
 성공
 <ul>
-    <li>id=<%member.getId();%></li>
-    <li>username=<%member.getUsername();%></li>
-    <li>age=<%member.getAge();%></li>
+    <li>id=<%=member.getId()%></li>
+    <li>username=<%=member.getUsername()%></li>
+    <li>age=<%=member.getAge()%></li>
 </ul>
 <a href="/index.html">메인 페이지</a>
 </body>
