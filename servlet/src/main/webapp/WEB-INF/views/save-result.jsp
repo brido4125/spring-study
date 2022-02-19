@@ -14,8 +14,8 @@
 성공
 <ul>
     <li>id=${member.id}</li>
-    <li>id=${member.username}</li>
-    <li>id=${member.age}</li>
+    <li>username=${member.username}</li>
+    <li>age=${member.age}</li>
 </ul>
 <a href="/index.html">메인 페이지</a>
 </body>

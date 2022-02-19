@@ -13,12 +13,16 @@ public class MyView {
     public MyView(String viewPath) {
         this.viewPath = viewPath;
     }
-
+    /*
+    * For V4
+    * */
     public void render(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         RequestDispatcher requestDispatcher = request.getRequestDispatcher(viewPath);
         requestDispatcher.forward(request,response);
     }
-
+    /*
+    * For V3
+    * */
     public void render(Map<String, Object> model, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         modelToAttribute(model, request);
         RequestDispatcher requestDispatcher = request.getRequestDispatcher(viewPath);
