@@ -2,6 +2,10 @@ plugins {
 	id 'org.springframework.boot' version '2.5.9'
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 	id 'java'
+	id 'jacoco'
+}
+jacoco{
+	toolVersion = '0.8.7'
 }
 
 group = 'brido.me'
@@ -30,4 +34,5 @@ dependencies {
 
 tasks.named('test') {
 	useJUnitPlatform()
+	finalizedBy jacocoTestReport
 }

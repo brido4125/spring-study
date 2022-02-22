@@ -2,6 +2,8 @@ package brido.me.todo.controller;
 
 import brido.me.todo.dto.ResponseDTO;
 import brido.me.todo.dto.TestRequestBodyDTO;
+import brido.me.todo.service.TestService;
+import lombok.Data;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,7 +12,14 @@ import java.util.List;
 
 @RestController
 @RequestMapping("test")
+@Data
 public class TestController {
+    private final TestService testService;
+
+    public TestController(TestService testService) {
+        this.testService = testService;
+    }
+
     @GetMapping
     public String testController() {
         return "OK";
@@ -42,7 +51,6 @@ public class TestController {
         list.add("This is me!");
         return ResponseDTO.<String>builder().error("error message").data(list).build();
     }
-
     /**
      * ResponseEntity can control HTTP Header Status!
      * @return ResponseEntity with Status
