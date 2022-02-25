@@ -2,7 +2,6 @@ package brido.me.todo.controller;
 
 import brido.me.todo.dto.ResponseDTO;
 import brido.me.todo.dto.TestRequestBodyDTO;
-import brido.me.todo.service.TestService;
 import lombok.Data;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,12 +13,6 @@ import java.util.List;
 @RequestMapping("test")
 @Data
 public class TestController {
-    private final TestService testService;
-
-    public TestController(TestService testService) {
-        this.testService = testService;
-    }
-
     @GetMapping
     public String testController() {
         return "OK";
