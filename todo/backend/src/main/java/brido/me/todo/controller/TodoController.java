@@ -19,14 +19,14 @@ import java.util.stream.Collectors;
 public class TodoController {
     private final TodoService todoService;
 
-    @GetMapping("/test")
+    /*@GetMapping("/test")
     public ResponseEntity<?> testTodo() {
         String service = todoService.testService();
         List<String> list = new ArrayList<>();
         list.add(service);
         ResponseDTO<String> responseDTO = ResponseDTO.<String>builder().error("400").data(list).build();
         return ResponseEntity.ok().body(responseDTO);
-    }
+    }*/
 
     @PostMapping
     public ResponseEntity<?> createTodo(@RequestBody TodoDTO dto) {

@@ -5,7 +5,10 @@ import brido.me.todo.persistence.TodoRepository;
 import com.google.errorprone.annotations.RequiredModifiers;
 import org.assertj.core.api.Assertions;
 import org.assertj.core.util.VisibleForTesting;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -13,12 +16,15 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@SpringBootTest
+@DisplayName("TodoServiceTest")
 class TodoServiceTest {
-    @Autowired
-    private TodoRepository todoRepository;
-    @Autowired
+    private final TodoRepository todoRepository = Mockito.mock(TodoRepository.class);
     private TodoService todoService;
+
+    @BeforeEach
+    public void setUp() {
+        todoService = new TodoService(todoRepository);
+    }
 
     @Test
     void createTodo() {
