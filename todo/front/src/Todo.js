@@ -13,6 +13,7 @@ import DeleteOutlined from "@material-ui/icons/DeleteOutlined";
 const Todo = (props) => {
   const [state, setState] = useState({ item: props.item, readOnly: true });
   const deleteItem = props.deleteItem;
+  const update = props.update;
 
   const deleteEventHandler = () => {
     deleteItem(state.item);
@@ -28,6 +29,7 @@ const Todo = (props) => {
   const enterKeyEventHandler = (e) => {
     if (e.key === "Enter") {
       setState({ readOnly: true });
+      update(state.item);
     }
   };
 
@@ -41,6 +43,7 @@ const Todo = (props) => {
     const thisItem = state.item;
     thisItem.done = !thisItem.done;
     setState({ item: thisItem });
+    update(state.item);
   };
 
   const item = state.item;

@@ -3,40 +3,53 @@ import Todo from "./Todo";
 import AddTodo from "./AddTodo.js";
 import { Paper, List, Container } from "@material-ui/core";
 import "./App.css";
+import { call } from "./service/ApiService";
+import { useEffect } from "react";
 
 const App = () => {
   const [state, setState] = useState({ items: [] });
 
+  // componentDidMount 대신 userEffect 사용
+  useEffect(() => {
+    call("/todo", "GET", null).then((response) =>
+      setState({ items: response.data })
+    );
+  }, []);
+
   const add = (item) => {
-    const thisItems = state.items;
-    item.id = "ID-" + thisItems.length; // key를 위한 id추가
-    item.done = false; // done 초기화
-    thisItems.push(item); // 배열에 아이템 추가
-    setState({ items: thisItems }); // 업데이트는 반드시 this.setState로 해야됨.
-    console.log("items : ", state.items);
+    call("/todo", "POST", item).then((response) =>
+      setState({ items: response.data })
+    );
   };
 
   const deleteItem = (item) => {
-    const thisItems = state.items;
-    console.log("Before Update Items : ", state.items);
-    const newItems = thisItems.filter((e) => e.id !== item.id); // 해당 id 걸러내기
-    setState({ items: newItems }, () => {
-      // 디버깅 콜백
-      console.log("Update Items : ", state.items);
-    });
+    call("/todo", "DELETE", item).then((response) =>
+      setState({ items: response.data })
+    );
+  };
+
+  const update = (item) => {
+    call("/todo", "PUT", item).then((response) =>
+      setState({ items: response.data })
+    );
   };
 
   var todoItems = state.items.length > 0 && (
     <Paper style={{ margin: 16 }}>
       <List>
         {state.items.map((item, idx) => (
-          <Todo item={item} key={item.id} deleteItem={deleteItem} />
+          <Todo
+            item={item}
+            key={item.id}
+            deleteItem={deleteItem}
+            update={update}
+          />
         ))}
       </List>
     </Paper>
   );
 
-  // 3. props로 넘겨주기å
+  // 3. props로 넘겨주기
   return (
     <div className="App">
       <Container maxWidth="md">
