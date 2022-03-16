@@ -39,6 +39,7 @@ class TodoServiceTest {
         assertThat(todos).containsAll(entities);
     }
 
+
     @Test
     void retrieve() {
         //given

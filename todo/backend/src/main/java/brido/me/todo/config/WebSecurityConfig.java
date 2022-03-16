@@ -4,6 +4,7 @@ import brido.me.todo.security.JwtAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.filter.CorsFilter;
@@ -24,6 +25,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Override
+    public void configure(WebSecurity web) throws Exception {
+        web.ignoring().antMatchers("/h2-console/**");
+    }
+
+
+    @Override
     protected void configure(HttpSecurity http) throws Exception {
         // http 시큐리티 빌더
         http.cors() // WebMvcConfig에서 이미 설정했으므로 기본 cors 설정.
@@ -36,7 +43,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests() // /와 /auth/** 경로는 인증 안해도 됨.
-                .antMatchers("/", "/auth/**").permitAll()
+                .antMatchers("/", "/auth/**","/h2-console/**").permitAll()
                 .anyRequest() // /와 /auth/**이외의 모든 경로는 인증 해야됨.
                 .authenticated();
 
