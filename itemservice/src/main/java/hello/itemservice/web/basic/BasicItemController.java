@@ -80,7 +80,7 @@ public class BasicItemController {
                            @ModelAttribute Item item
                            ) {
         itemRepository.update(itemId, item);
-        return "basic/item";
+        return "redirect:/basic/items/{itemId}";
     }
 
 
