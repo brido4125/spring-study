@@ -1,5 +1,6 @@
 package hello.itemservice.web.basic;
 
+import hello.itemservice.DTO.ItemDTO;
 import hello.itemservice.domain.Item;
 import hello.itemservice.persistance.ItemRepository;
 import lombok.RequiredArgsConstructor;
@@ -77,7 +78,7 @@ public class BasicItemController {
 
     @PostMapping("{itemId}/edit")
     public String editItem(@PathVariable Long itemId,
-                           @ModelAttribute Item item
+                           @ModelAttribute ItemDTO item
                            ) {
         itemRepository.update(itemId, item);
         return "redirect:/basic/items/{itemId}";

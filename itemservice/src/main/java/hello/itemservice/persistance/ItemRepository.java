@@ -1,5 +1,6 @@
 package hello.itemservice.persistance;
 
+import hello.itemservice.DTO.ItemDTO;
 import hello.itemservice.domain.Item;
 import org.springframework.stereotype.Repository;
 
@@ -31,7 +32,7 @@ public class ItemRepository {
     }
 
     // TODO: 3/18/22 updateParam type => ItemDTO
-    public void update(Long id, Item updateParam) {
+    public void update(Long id, ItemDTO updateParam) {
         Item item = findById(id);
         item.setName(updateParam.getName());
         item.setPrice(updateParam.getPrice());

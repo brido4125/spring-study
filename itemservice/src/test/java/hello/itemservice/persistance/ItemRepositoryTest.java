@@ -1,5 +1,6 @@
 package hello.itemservice.persistance;
 
+import hello.itemservice.DTO.ItemDTO;
 import hello.itemservice.domain.Item;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
@@ -52,7 +53,7 @@ class ItemRepositoryTest {
         Item savedItem = itemRepository.save(item);
         Long id = savedItem.getId();
         //when
-        Item updateParam = new Item("bookUpdate", 30000, 100);
+        ItemDTO updateParam = new ItemDTO("bookUpdate", 30000, 100);
         itemRepository.update(id,updateParam);
         //then
         Item findItem = itemRepository.findById(id);
