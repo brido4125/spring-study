@@ -2,7 +2,7 @@ package hello.itemservice.web.basic;
 
 import hello.itemservice.DTO.ItemDTO;
 import hello.itemservice.domain.Item;
-import hello.itemservice.persistance.ItemRepository;
+import hello.itemservice.persistance.MemoryItemRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,7 +15,7 @@ import java.util.List;
 @Controller
 @RequestMapping("/basic/items")
 public class BasicItemController {
-    private final ItemRepository itemRepository;
+    private final MemoryItemRepository itemRepository;
 
     @GetMapping
     public String items(Model model) {
@@ -84,12 +84,25 @@ public class BasicItemController {
         return "redirect:/basic/items/{itemId}";
     }
 
+    @GetMapping ("{itemId}/delete")
+    public String deleteItem(@PathVariable Long itemId, Model model) {
+        List<Item> items = itemRepository.delete(itemId);
+        model.addAttribute("items", items);
+        return "redirect:/basic/items";
+    }
+
+    @GetMapping("/delete")
+    public String deleteAll() {
+        itemRepository.clearStore();
+        return "redirect:/basic/items";
+    }
 
     /**
      * test용 data
      */
     @PostConstruct
     public void init() {
+
         itemRepository.save(new Item("testItem", 10000, 12));
         itemRepository.save(new Item("testItemB", 20000, 22));
     }
