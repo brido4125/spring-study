@@ -4,6 +4,7 @@ import brido.me.todo.dto.ResponseDTO;
 import brido.me.todo.dto.UserDTO;
 import brido.me.todo.model.UserEntity;
 import brido.me.todo.security.TokenProvider;
+import brido.me.todo.service.EmailServiceImpl;
 import brido.me.todo.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -23,13 +24,16 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class UserController {
     private final UserService userService;
+    private final EmailServiceImpl emailService;
     private final TokenProvider tokenProvider;
     private final PasswordEncoder passwordEncoder;
 
 
+    //회원가입
     @PostMapping("/signup")
     public ResponseEntity<?> registerUser(@RequestBody UserDTO userDto) {
         try {
+            String confirm = emailService.sendSimpleMSG(userDto.getEmail());
             //DTO를 통해 UserEntity 생성
             UserEntity user = UserEntity.builder()
                     .email(userDto.getEmail())
