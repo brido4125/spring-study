@@ -13,10 +13,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @Slf4j
 @RestController
@@ -29,18 +29,48 @@ public class UserController {
     private final PasswordEncoder passwordEncoder;
 
 
+    //이메일 인증 링크
+    @GetMapping("/signup/confirm")
+    public ResponseEntity<?> confirmUserByEmailLink(@RequestParam String email, @RequestParam String emailAuthKey) {
+        UserEntity user = userService.emailValidation(email, emailAuthKey);
+
+        UserDTO responseUserDTO = UserDTO.builder()
+                .email(user.getEmail())
+                .id(user.getId())
+                .username(user.getUsername())
+                .build();
+
+        if (user.isEmailConfirm()) {
+            return ResponseEntity.ok().body(responseUserDTO);
+        }
+        return ResponseEntity.badRequest().body(responseUserDTO);
+    }
+
     //회원가입
     @PostMapping("/signup")
     public ResponseEntity<?> registerUser(@RequestBody UserDTO userDto) {
+
         try {
-            String confirm = emailService.sendSimpleMSG(userDto.getEmail());
             //DTO를 통해 UserEntity 생성
             UserEntity user = UserEntity.builder()
                     .email(userDto.getEmail())
                     .username(userDto.getUsername())
                     .password(passwordEncoder.encode(userDto.getPassword()))
+                    .emailConfirm(false)
                     .build();
+
+            String confirm = emailService.sendSimpleMSG(userDto.getEmail());
+            log.info("Key Number + {}",confirm);
+
+            user.setEmailAuthKey(confirm);
+
             UserEntity registeredUser = userService.create(user);
+
+            Map<String, String> map = new HashMap<String, String>();
+            map.put("email", user.getEmail());
+            map.put("authKey", user.getEmailAuthKey());
+            log.info("email: {}, authKey : {}",user.getEmail(),user.getEmailAuthKey());
+
             UserDTO responseUserDTO = UserDTO.builder()
                     .email(registeredUser.getEmail())
                     .id(registeredUser.getId())

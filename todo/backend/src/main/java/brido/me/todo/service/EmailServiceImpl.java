@@ -23,8 +23,8 @@ public class EmailServiceImpl implements EmailService {
     public static final String ePw = createKey();
 
     private MimeMessage createMessage(String to)throws Exception{
-        System.out.println("보내는 대상 : "+ to);
-        System.out.println("인증 번호 : "+ePw);
+        log.info("Send To = {}",to);
+        log.info("Key Number = {}", ePw);
         MimeMessage  message = emailSender.createMimeMessage();
 
         message.addRecipients(Message.RecipientType.TO, to);//보내는 대상
@@ -50,6 +50,35 @@ public class EmailServiceImpl implements EmailService {
         return message;
     }
 
+    private MimeMessage createLinkMessage(String to)throws Exception {
+        log.info("Send To = {}",to);
+        MimeMessage message = emailSender.createMimeMessage();
+
+        message.addRecipients(Message.RecipientType.TO, to);//보내는 대상
+        message.setSubject("DevU 회원가입 이메일 인증");//제목
+
+        String msg = "";
+        msg+= "<div style='margin:100px;'>";
+        msg+= "<h1> 안녕하세요 devU입니다. </h1>";
+        msg+= "<br>";
+        msg+= "<p>아래 링크에 접속하여 회원가입을 완료해주세요!<p>";
+        msg+= "<br>";
+        msg+= "<p>감사합니다!<p>";
+        msg+= "<div align='center' style='border:1px solid black; font-family:verdana';>";
+        msg += "<p>아래 링크를 클릭하시면 이메일 인증이 완료됩니다.</p>";
+        msg += "<a href='http://localhost:8080/auth/signup/confirm?email=";
+        msg += to;
+        msg += "&emailAuthKey=";
+        msg += ePw;
+        msg += "' target='_blenk'>이메일 인증 확인</a>";
+
+        message.setText(msg, "utf-8", "html");//내용
+        message.setFrom(new InternetAddress("ynudev@gmail.com","DevU"));//보내는 사람
+
+        return message;
+    }
+
+    //6자리 랜덤 Key
     public static String createKey() {
         StringBuffer key = new StringBuffer();
         Random rnd = new Random();
@@ -77,7 +106,7 @@ public class EmailServiceImpl implements EmailService {
 
     @Override
     public String sendSimpleMSG(String to) throws Exception {
-        MimeMessage message = createMessage(to);
+        MimeMessage message = createLinkMessage(to);
         try {
             emailSender.send(message);
         } catch (MailException e) {

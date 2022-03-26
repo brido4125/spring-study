@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Map;
+
 @Slf4j
 @Service
 public class UserService {
@@ -18,11 +20,6 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    /**
-     * Todo : Exception 만들기()
-     * @param userEntity
-     * @return
-     */
     public UserEntity create(final UserEntity userEntity) {
         if (userEntity == null || userEntity.getEmail() == null) {
             throw new RuntimeException("Entity error");
@@ -34,6 +31,17 @@ public class UserService {
         }
         log.info("Create New User : {}", email);
         return userRepository.save(userEntity);
+    }
+
+    public UserEntity emailValidation(String email, String authKey) {
+        UserEntity find = userRepository.findByEmail(email);
+        if (find.getEmailAuthKey().equals(authKey)) {
+            find.setEmailConfirm(true);
+            userRepository.save(find);
+        } else {
+            log.warn("Email Auth key is Not Same");
+        }
+        return find;
     }
 
     public UserEntity getByCredentials(final String email, final String password, final PasswordEncoder encoder) {
