@@ -1,6 +1,7 @@
 package jpabook.jpashop2.domain.item;
 
 import jpabook.jpashop2.domain.Category;
+import jpabook.jpashop2.exception.NotEnoughStockException;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,8 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-//@DiscriminatorColumn(name = "dtype")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "dtype")
 @Getter @Setter
 public abstract class Item {
     @Id
@@ -29,4 +30,16 @@ public abstract class Item {
             inverseJoinColumns = @JoinColumn(name = "item_id")
     )
     private List<Category> categories = new ArrayList<>();
+
+    public void addStock(int stockQuantity) {
+        this.stockQuantity += stockQuantity;
+    }
+
+    public void removeStock(int quantity) {
+        int restStock = this.stockQuantity - quantity;
+        if (restStock < 0) {
+            throw new NotEnoughStockException("need more quantity");
+        }
+        this.stockQuantity = restStock;
+    }
 }
