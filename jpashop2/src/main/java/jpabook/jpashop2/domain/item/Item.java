@@ -23,6 +23,8 @@ public abstract class Item {
     private int price;
     private int stockQuantity;
 
+    //OrderItem관 연관관계 x => 단방향
+
     @ManyToMany
     @JoinTable(
             name = "category_item",

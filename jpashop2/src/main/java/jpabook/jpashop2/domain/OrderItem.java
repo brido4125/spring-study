@@ -1,7 +1,9 @@
 package jpabook.jpashop2.domain;
 
 import jpabook.jpashop2.domain.item.Item;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -9,6 +11,7 @@ import javax.persistence.*;
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor(access = AccessLevel.PUBLIC)
 public class OrderItem {
     @Id
     @GeneratedValue
@@ -25,8 +28,27 @@ public class OrderItem {
 
     private int orderPrice;
 
+    //주문 수량
     private int count;
 
 
+    //생성 메서드
+    //비지니스 로직 상 setOrder가 필요 없는 이유 : Order 생성할때 OrderItem이 필요하기 때문에
+    public static OrderItem createOrderItem(Item item, int orderPrice, int count) {
+        OrderItem orderItem = new OrderItem();
+        orderItem.setItem(item);
+        orderItem.setOrderPrice(orderPrice);
+        orderItem.setCount(count);
 
+        item.removeStock(count);//주문된 수량 만큼 마이너스
+        return orderItem;
+    }
+
+    public void cancel() {
+        getItem().addStock(count);
+    }
+
+    public int getTotalPrice() {
+        return getOrderPrice() * getCount();
+    }
 }
