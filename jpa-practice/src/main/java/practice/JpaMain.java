@@ -1,6 +1,7 @@
 package practice;
 
 import practice.domain.Employee;
+import practice.domain.Member;
 import practice.domain.Team;
 import practice.domain.Work;
 
@@ -17,16 +18,14 @@ public class JpaMain {
         tx.begin();
         try {
 
-            Team team = em.find(Team.class, 10L);
-            Employee employee = em.find(Employee.class, 2L);
-            Work work = new Work();
-            work.setId(1L);
-            work.setTeam(team);
-            work.setEmployee(employee);
-            em.persist(work);
+            Member member = new Member();
+            member.setId(100L);
+            member.setName("brido");
 
-            System.out.println("employee.getName() = " + employee.getName());
-            System.out.println("team.getName() = " + team.getName());
+            //1차 캐시에 저장됨
+            System.out.println("Before");
+            em.persist(member);
+            System.out.println("After");
 
             tx.commit();
         } catch (Exception e) {
