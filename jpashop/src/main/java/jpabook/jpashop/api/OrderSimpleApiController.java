@@ -1,13 +1,18 @@
 package jpabook.jpashop.api;
 
+import jpabook.jpashop.domain.Address;
 import jpabook.jpashop.domain.Order;
+import jpabook.jpashop.domain.OrderStatus;
 import jpabook.jpashop.repository.OrderRepository;
 import jpabook.jpashop.repository.OrderSearch;
+import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /*
  *
@@ -28,5 +33,34 @@ public class OrderSimpleApiController {
             order.getDelivery().getAddress();
         }
         return orders;
+    }
+
+
+    /*
+    * Lazy => 영속성 컨텍스트를 조회
+    * 즉, Order객체 2개 == 해당 Order의 멤버가 동일 => select 멤버 쿼리는 한번밖에 나가지 않음
+    * 1+N 문제 => 1번(Order 쿼리) 이후 연관관계에 의해 발생하는 다양한 쿼리들..
+    * */
+    @GetMapping("/api/v2/simple-orders")
+    public List<SimpleOrderDto> ordersV2() {
+        List<Order> orders = orderRepository.findAllByString(new OrderSearch());
+        return orders.stream().map(SimpleOrderDto::new).collect(Collectors.toList());
+    }
+
+    @Data
+    static class SimpleOrderDto{
+        private Long orderId;
+        private String name;
+        private LocalDateTime orderDate;
+        private OrderStatus orderStatus;
+        private Address address;
+
+        public SimpleOrderDto(Order o) {
+            orderId = o.getId();
+            name = o.getMember().getName();
+            orderDate = o.getOrderDate();
+            orderStatus = o.getStatus();
+            address = o.getDelivery().getAddress();
+        }
     }
 }
