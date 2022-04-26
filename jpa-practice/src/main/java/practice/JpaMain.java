@@ -1,9 +1,6 @@
 package practice;
 
-import practice.domain.Employee;
-import practice.domain.Member;
-import practice.domain.Team;
-import practice.domain.Work;
+import practice.domain.*;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -19,8 +16,9 @@ public class JpaMain {
         try {
 
             Member member = new Member();
-            member.setId(100L);
-            member.setName("brido");
+            member.setId(130L);
+            member.setName("brido2");
+            member.setRoleType(RoleType.SUPER);
 
             //1차 캐시에 저장됨
             System.out.println("Before");
