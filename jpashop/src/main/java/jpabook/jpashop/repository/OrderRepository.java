@@ -103,4 +103,17 @@ public class OrderRepository {
                         " join o.delivery d", OrderSimpleQueryDto.class
         ).getResultList();
     }
+
+    /*
+    * distinct 제외하고 하면 join 중복 문제 => DB distinct가 아니라 jpa distinct가 중복 제거 해줌
+    * */
+    public List<Order> findAllWithItem() {
+        return em.createQuery(
+                "select distinct o from Order o" +
+                        " join fetch o.member m" +
+                        " join fetch o.delivery d" +
+                        " join fetch o.orderItems oi" +
+                        " join fetch oi.item i", Order.class
+        ).getResultList();
+    }
 }
