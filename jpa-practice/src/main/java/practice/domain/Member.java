@@ -8,13 +8,23 @@ import javax.persistence.*;
 @Setter
 @Getter
 @Entity
-@Table(name = "MBR")
 public class Member {
     @Id
+    @GeneratedValue
     private Long id;
-    @Column(unique = true)
+
     private String name;
 
-    @Enumerated
-    private RoleType roleType;
+    @ManyToOne
+    @JoinColumn(name = "team_id")
+    private Team team;
+
+    //연관관계 편의 메서드는 연관관계 주인 Entity에 하거나 반대쪽에 하던가 선택 필요
+    public void changeTeam(Team team) {
+        this.team = team;
+        team.getMembers().add(this);
+        /*
+        * 추가로 getMembers()에서 빼주는 기능
+        * */
+    }
 }

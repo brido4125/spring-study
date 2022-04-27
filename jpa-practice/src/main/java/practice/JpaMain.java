@@ -6,6 +6,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
+import java.util.List;
 
 public class JpaMain {
     public static void main(String[] args) {
@@ -15,15 +16,25 @@ public class JpaMain {
         tx.begin();
         try {
 
-            Member member = new Member();
-            member.setId(130L);
-            member.setName("brido2");
-            member.setRoleType(RoleType.SUPER);
+            Team team = new Team();
+            team.setTeamName("Pizza");
+            em.persist(team);
 
-            //1차 캐시에 저장됨
-            System.out.println("Before");
+            Member member = new Member();
+            member.setName("brido");
+            member.changeTeam(team);
             em.persist(member);
-            System.out.println("After");
+
+
+            Team findTeam = em.find(Team.class, team.getId());
+            List<Member> findMembers = findTeam.getMembers();
+
+            System.out.println("====================");
+            for (Member findMember : findMembers) {
+                System.out.println("findMember.getName() = " + findMember.getName());
+            }
+            System.out.println("findMembers.size() = " + findMembers.size());
+            System.out.println("====================");
 
             tx.commit();
         } catch (Exception e) {
