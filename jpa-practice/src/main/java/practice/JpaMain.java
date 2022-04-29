@@ -1,12 +1,13 @@
 package practice;
 
+import lombok.extern.slf4j.Slf4j;
+import org.hibernate.Hibernate;
 import practice.domain.*;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
-import java.util.List;
 
 public class JpaMain {
     public static void main(String[] args) {
@@ -16,29 +17,27 @@ public class JpaMain {
         tx.begin();
         try {
 
-            Team team = new Team();
-            team.setTeamName("Pizza");
-            em.persist(team);
-
             Member member = new Member();
             member.setName("brido");
-            member.changeTeam(team);
             em.persist(member);
 
+            Member member2 = new Member();
+            member2.setName("brido2");
+            em.persist(member2);
 
-            Team findTeam = em.find(Team.class, team.getId());
-            List<Member> findMembers = findTeam.getMembers();
+            em.flush();
+            em.clear();
 
-            System.out.println("====================");
-            for (Member findMember : findMembers) {
-                System.out.println("findMember.getName() = " + findMember.getName());
-            }
-            System.out.println("findMembers.size() = " + findMembers.size());
-            System.out.println("====================");
+            Member findProxyMember = em.getReference(Member.class, member2.getId());
+
+            System.out.println("findProxyMember is Loaded = " + emf.getPersistenceUnitUtil().isLoaded(findProxyMember));
+            Hibernate.initialize(findProxyMember);
+            System.out.println("findProxyMember is Loaded = " + emf.getPersistenceUnitUtil().isLoaded(findProxyMember));
 
             tx.commit();
         } catch (Exception e) {
             tx.rollback();
+            e.printStackTrace();
         }finally {
             em.close();
         }
