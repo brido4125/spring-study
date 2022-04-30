@@ -15,8 +15,10 @@ public class Member {
 
     private String name;
 
-    @ManyToOne
+    //Member를 em.find 할 시 Team 엔티티는 Proxy로 조회
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "team_id")
+
     private Team team;
 
     //연관관계 편의 메서드는 연관관계 주인 Entity에 하거나 반대쪽에 하던가 선택 필요
