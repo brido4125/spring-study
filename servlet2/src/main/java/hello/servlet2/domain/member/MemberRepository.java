@@ -4,11 +4,8 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.atomic.AtomicLong;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)//singleton pattern 사용 위해서
 public class MemberRepository {
