@@ -1,5 +1,6 @@
 package brido.me.todo.service;
 
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,11 +15,10 @@ import java.util.Random;
 
 @Slf4j
 @Service
+@RequiredArgsConstructor
 public class EmailServiceImpl implements EmailService {
-    @Autowired
-    JavaMailSender emailSender;
 
-
+    private final JavaMailSender emailSender;
 
     public static final String ePw = createKey();
 

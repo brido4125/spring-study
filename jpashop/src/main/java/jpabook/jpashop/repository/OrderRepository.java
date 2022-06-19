@@ -95,7 +95,6 @@ public class OrderRepository {
         QOrder order = QOrder.order;
         QMember member = QMember.member;
 
-
         return query.select(order)
                 .from(order)
                 .join(order.member, member)

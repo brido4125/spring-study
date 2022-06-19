@@ -21,7 +21,6 @@ class UserServiceTest {
     public void setUp() {
         userService = new UserService(userRepository);
     }
-
     @Test
     void isNotNull() {
         assertThat(userRepository).isNotNull();

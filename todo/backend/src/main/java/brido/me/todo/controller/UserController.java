@@ -62,13 +62,12 @@ public class UserController {
             String confirm = emailService.sendSimpleMSG(userDto.getEmail());
             log.info("Key Number + {}",confirm);
 
+
             user.setEmailAuthKey(confirm);
 
             UserEntity registeredUser = userService.create(user);
 
-            Map<String, String> map = new HashMap<String, String>();
-            map.put("email", user.getEmail());
-            map.put("authKey", user.getEmailAuthKey());
+
             log.info("email: {}, authKey : {}",user.getEmail(),user.getEmailAuthKey());
 
             UserDTO responseUserDTO = UserDTO.builder()
@@ -86,12 +85,13 @@ public class UserController {
         }
     }
 
+    //Login
     @PostMapping("/signin")
     public ResponseEntity<?> authenticate(@RequestBody UserDTO userDTO) {
         UserEntity user = userService.getByCredentials(
                 userDTO.getEmail(), userDTO.getPassword(),passwordEncoder
         );
-        if (user != null) {
+        if (user != null && user.isEmailConfirm()) {
             //token 생성
             final String token = tokenProvider.create(user);
             final UserDTO responseUserDTO = UserDTO.builder()
