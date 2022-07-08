@@ -24,6 +24,7 @@ public class MemberServiceV1 {
 
     }
 
+    //로직 수행 중 예외 발생 상황을 위해 만든 메서드
     private void validation(Member toMember) {
         if (toMember.getMemberId().equals("ex")) {
             throw new IllegalStateException("이체중 예외 발생");

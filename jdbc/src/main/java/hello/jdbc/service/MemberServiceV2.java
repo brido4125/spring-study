@@ -10,7 +10,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 /*
-* Transaction - 파라미터 연, Pool을 고려한 종료
+* Transaction - 파라미터로 Connection 연결, Pool을 고려한 종료
 * */
 @Slf4j
 @RequiredArgsConstructor
