@@ -3,9 +3,11 @@ package hello.jdbc.service;
 import hello.jdbc.donmain.Member;
 import hello.jdbc.repository.MemberRepositoryV3;
 import lombok.extern.slf4j.Slf4j;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.springframework.aop.support.AopUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.TestConfiguration;
@@ -65,6 +67,14 @@ class MemberServiceV3_3Test {
         memberRepository.delete(MEMBER_A);
         memberRepository.delete(MEMBER_B);
         memberRepository.delete(MEMBER_EX);
+    }
+
+    @Test
+    void aopCheck() {
+        log.info("memberService class = {}", memberService.getClass());
+        log.info("memberRepository class = {}", memberRepository.getClass());
+        Assertions.assertThat(AopUtils.isAopProxy(memberService)).isTrue();
+        Assertions.assertThat(AopUtils.isAopProxy(memberRepository)).isFalse();
     }
 
     @Test

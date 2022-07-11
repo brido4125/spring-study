@@ -21,6 +21,7 @@ public class MemberServiceV3_2 {
     //private final PlatformTransactionManager transactionManager;
     private final TransactionTemplate txTemplate;
 
+    //@RequiredArgs 삭제
     public MemberServiceV3_2(MemberRepositoryV3 memberRepository, PlatformTransactionManager transactionManager) {
         this.memberRepository = memberRepository;
         this.txTemplate = new TransactionTemplate(transactionManager);
