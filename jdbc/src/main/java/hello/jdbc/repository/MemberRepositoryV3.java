@@ -120,7 +120,7 @@ public class MemberRepositoryV3 {
     }
 
     private Connection getConnection() throws SQLException {
-        //앞서 Connection을 Parameter로 넘겨서 유지하는 방식
+        //앞서 Connection을 Parameter로 넘겨서 유지하는 방식 대신
         // -> 트랜잭션 동기화 사용하려면 DataSourceUtils 사용
         Connection connection = DataSourceUtils.getConnection(dataSource);
         log.info("get connection = {}, class = {}", connection, connection.getClass());
