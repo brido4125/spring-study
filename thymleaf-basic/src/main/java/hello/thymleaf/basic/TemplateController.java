@@ -14,4 +14,14 @@ public class TemplateController {
         model.addAttribute("age", "25");
         return "template/fragment/fragmentMain";
     }
+
+    @GetMapping("/layout")
+    public String layout() {
+        return "template/layout/layoutMain";
+    }
+
+    @GetMapping("/layoutExtend")
+    public String layoutExtend() {
+        return "template/layoutExtend/layoutExtendMain";
+    }
 }
