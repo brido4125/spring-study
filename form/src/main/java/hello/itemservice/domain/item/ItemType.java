@@ -5,9 +5,13 @@ public enum ItemType {
     FOOD("음식"),
     ECT("기타");
 
-    private final String discription;
+    private final String description;
 
     ItemType(String discription) {
-        this.discription = discription;
+        this.description = discription;
+    }
+
+    public String getDescription() {
+        return description;
     }
 }
