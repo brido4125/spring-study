@@ -16,7 +16,7 @@ public class Item {
     private boolean open;//판매여부
     private List<String> regions; // 등록지역
     private ItemType itemType;
-    private DeliveryCode deliveryCode;
+    private String deliveryCode;
 
     public Item() {
     }
