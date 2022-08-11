@@ -51,7 +51,7 @@ public class ValidationItemControllerV2 {
     * @ModelAttribute로 Item을 model에 심어주었기 때문에
     * 검증에서 걸러져서 addForm으로 반환 될때, 기존에 입력했던 Item의 값이 유지된채로 Form이 반환됩니다.!
     * */
-    @PostMapping("/add")
+    //PostMapping("/add")
     public String addItemV1(@ModelAttribute Item item, BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model) {
 
         //검증 로직 만들기
@@ -82,7 +82,50 @@ public class ValidationItemControllerV2 {
         }
 
         //성공 Logic
+        Item savedItem = itemRepository.save(item);
+        redirectAttributes.addAttribute("itemId", savedItem.getId());
+        redirectAttributes.addAttribute("status", true);
+        return "redirect:/validation/v2/items/{itemId}";
+    }
 
+    /*
+    * Type Error가 처리되는 Flow
+    * Controller 타기 전에 스프링에서 바인딩 에러 발생 시킴, 그래서 Controller가 호출 되었을 경우에는 이미 BindingResult에 에러가 존재함!
+    * */
+    @PostMapping("/add")
+    public String addItemV2(@ModelAttribute Item item, BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model) {
+        log.info("bindingRes = {}",bindingResult);
+
+        //검증 로직 만들기
+        if (!StringUtils.hasText(item.getItemName())) { //itemName이 들어오지 않으면
+            bindingResult.addError(new FieldError("item", "itemName", item.getItemName(), false, null, null, "상품 이름은 필수입니다."));
+        }
+        log.info("item.getPrice = {}",item.getPrice() );
+        if (item.getPrice() == null || item.getPrice() < 1000 || item.getPrice() > 1000000) {
+            log.info("here-ValidationItemControllerV2.addItemV2");
+            bindingResult.addError(new FieldError("item", "price", item.getPrice(), false, null, null, "가격은 1,000원 ~ 1,000,000 사이의 값이어야 합니다."));
+
+        }
+        if (item.getQuantity() == null || item.getQuantity() >= 9999 || item.getQuantity() < 0) {
+            bindingResult.addError(new FieldError("item", "quantity", item.getQuantity(), false, null, null, "수량은 0보다 크고 9999개 보다는 커야 합니다."));
+
+        }
+        //특정 필드값 검증이 아닌 복합 필드 검증 (가격 + 수량)
+        if (item.getPrice() != null && item.getQuantity() != null) {
+            int resultPrice = item.getPrice() * item.getQuantity();
+            if (resultPrice < 10000) {
+                bindingResult.addError(new ObjectError("item",null,null,"가격 * 주문 수량은 10,000이상 이어야합니다. 현재 값 = " + resultPrice));
+            }
+        }
+
+        //검증에 실패하면 다시 입력 Form으로 이동
+        if (bindingResult.hasErrors()) { //map에 요소가 있으면,즉 에러가 있으면
+            log.info("error = {}",bindingResult);
+            //검증을 통과하지 못하면 입력 Form으로 보내기
+            return "validation/v2/addForm";
+        }
+
+        //성공 Logic
         Item savedItem = itemRepository.save(item);
         redirectAttributes.addAttribute("itemId", savedItem.getId());
         redirectAttributes.addAttribute("status", true);
