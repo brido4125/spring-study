@@ -174,8 +174,6 @@ public class ValidationItemControllerV2 {
 
     @PostMapping("/add")
     public String addItemV4(@ModelAttribute Item item, BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model) {
-
-
         //검증 로직 만들기
         if (!StringUtils.hasText(item.getItemName())) { //itemName이 들어오지 않으면
             bindingResult.rejectValue("itemName","required");
