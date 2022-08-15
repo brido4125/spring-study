@@ -23,6 +23,7 @@ import java.util.List;
 public class ValidationItemControllerV2 {
 
     private final ItemRepository itemRepository;
+    private final ItemValidator itemValidator;
 
     @GetMapping
     public String items(Model model) {
@@ -172,7 +173,7 @@ public class ValidationItemControllerV2 {
         return "redirect:/validation/v2/items/{itemId}";
     }
 
-    @PostMapping("/add")
+    //@PostMapping("/add")
     public String addItemV4(@ModelAttribute Item item, BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model) {
         //검증 로직 만들기
         if (!StringUtils.hasText(item.getItemName())) { //itemName이 들어오지 않으면
@@ -193,6 +194,23 @@ public class ValidationItemControllerV2 {
             }
         }
 
+        //검증에 실패하면 다시 입력 Form으로 이동
+        if (bindingResult.hasErrors()) { //map에 요소가 있으면,즉 에러가 있으면
+            log.info("error = {}",bindingResult);
+            //검증을 통과하지 못하면 입력 Form으로 보내기
+            return "validation/v2/addForm";
+        }
+
+        //성공 Logic
+        Item savedItem = itemRepository.save(item);
+        redirectAttributes.addAttribute("itemId", savedItem.getId());
+        redirectAttributes.addAttribute("status", true);
+        return "redirect:/validation/v2/items/{itemId}";
+    }
+
+    @PostMapping("/add")
+    public String addItemV5(@ModelAttribute Item item, BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model) {
+        itemValidator.validate(item,bindingResult);
         //검증에 실패하면 다시 입력 Form으로 이동
         if (bindingResult.hasErrors()) { //map에 요소가 있으면,즉 에러가 있으면
             log.info("error = {}",bindingResult);
