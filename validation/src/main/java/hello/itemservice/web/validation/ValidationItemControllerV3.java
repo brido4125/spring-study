@@ -2,6 +2,8 @@ package hello.itemservice.web.validation;
 
 import hello.itemservice.domain.item.Item;
 import hello.itemservice.domain.item.ItemRepository;
+import hello.itemservice.domain.item.SaveCheck;
+import hello.itemservice.domain.item.UpdateCheck;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -46,8 +48,10 @@ public class ValidationItemControllerV3 {
         return "validation/v3/addForm";
     }
 
-    @PostMapping("/add")
-    public String addItem(@Validated @ModelAttribute Item item, BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model) {
+    //@PostMapping("/add")
+    public String addItem(@Validated
+                           @ModelAttribute Item item, BindingResult bindingResult,
+                           RedirectAttributes redirectAttributes) {
         //특정 필드값 검증이 아닌 복합 필드 검증 (가격 + 수량)
         if (item.getPrice() != null && item.getQuantity() != null) {
             int resultPrice = item.getPrice() * item.getQuantity();
@@ -55,14 +59,36 @@ public class ValidationItemControllerV3 {
                 bindingResult.reject("totalPriceMin",new Object[]{10000,resultPrice},null);
             }
         }
-
         //검증에 실패하면 다시 입력 Form으로 이동
         if (bindingResult.hasErrors()) { //map에 요소가 있으면,즉 에러가 있으면
             log.info("error = {}",bindingResult);
             //검증을 통과하지 못하면 입력 Form으로 보내기
             return "validation/v3/addForm";
         }
+        //성공 Logic
+        Item savedItem = itemRepository.save(item);
+        redirectAttributes.addAttribute("itemId", savedItem.getId());
+        redirectAttributes.addAttribute("status", true);
+        return "redirect:/validation/v3/items/{itemId}";
+    }
 
+    @PostMapping("/add")
+    public String addItem2(@Validated(SaveCheck.class)
+                               @ModelAttribute Item item, BindingResult bindingResult,
+                           RedirectAttributes redirectAttributes) {
+        //특정 필드값 검증이 아닌 복합 필드 검증 (가격 + 수량)
+        if (item.getPrice() != null && item.getQuantity() != null) {
+            int resultPrice = item.getPrice() * item.getQuantity();
+            if (resultPrice < 10000) {
+                bindingResult.reject("totalPriceMin",new Object[]{10000,resultPrice},null);
+            }
+        }
+        //검증에 실패하면 다시 입력 Form으로 이동
+        if (bindingResult.hasErrors()) { //map에 요소가 있으면,즉 에러가 있으면
+            log.info("error = {}",bindingResult);
+            //검증을 통과하지 못하면 입력 Form으로 보내기
+            return "validation/v3/addForm";
+        }
         //성공 Logic
         Item savedItem = itemRepository.save(item);
         redirectAttributes.addAttribute("itemId", savedItem.getId());
@@ -77,7 +103,7 @@ public class ValidationItemControllerV3 {
         return "validation/v3/editForm";
     }
 
-    @PostMapping("/{itemId}/edit")
+    //@PostMapping("/{itemId}/edit")
     public String edit(@Validated @ModelAttribute Item item,
                        BindingResult bindingResult,
                        @PathVariable Long itemId) {
@@ -88,7 +114,26 @@ public class ValidationItemControllerV3 {
                 bindingResult.reject("totalPriceMin",new Object[]{10000,resultPrice},null);
             }
         }
+        if (bindingResult.hasErrors()) { //BindingResult에 요소가 있으면,즉 에러가 있으면
+            log.info("error = {}",bindingResult);
+            //검증을 통과하지 못하면 입력 Form으로 보내기
+            return "validation/v3/editForm";
+        }
+        itemRepository.update(itemId, item);
+        return "redirect:/validation/v3/items/{itemId}";
+    }
 
+    @PostMapping("/{itemId}/edit")
+    public String editV2(@Validated(value = UpdateCheck.class) @ModelAttribute Item item,
+                       BindingResult bindingResult,
+                       @PathVariable Long itemId) {
+        //특정 필드값 검증이 아닌 복합 필드 검증 (가격 + 수량)
+        if (item.getPrice() != null && item.getQuantity() != null) {
+            int resultPrice = item.getPrice() * item.getQuantity();
+            if (resultPrice < 10000) {
+                bindingResult.reject("totalPriceMin",new Object[]{10000,resultPrice},null);
+            }
+        }
         if (bindingResult.hasErrors()) { //BindingResult에 요소가 있으면,즉 에러가 있으면
             log.info("error = {}",bindingResult);
             //검증을 통과하지 못하면 입력 Form으로 보내기
