@@ -11,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -95,6 +96,7 @@ public class ValidationItemControllerV4 {
         }
         if (bindingResult.hasErrors()) { //BindingResult에 요소가 있으면,즉 에러가 있으면
             log.info("error = {}",bindingResult);
+            log.info("global errors = {}",bindingResult.getGlobalError());
             //검증을 통과하지 못하면 입력 Form으로 보내기
             return "validation/v4/editForm";
         }
