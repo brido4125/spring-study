@@ -2,6 +2,7 @@ package hello.login.web;
 
 import hello.login.domain.member.Member;
 import hello.login.domain.member.MemberRepository;
+import hello.login.web.session.SessionConst;
 import hello.login.web.session.SessionManager;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 @Slf4j
 @Controller
@@ -40,11 +42,23 @@ public class HomeController {
         return "loginHome";
     }
 
+    //@GetMapping("/")
     public String homeLoginV2(HttpServletRequest request, Model model) {
         Member member = (Member)sessionManager.getSession(request);
         if (member == null) {
             return "home";
         }
+        model.addAttribute("member", member);
+        return "loginHome";
+    }
+
+    @GetMapping("/")
+    public String homeLoginV3(HttpServletRequest request, Model model) {
+        HttpSession session = request.getSession(false);
+        if (session == null) {
+            return "home";
+        }
+        Member member = (Member)session.getAttribute(SessionConst.LOGIN_MEMBER);
         model.addAttribute("member", member);
         return "loginHome";
     }
