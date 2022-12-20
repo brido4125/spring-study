@@ -19,20 +19,20 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 * 트랜잭션 - 커넥션 파라미터 전달 동기화
 * */
 @Slf4j
-class MemberServiceWithTransactionTest {
+class MemberServiceV2Test {
 
     public static final String MEMBER_A = "memberA";
     public static final String MEMBER_B = "memberB";
     public static final String MEMBER_EX = "ex";
 
     private MemberRepositoryV2 memberRepository;
-    private MemberServiceWithTransaction memberService;
+    private MemberServiceV2 memberService;
 
     @BeforeEach
     void beforeEach() {
         DriverManagerDataSource driverManagerDataSource = new DriverManagerDataSource(URL, USERNAME, PASSWORD);
         memberRepository = new MemberRepositoryV2(driverManagerDataSource);
-        memberService = new MemberServiceWithTransaction(memberRepository,driverManagerDataSource);
+        memberService = new MemberServiceV2(memberRepository,driverManagerDataSource);
     }
 
     @AfterEach
