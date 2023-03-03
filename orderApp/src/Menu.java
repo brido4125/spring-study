@@ -95,14 +95,6 @@ public class Menu {
         shef.startMakingDish(this.dishName);
     }
 
-    public String getDishName() {
-        return dishName;
-    }
-
-    public FoodType getFoodType() {
-        return foodType;
-    }
-
     public List<TableWare> getTableWareList() {
         return tableWareList;
     }
