@@ -1,3 +1,5 @@
+package chapter2;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,9 +10,9 @@ public class ScoreCollection {
         scores.add(scoreable);
     }
 
-    public double arithmeticMean() {
-        double total = scores.stream()
-                .mapToDouble(Scoreable::getScore)
+    public int arithmeticMean() {
+        int total = scores.stream()
+                .mapToInt(Scoreable::getScore)
                 .sum();
         return total / scores.size();
     }

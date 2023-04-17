@@ -1,3 +1,4 @@
+import chapter2.ScoreCollection;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -14,6 +15,6 @@ class ScoreCollectionTest {
         double actualResult = collection.arithmeticMean();
 
         // assert
-        assertEquals(6.0, actualResult);
+        assertEquals(6, actualResult);
     }
 }
