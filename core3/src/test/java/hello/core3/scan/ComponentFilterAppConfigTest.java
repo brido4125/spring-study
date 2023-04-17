@@ -31,6 +31,9 @@ public class ComponentFilterAppConfigTest {
     }
 
     @Configuration
+    /*
+    * filter를 통해 컴포넌트 스캔의 대상이 되는 어노테이션을 설정할 수 있다.
+    * */
     @ComponentScan(
             includeFilters = @Filter(type = FilterType.ANNOTATION, classes = MyIncludeComponent.class),
             excludeFilters = @Filter(type = FilterType.ANNOTATION, classes = MyExcludeComponent.class)
