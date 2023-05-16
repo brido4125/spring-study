@@ -18,6 +18,11 @@ public class LogTraceAspect {
         this.logTrace = logTrace;
     }
 
+
+    /*
+    * @Around 사용 : pointCut 설정
+    * excute의 내부 로직이 advice, 즉 추가하려는 부가 기능에 대한 로직이다.
+    * */
     @Around("execution(* hello.proxy.app..*(..)) && !execution(* hello.proxy.app..noLog(..))")
     public Object excute(ProceedingJoinPoint joinPoint) throws Throwable {
         TraceStatus status = null;
