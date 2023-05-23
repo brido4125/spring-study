@@ -1,4 +1,4 @@
-package com.example.disignpattern.strategy;
+package com.example.designpattern.strategy;
 
 import org.junit.jupiter.api.Test;
 
