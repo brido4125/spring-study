@@ -1,4 +1,4 @@
-package modern.java.in.action.examples.chpater3;
+package modern.java.in.action.examples.chapter3;
 
 
 import java.io.BufferedReader;

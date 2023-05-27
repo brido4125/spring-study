@@ -1,4 +1,4 @@
-package modern.java.in.action.examples.chpater3;
+package modern.java.in.action.examples.chapter3;
 
 import modern.java.in.action.examples.chapter2.Apple;
 import modern.java.in.action.examples.chapter2.Color;
@@ -7,7 +7,6 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Comparator;
 import java.util.List;
 import java.util.function.*;
 
