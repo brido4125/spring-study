@@ -24,6 +24,10 @@ public class Dish {
         return calories;
     }
 
+    public static boolean isVegetarian(Dish dish) {
+        return dish.vegetarian;
+    }
+
     public enum Type {
         MEAT, FISH, OTHER
     }
