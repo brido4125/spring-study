@@ -1,19 +1,34 @@
 package com.example.designpattern.factory.pizzastore;
 
-public class NYPizzaStore extends PizzaStore {
-    @Override
-    public Pizza createPizza(String item) {
-        if (item.equals("cheese")) {
-            return new NYStyleCheesePizza();
-        } else if (item.equals("veggie")) {
-            return new NYStyleVeggiePizza();
-        } else if (item.equals("clam")) {
-            return new NYStyleClamPizza();
-        } else if (item.equals("pepperoni")) {
-            return new NYStylePepperoniPizza();
-        } else {
-            return null;
-        }
-    }
+import com.example.designpattern.factory.NYPizzaIngredientFactory;
+import com.example.designpattern.factory.PizzaIngredientFactory;
+import com.example.designpattern.factory.pizza.CheesePizza;
+import com.example.designpattern.factory.pizza.ClamPizza;
+import com.example.designpattern.factory.pizza.Pizza;
+import com.example.designpattern.factory.pizza.VeggiePizza;
 
+public class NYPizzaStore extends PizzaStore {
+
+    @Override
+    protected Pizza createPizza(String type) {
+        Pizza pizza = null;
+        PizzaIngredientFactory ingredientFactory = new NYPizzaIngredientFactory();
+
+        if (type.equals("cheese")) {
+            pizza = new CheesePizza(ingredientFactory);
+            pizza.setName("뉴욕 스타일 치즈 피자");
+        } else if (type.equals("veggie")) {
+            pizza = new VeggiePizza(ingredientFactory);
+            pizza.setName("뉴욕 스타일 야채 피자");
+        } else if (type.equals("clam")) {
+            pizza = new ClamPizza(ingredientFactory);
+            pizza.setName("뉴욕 스타일 조개 피자");
+        } else if (type.equals("pepperoni")) {
+            pizza = new ClamPizza(ingredientFactory);
+            pizza.setName("뉴욕 스타일 페퍼로니 피자");
+        } else {
+            System.out.println("지원하지 않는 피자입니다.");
+        }
+        return pizza;
+    }
 }

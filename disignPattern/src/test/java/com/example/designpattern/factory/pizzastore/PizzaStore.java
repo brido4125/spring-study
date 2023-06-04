@@ -1,6 +1,7 @@
 package com.example.designpattern.factory.pizzastore;
 
-import com.example.designpattern.factory.SimplePizzaFactory;
+import com.example.designpattern.factory.pizza.Pizza;
+import com.example.designpattern.factory.simplefactory.SimplePizzaFactory;
 
 public abstract class PizzaStore {
 

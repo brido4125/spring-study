@@ -2,7 +2,7 @@ package com.example.designpattern.factory;
 
 import com.example.designpattern.factory.pizzastore.ChicagoStylePizzaStore;
 import com.example.designpattern.factory.pizzastore.NYPizzaStore;
-import com.example.designpattern.factory.pizzastore.Pizza;
+import com.example.designpattern.factory.pizza.Pizza;
 import com.example.designpattern.factory.pizzastore.PizzaStore;
 import org.junit.jupiter.api.Test;
 
