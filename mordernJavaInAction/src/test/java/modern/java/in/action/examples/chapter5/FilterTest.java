@@ -1,7 +1,6 @@
 package modern.java.in.action.examples.chapter5;
 
 import modern.java.in.action.examples.chapter4.Dish;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
