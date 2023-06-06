@@ -24,6 +24,10 @@ public class Dish {
         return calories;
     }
 
+    public Type getType() {
+        return type;
+    }
+
     public static boolean isVegetarian(Dish dish) {
         return dish.vegetarian;
     }

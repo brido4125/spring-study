@@ -5,10 +5,7 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -63,6 +60,36 @@ public class CollectorTest {
 
         Integer sumByReducing = menu.stream()
                 .collect(Collectors.reducing(0, Dish::getCalories, (a, b) -> a + b));
+    }
+
+    @Test
+    void groupingMenu() {
+        Map<Dish.Type, List<Dish>> listMap = menu.stream()
+                .collect(Collectors.groupingBy(Dish::getType));
+
+        for (Map.Entry<Dish.Type, List<Dish>> entry : listMap.entrySet()) {
+            System.out.println("entry.getKey() = " + entry.getKey());
+            entry.getValue().stream().map(Dish::getName).forEach(System.out::println);
+        }
+    }
+
+    private enum CaloricLevel{
+        DIET, NORMAL, FAT
+    }
+
+    @Test
+    void groupingByCaloricLevel() {
+        Map<CaloricLevel, List<Dish>> listMap = menu.stream()
+                .collect(Collectors.groupingBy(dish -> {
+                    if (dish.getCalories() <= 400) return CaloricLevel.DIET;
+                    else if (dish.getCalories() <= 700) return CaloricLevel.NORMAL;
+                    else return CaloricLevel.FAT;
+                }));
+
+        for (Map.Entry<CaloricLevel, List<Dish>> entry : listMap.entrySet()) {
+            System.out.println("entry.getKey() = " + entry.getKey());
+            entry.getValue().stream().map(Dish::getName).forEach(System.out::println);
+        }
     }
 
 }
