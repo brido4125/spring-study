@@ -112,6 +112,20 @@ public class CollectorTest {
             System.out.println("==========================");
         }
     }
+    @Test
+    void groupingBy500Cal() {
+        Map<Dish.Type, List<Dish>> map = menu.stream()
+                .collect(Collectors.groupingBy(
+                        Dish::getType,
+                        Collectors.filtering(
+                                dish -> dish.getCalories() > 500,
+                                Collectors.toList())));
+
+        for (Map.Entry<Dish.Type, List<Dish>> entry : map.entrySet()) {
+            System.out.println("entry.getKey() = " + entry.getKey());
+            entry.getValue().stream().map(Dish::getName).forEach(System.out::println);
+        }
+    }
 
     @Test
     void reverseGroupBy() {
@@ -190,4 +204,20 @@ public class CollectorTest {
                 .noneMatch(i -> candidate % i == 0);
     }
 
+    @Test
+    void groupingByWithMapping() {
+        Map<Dish.Type, List<String>> collect = menu.stream()
+                .collect(Collectors.groupingBy(
+                        Dish::getType,
+                        Collectors.mapping(
+                                Dish::getName,
+                                Collectors.toList()
+                        )
+                ));
+
+        for (Map.Entry<Dish.Type, List<String>> entry : collect.entrySet()) {
+            System.out.println("entry.getKey() = " + entry.getKey());
+            entry.getValue().stream().forEach(System.out::println);
+        }
+    }
 }
