@@ -1,9 +1,6 @@
 package modern.java.in.action.examples.chapter6;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.BiConsumer;
 import java.util.function.BinaryOperator;
@@ -11,6 +8,12 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Collector;
 
+
+/*
+* T : 스트림 요소의 타입
+* A : 누적자의 타입
+* R : 수집 연산의 결과 타입
+* */
 public class PrimeNumberCollector implements Collector<
         Integer,
         Map<Boolean, List<Integer>>,
@@ -33,6 +36,7 @@ public class PrimeNumberCollector implements Collector<
     /*
     * 스트림의 요소를 생성된 누적자에 추가해야 하는 함수
     * 소수인지 아닌지를 판별해야함
+    * 소수로만 나누는 방식
     * */
     @Override
     public BiConsumer<Map<Boolean, List<Integer>>, Integer> accumulator() {
@@ -43,20 +47,31 @@ public class PrimeNumberCollector implements Collector<
 
     @Override
     public BinaryOperator<Map<Boolean, List<Integer>>> combiner() {
-        return null;
+        return (map1, map2) -> {
+            map1.get(true).addAll(map2.get(true));
+            map1.get(false).addAll(map2.get(false));
+            return map1;
+        };
     }
 
     @Override
     public Function<Map<Boolean, List<Integer>>, Map<Boolean, List<Integer>>> finisher() {
-        return null;
+        return Function.identity(); // 항등 함수
     }
 
     @Override
     public Set<Characteristics> characteristics() {
-        return null;
+        return Collections.unmodifiableSet(EnumSet.of(Characteristics.IDENTITY_FINISH));
     }
 
-    public static boolean isPrime(List<Integer> primes, int candidate) {
+    private static boolean isPrime(List<Integer> primes, int candidate) {
         return primes.stream().noneMatch(i -> candidate % i == 0);
+    }
+
+    private static boolean upgradeIsPrime(List<Integer> primes, int candidate) {
+        int candidateRoot = (int) Math.sqrt((double) candidate);
+        return primes.stream()
+                .takeWhile(i -> i <= candidateRoot)
+                .noneMatch(i -> candidate % i == 0);
     }
 }
