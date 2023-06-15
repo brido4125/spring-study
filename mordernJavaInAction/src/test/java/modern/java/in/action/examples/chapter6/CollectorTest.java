@@ -220,4 +220,16 @@ public class CollectorTest {
             entry.getValue().stream().forEach(System.out::println);
         }
     }
+
+    @Test
+    void primeNumberWithPrimeNumberCollector() {
+        Map<Boolean, List<Integer>> primeNum = IntStream.rangeClosed(2, 100)
+                .boxed()
+                .collect(new PrimeNumberCollector());
+
+        for (Map.Entry<Boolean, List<Integer>> entry : primeNum.entrySet()) {
+            System.out.println("entry.getKey() = " + entry.getKey());
+            entry.getValue().forEach(System.out::println);
+        }
+    }
 }
