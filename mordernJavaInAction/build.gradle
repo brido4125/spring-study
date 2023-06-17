@@ -2,6 +2,7 @@ plugins {
 	id 'java'
 	id 'org.springframework.boot' version '2.7.12'
 	id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+	id "me.champeau.jmh" version "0.7.1"
 }
 
 group = 'modern.java.in.action'
@@ -13,6 +14,9 @@ repositories {
 }
 
 dependencies {
+	jmh 'org.openjdk.jmh:jmh-core:0.9'
+	jmh 'org.openjdk.jmh:jmh-generator-annprocess:0.9'
+
 	implementation 'org.springframework.boot:spring-boot-starter'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
