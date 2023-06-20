@@ -35,4 +35,13 @@ public class TestClass {
         remote.setCommand(garageOpen);
         remote.buttonWasPressed();
     }
+
+    @Test
+    void remoteControlAddStereoTest() {
+        RemoteControl remoteControl = new RemoteControl();
+
+        Light living_room = new Light("Living Room");
+        Light kitchen = new Light("Kitchen");
+
+    }
 }
