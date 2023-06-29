@@ -1,6 +1,6 @@
-package com.example.designpattern.command.v1.invoker;
+package com.example.designpattern.command.invoker;
 
-import com.example.designpattern.command.v1.command.Command;
+import com.example.designpattern.command.command.Command;
 
 public class RemoteControlWithUndo {
     Command[] onCommands;
@@ -39,16 +39,5 @@ public class RemoteControlWithUndo {
 
     public void undoButtonWasPushed() {
         undoCommand.undo();
-    }
-
-    public String toString() {
-        StringBuilder stringBuff = new StringBuilder();
-        stringBuff.append("\n------ Remote Control -------\n");
-
-        for (int i = 0; i < onCommands.length; i++) {
-            stringBuff.append("[slot ").append(i).append("] ").append(onCommands[i].getClass().getName()).append("    ").append(offCommands[i].getClass().getName()).append("\n");
-        }
-
-        return stringBuff.toString();
     }
 }

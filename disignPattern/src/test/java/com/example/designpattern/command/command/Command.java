@@ -1,4 +1,4 @@
-package com.example.designpattern.command.v1.command;
+package com.example.designpattern.command.command;
 
 public interface Command {
     void execute();

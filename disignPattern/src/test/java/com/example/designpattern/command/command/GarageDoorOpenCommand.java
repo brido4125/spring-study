@@ -1,6 +1,6 @@
-package com.example.designpattern.command.v1.command;
+package com.example.designpattern.command.command;
 
-import com.example.designpattern.command.v1.receiver.GarageDoor;
+import com.example.designpattern.command.receiver.GarageDoor;
 
 public class GarageDoorOpenCommand implements Command {
 

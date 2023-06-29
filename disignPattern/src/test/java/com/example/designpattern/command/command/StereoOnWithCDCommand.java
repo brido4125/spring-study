@@ -1,6 +1,6 @@
-package com.example.designpattern.command.v1.command;
+package com.example.designpattern.command.command;
 
-import com.example.designpattern.command.v1.receiver.Stereo;
+import com.example.designpattern.command.receiver.Stereo;
 
 public class StereoOnWithCDCommand implements Command{
     private final Stereo stereo;

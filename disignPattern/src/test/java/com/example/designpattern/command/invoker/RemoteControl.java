@@ -1,6 +1,6 @@
-package com.example.designpattern.command.v1.invoker;
+package com.example.designpattern.command.invoker;
 
-import com.example.designpattern.command.v1.command.Command;
+import com.example.designpattern.command.command.Command;
 
 public class RemoteControl {
     Command[] onCommands;

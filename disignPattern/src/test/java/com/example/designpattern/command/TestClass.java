@@ -1,10 +1,10 @@
-package com.example.designpattern.command.v1;
+package com.example.designpattern.command;
 
-import com.example.designpattern.command.v1.command.GarageDoorOpenCommand;
-import com.example.designpattern.command.v1.command.LightOnCommand;
-import com.example.designpattern.command.v1.invoker.SimpleRemoteControl;
-import com.example.designpattern.command.v1.receiver.GarageDoor;
-import com.example.designpattern.command.v1.receiver.Light;
+import com.example.designpattern.command.command.GarageDoorOpenCommand;
+import com.example.designpattern.command.command.LightOnCommand;
+import com.example.designpattern.command.invoker.SimpleRemoteControl;
+import com.example.designpattern.command.receiver.GarageDoor;
+import com.example.designpattern.command.receiver.Light;
 import org.junit.jupiter.api.Test;
 
 public class TestClass {

@@ -1,4 +1,4 @@
-package com.example.designpattern.command.v1.receiver;
+package com.example.designpattern.command.receiver;
 
 public class GarageDoor {
     public void up() { System.out.println("Garage Door is Open"); }

@@ -1,6 +1,6 @@
-package com.example.designpattern.command.v1.command;
+package com.example.designpattern.command.command;
 
-import com.example.designpattern.command.v1.receiver.Light;
+import com.example.designpattern.command.receiver.Light;
 
 public class LightOffCommand implements Command {
     private final Light light;
