@@ -1,4 +1,4 @@
-package com.example.designpattern.adapter;
+package com.example.designpattern.adapter.duck;
 
 public class DuckAdapter implements Turkey {
     private final Duck duck;

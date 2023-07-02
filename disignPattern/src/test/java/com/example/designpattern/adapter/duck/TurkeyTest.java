@@ -1,4 +1,4 @@
-package com.example.designpattern.adapter;
+package com.example.designpattern.adapter.duck;
 
 import org.junit.jupiter.api.Test;
 
