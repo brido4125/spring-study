@@ -12,4 +12,8 @@ public class Order {
     private final LocalDateTime localDateTime;
 
     private final List<Beverage> beverages;
+
+    public List<Beverage> getBeverages() {
+        return beverages;
+    }
 }

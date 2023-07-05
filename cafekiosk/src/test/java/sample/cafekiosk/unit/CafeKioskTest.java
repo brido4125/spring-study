@@ -3,6 +3,11 @@ package sample.cafekiosk.unit;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import sample.cafekiosk.unit.beverage.Americano;
+import sample.cafekiosk.unit.order.Order;
+
+import java.time.LocalDateTime;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class CafeKioskTest {
 
@@ -19,8 +24,26 @@ public class CafeKioskTest {
         CafeKiosk kiosk = new CafeKiosk();
         kiosk.add(new Americano());
 
-        Assertions.assertThat(kiosk.getBeverages().size()).isEqualTo(1);
-        Assertions.assertThat(kiosk.getTotalPrice()).isEqualTo(4000);
+        assertThat(kiosk.getBeverages().size()).isEqualTo(1);
+        assertThat(kiosk.getTotalPrice()).isEqualTo(4000);
+    }
+
+    @Test
+    void addCountTest() {
+        CafeKiosk kiosk = new CafeKiosk();
+        kiosk.add(new Americano(), 4);
+
+        assertThat(kiosk.getBeverages().size()).isEqualTo(4);
+        assertThat(kiosk.getTotalPrice()).isEqualTo(16000);
+    }
+
+    @Test
+    void addZoroCountTest() {
+        CafeKiosk kiosk = new CafeKiosk();
+
+        Assertions.assertThatThrownBy(() -> kiosk.add(new Americano(), 0))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("count는 0보다 커야 합니다.");
     }
 
     @Test
@@ -31,6 +54,19 @@ public class CafeKioskTest {
 
         kiosk.remove(americano);
 
-        Assertions.assertThat(kiosk.getBeverages().size()).isEqualTo(0);
+        assertThat(kiosk.getBeverages().size ()).isEqualTo(0);
+    }
+
+    @Test
+    void createOrder() {
+        CafeKiosk kiosk = new CafeKiosk();
+        Americano americano = new Americano();
+
+        kiosk.add(americano);
+
+        Order order = kiosk.createOrder(LocalDateTime.of(2023, 1, 17, 10, 0));
+
+        assertThat(order.getBeverages().size()).isEqualTo(1);
+
     }
 }
