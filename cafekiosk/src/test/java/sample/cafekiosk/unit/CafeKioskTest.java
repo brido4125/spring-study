@@ -3,6 +3,7 @@ package sample.cafekiosk.unit;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import sample.cafekiosk.unit.beverage.Americano;
+import sample.cafekiosk.unit.beverage.Latte;
 import sample.cafekiosk.unit.order.Order;
 
 import java.time.LocalDateTime;
@@ -68,5 +69,18 @@ public class CafeKioskTest {
 
         assertThat(order.getBeverages().size()).isEqualTo(1);
 
+    }
+
+    @Test
+    void calculateTotalPrice() {
+        CafeKiosk kiosk = new CafeKiosk();
+        Americano americano = new Americano();
+        Latte latte = new Latte();
+        kiosk.add(americano, 1);
+        kiosk.add(latte, 1);
+
+        int totalPrice = kiosk.getTotalPrice();
+
+        assertThat(kiosk.getTotalPrice()).isEqualTo(8500);
     }
 }
