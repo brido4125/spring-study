@@ -1,6 +1,7 @@
 package sample.cafekiosk.unit;
 
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import sample.cafekiosk.unit.beverage.Americano;
 import sample.cafekiosk.unit.beverage.Latte;
@@ -20,6 +21,7 @@ public class CafeKioskTest {
         System.out.println(">>> 총 가격 : " + cafeKiosk.getTotalPrice());
     }
 
+    @DisplayName("음료 추가")
     @Test
     void add() {
         CafeKiosk kiosk = new CafeKiosk();
@@ -71,16 +73,30 @@ public class CafeKioskTest {
 
     }
 
+    @DisplayName("")
+    @Test
+    void test(){
+        //given
+
+        //when
+
+        //then
+    }
+
+
     @Test
     void calculateTotalPrice() {
+        // given
         CafeKiosk kiosk = new CafeKiosk();
         Americano americano = new Americano();
         Latte latte = new Latte();
         kiosk.add(americano, 1);
         kiosk.add(latte, 1);
 
+        // when
         int totalPrice = kiosk.getTotalPrice();
 
+        // then
         assertThat(kiosk.getTotalPrice()).isEqualTo(8500);
     }
 }
