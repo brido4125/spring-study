@@ -1,17 +1,18 @@
-package com.example.designpattern.observer.subject;
+package com.example.designpattern.observer.headfirst.subject;
 
-import com.example.designpattern.observer.Observer;
+import com.example.designpattern.observer.headfirst.Observer;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class PullWeatherData implements Subject{
-    private final List<Observer> observers;
+public class WeatherData implements Subject {
+
+    private List<Observer> observers;
     private float temperature;
     private float humidity;
     private float pressure;
 
-    public PullWeatherData() {
+    public WeatherData() {
         observers = new ArrayList<>();
     }
 
@@ -27,12 +28,12 @@ public class PullWeatherData implements Subject{
 
 
     /*
-     * Subject가 가지고 있는 모든 Observer에게 상태를 전달!
-     * */
+    * Subject가 가지고 있는 모든 Observer에게 상태를 전달!
+    * */
     @Override
     public void notifyObservers() {
         for(Observer obs : observers) {
-
+            obs.update();
         }
     }
 
@@ -45,5 +46,13 @@ public class PullWeatherData implements Subject{
         this.humidity = humidity;
         this.pressure = pressure;
         measurementsChanged();
+    }
+
+    public float getTemperature() {
+        return temperature;
+    }
+
+    public float getHumidity() {
+        return humidity;
     }
 }

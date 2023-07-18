@@ -1,8 +1,7 @@
-package com.example.designpattern.observer;
+package com.example.designpattern.observer.headfirst;
 
 
-import com.example.designpattern.observer.subject.Subject;
-import com.example.designpattern.observer.subject.WeatherData;
+import com.example.designpattern.observer.headfirst.subject.WeatherData;
 
 /*
 * 현재 기상 조건을 나타내는 DisplayElement 구현

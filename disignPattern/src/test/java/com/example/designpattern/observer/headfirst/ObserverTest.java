@@ -1,7 +1,6 @@
-package com.example.designpattern.observer;
+package com.example.designpattern.observer.headfirst;
 
-import com.example.designpattern.observer.subject.Subject;
-import com.example.designpattern.observer.subject.WeatherData;
+import com.example.designpattern.observer.headfirst.subject.WeatherData;
 import org.junit.jupiter.api.Test;
 
 public class ObserverTest {
