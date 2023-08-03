@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class OrderServiceV0 {
 
-    private final OrderRepositoryV0 orderRepository;
+    private final OrderRepositoryV0 orderRepository;//의존관계 주입
 
     public void orderItem(String itemId) {
         orderRepository.save(itemId);

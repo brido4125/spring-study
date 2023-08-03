@@ -4,7 +4,6 @@ import java.util.UUID;
 
 public class TraceId {
     private String id;
-
     private int level;
 
     public TraceId() {
@@ -21,10 +20,15 @@ public class TraceId {
         return UUID.randomUUID().toString().substring(0, 8);//제일 앞 8자리만 사용
     }
 
+    /*
+    * 동일한 id 값으로, level을 1씩 증가시킨다.
+    * */
     public TraceId createNextId() {
         return new TraceId(id, level + 1);
     }
-
+    /*
+     * 동일한 id 값으로, level을 1씩 감소시킨다.
+     * */
     public TraceId createPreviousId() {
         return new TraceId(id, level - 1);
     }

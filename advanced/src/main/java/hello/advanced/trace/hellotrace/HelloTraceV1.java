@@ -14,21 +14,22 @@ public class HelloTraceV1 {
     private static final String COMPLETE_PREFIX = "<--";
     private static final String EX_PREFIX = "<X-";
 
+    /*로그가 시작할 때 남는 로그*/
     public TraceStatus begin(String message) {
         TraceId traceId = new TraceId();
         Long startTimeMs = System.currentTimeMillis();
-        log.info("[{}] {}{}", traceId.getId(),addSpace(START_PREFIX, traceId.getLevel()), message);
+        log.info("[{}] {}{}", traceId.getId(), addSpace(START_PREFIX, traceId.getLevel()), message);
         return new TraceStatus(traceId, startTimeMs, message);
     }
 
+    /*로그가 끝날 때 남는 로그*/
     public void end(TraceStatus status) {
         complete(status, null);
-        log.info("traceId={}", status.getTraceId());
     }
 
+    /*예외가 처리될 때 사용되는 로그*/
     public void exception(TraceStatus status, Exception e) {
         complete(status, e);
-        log.info("traceId={}", status.getTraceId(), e);
     }
 
     private void complete(TraceStatus status, Exception e) {
