@@ -13,8 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 * 2. 애플리케이션의 흐름을 변경하지 않음
 * 3. 메서드 호출에 걸린 시간
 * 4. 정상 흐름과 예외 흐름을 구분
-* 5. 메서드 호출의 depth 표현
-* 6. HTTP 요청을 구분 (Random id 부여)
 * */
 @RestController
 @RequiredArgsConstructor
@@ -30,12 +28,11 @@ public class OrderControllerV1 {
         try {
             status = trace.begin("OrderController.request()");
             orderService.orderItem(itemId);
+            trace.end(status);
             return "ok";
         } catch (Exception e) {
             trace.exception(status, e);
-            throw e;
-        } finally {
-            trace.end(status);
+            throw e; // 흐름을 기존과 동일하도록 예외를 던져야함
         }
     }
 }

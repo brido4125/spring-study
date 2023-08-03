@@ -21,12 +21,11 @@ public class HelloTraceV2 {
         return new TraceStatus(traceId, startTimeMs, message);
     }
 
-    //V2에서 추가
+    //V2에서 추가, Trace ID를 다음 Layer로 전달
     public TraceStatus beginSync(TraceId beforeTraceId, String message) {
-        TraceId nextId = beforeTraceId.createNextId();
+        TraceId nextId = beforeTraceId.createNextId();// 최적화 가능 지점
         Long startTimeMs = System.currentTimeMillis();
-        log.info("[" + nextId.getId() + "] " + addSpace(START_PREFIX,
-                nextId.getLevel()) + message);
+        log.info("[" + nextId.getId() + "] " + addSpace(START_PREFIX, nextId.getLevel()) + message);
         return new TraceStatus(nextId, startTimeMs, message);
     }
 
