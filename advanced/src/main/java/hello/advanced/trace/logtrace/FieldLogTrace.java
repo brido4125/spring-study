@@ -4,6 +4,11 @@ import hello.advanced.trace.TraceId;
 import hello.advanced.trace.TraceStatus;
 import lombok.extern.slf4j.Slf4j;
 
+
+/*
+* Parameter를 넘기지 않고 depth를 표현하는 LogTrace
+* 직접 스프링 빈으로 등록
+* */
 @Slf4j
 public class FieldLogTrace implements LogTrace {
 
@@ -11,7 +16,7 @@ public class FieldLogTrace implements LogTrace {
     private static final String START_PREFIX = "-->";
     private static final String EX_PREFIX = "<X-";
 
-    private TraceId traceIdHolder; // traceId 동기화
+    private TraceId traceIdHolder; // traceId를 동기화해줄수 있도록
 
     @Override
     public TraceStatus begin(String message) {
@@ -26,6 +31,7 @@ public class FieldLogTrace implements LogTrace {
         if (traceIdHolder == null) {
             traceIdHolder = new TraceId();
         } else {
+            // 저장된 traceId가 있으면 그 traceId를 사용
             traceIdHolder = traceIdHolder.createNextId();
         }
     }
@@ -58,8 +64,9 @@ public class FieldLogTrace implements LogTrace {
 
     private void releaseTraceId() {
         if (traceIdHolder.isFirstLevel()) {
-            traceIdHolder = null; //destroy
+            traceIdHolder = null; //마지막 로그니까 해당 traceId 없앰
         } else {
+            // 로그가 찍히는 Layer마다 complete를 호출하고 마지막 레벨이 아닐 경우 Depth를 1씩 감소
             traceIdHolder = traceIdHolder.createPreviousId();
         }
     }

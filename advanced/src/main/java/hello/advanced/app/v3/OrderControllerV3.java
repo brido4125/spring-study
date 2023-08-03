@@ -7,6 +7,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 
+/**
+ * 더 이상 파라미터로 TraceId를 넘겨주지 않아도 된다.
+ */
 @RestController
 @RequiredArgsConstructor
 public class OrderControllerV3 {

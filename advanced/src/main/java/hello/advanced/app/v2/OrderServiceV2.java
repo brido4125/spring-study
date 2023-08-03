@@ -4,7 +4,6 @@ import hello.advanced.trace.TraceId;
 import hello.advanced.trace.TraceStatus;
 import hello.advanced.trace.hellotrace.HelloTraceV2;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 @Service
