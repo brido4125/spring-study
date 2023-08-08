@@ -17,9 +17,7 @@ public class DecoratorPatternTest {
 
     @Test
     void decorator1(){
-        Component component = new RealComponent();
-        Component messageDecorator = new MessageDecorator(component);
-        DecoratorPatternClient client = new DecoratorPatternClient(messageDecorator);
+        DecoratorPatternClient client = new DecoratorPatternClient(new MessageDecorator(new RealComponent()));
 
         client.excute();
     }
@@ -27,6 +25,9 @@ public class DecoratorPatternTest {
     @Test
     void decorator2(){
         Component realComponent = new RealComponent();
+        /*
+        * 데코레이터 간의 순서 변경 가능
+        * */
         Component messageDecorator = new MessageDecorator(realComponent);
         Component timeDecorator = new TimeDecorator(messageDecorator);
         DecoratorPatternClient client = new DecoratorPatternClient(timeDecorator);

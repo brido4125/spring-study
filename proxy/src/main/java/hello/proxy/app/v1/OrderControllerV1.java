@@ -2,7 +2,7 @@ package hello.proxy.app.v1;
 
 import org.springframework.web.bind.annotation.*;
 
-//Spring은 @Controller 또는 @RestController가 붙은 클래스를 찾아서 스프링 빈으로 등록한다.
+//Spring은 @Controller 또는 @RequestMapping이 있어야 스프링 컨트롤러로 인식
 @RequestMapping
 @ResponseBody
 public interface OrderControllerV1 {

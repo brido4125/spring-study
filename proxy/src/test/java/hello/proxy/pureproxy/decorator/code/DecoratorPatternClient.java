@@ -11,8 +11,7 @@ public class DecoratorPatternClient {
     }
 
     public void excute() {
-        log.info("DecoratorPatternClient excute");
         String operation = component.operation();
-        log.info("operation: {}", operation);
+        log.info("result: {}", operation);
     }
 }
