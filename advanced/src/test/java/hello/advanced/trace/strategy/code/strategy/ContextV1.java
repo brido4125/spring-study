@@ -4,7 +4,7 @@ package hello.advanced.trace.strategy.code.strategy;
 import lombok.extern.slf4j.Slf4j;
 
 /*
-* field에 Strategy를 주입받는 방식
+* field에 Strategy를 생성자를 통해 주입받는 방식, 선 조립 후 실행 방식
 * Context는 변하지 않는 부분
 * 해당 클래스는 생성자를 통해 주입
 * Spring DI -> 전략 패턴 사용

@@ -49,26 +49,10 @@ public class ContextV2Test {
 
     @Test
     void strategyV3() {
-        Strategy strategy1 = new Strategy() {
-            @Override
-            public void call() {
-                log.info("logic1");
-            }
-        };
+        ContextV2 context1 = new ContextV2();
+        context1.excute(() -> log.info("logic1"));
 
-        Strategy strategy2 = new Strategy() {
-            @Override
-            public void call() {
-                log.info("logic2");
-            }
-
-        };
-
-        ContextV1 context1 = new ContextV1(strategy1);
-        context1.excute();
-
-        ContextV1 context2 = new ContextV1(strategy2);
-        context2.excute();
-
+        ContextV2 context2 = new ContextV2();
+        context2.excute(() -> log.info("logic2"));
     }
  }
