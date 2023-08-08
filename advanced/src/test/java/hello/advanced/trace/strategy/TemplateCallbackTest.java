@@ -7,7 +7,6 @@ import org.junit.jupiter.api.Test;
 
 @Slf4j
 public class TemplateCallbackTest {
-
     @Test
     void callbackV1(){
         TimeLogTemplate template = new TimeLogTemplate();

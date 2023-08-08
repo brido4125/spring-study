@@ -29,14 +29,14 @@ public class TemplateMethodTest {
         AbstractTemplate template1 = new AbstractTemplate() {
             @Override
             protected void call() {
-                log.info("logic1");
+                log.info("biz logic1 start");
             }
         };
 
         AbstractTemplate template2 = new AbstractTemplate() {
             @Override
             protected void call() {
-                log.info("logic2");
+                log.info("biz logic2 start");
             }
         };
 
@@ -48,7 +48,6 @@ public class TemplateMethodTest {
         long startTime = System.currentTimeMillis();
         //biz logic
         log.info("biz logic1 start");
-        log.info("biz logic1 end");
         long endTime = System.currentTimeMillis();
         long resultTime = endTime - startTime;
         log.info("resultTime={}", resultTime);
@@ -58,7 +57,6 @@ public class TemplateMethodTest {
         long startTime = System.currentTimeMillis();
         //biz logic
         log.info("biz logic2 start");
-        log.info("biz logic2 end");
         long endTime = System.currentTimeMillis();
         long resultTime = endTime - startTime;
         log.info("resultTime={}", resultTime);

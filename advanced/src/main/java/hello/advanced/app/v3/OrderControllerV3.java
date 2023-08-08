@@ -23,7 +23,7 @@ public class OrderControllerV3 {
         TraceStatus status = null;
         try {
             status = trace.begin("OrderController.request()");
-            orderService.orderItem(itemId);
+            orderService.orderItem(itemId); // 제외하면 로그 남기는 로직만 남음
             trace.end(status);
             return "ok";
         } catch (Exception e) {
