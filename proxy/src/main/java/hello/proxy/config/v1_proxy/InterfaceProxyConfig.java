@@ -8,6 +8,11 @@ import hello.proxy.trace.logtrace.LogTrace;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+
+/*
+* proxy 객체는 스프링 컨테이너가 관리하고 Heap 영역에 올라감,
+* target 객체는 proxy 객체가 생성될 때 생성자를 통해 주입받음, 스프링 컨테이너가 관리하진 않고 Heap 영역에 올라감
+* */
 @Configuration
 public class InterfaceProxyConfig {
 

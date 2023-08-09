@@ -30,7 +30,7 @@ public class ProxyApplication {
 
 
 	/*
-	* 현재 CoponentScan 범위가 hello.proxy.app 이므로
+	* 현재 ComponentScan 범위가 hello.proxy.app 이므로
 	* 아래와 같이 Application에서 빈 등록 진행
 	* */
 	@Bean

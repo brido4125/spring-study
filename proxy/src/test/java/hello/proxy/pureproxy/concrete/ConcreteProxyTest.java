@@ -23,6 +23,7 @@ public class ConcreteProxyTest {
     void proxyWithConcreteClass() {
         ConcreteLogic concreteLogic = new ConcreteLogic();
         TimeProxy proxy = new TimeProxy(concreteLogic);
+        // Client의 생성자에 부모, 자식 타입 모두 주입 가능
         ConcreteClient concreteClient = new ConcreteClient(proxy);
 
         concreteClient.execute();
