@@ -23,7 +23,7 @@ public class ConcreteProxyConfig {
      * */
     @Bean
     public OrderControllerV2 orderControllerV2(LogTrace logTrace) {
-        OrderControllerV2 controllerImpl = new OrderControllerV2(orderServiceV2(logTrace));
+        OrderControllerV2 controllerImpl = new OrderControllerV2(orderServiceV2(logTrace)); //proxy가 호출할 target 생성
         return new OrderControllerConcreteProxy(controllerImpl, logTrace);
     }
 
@@ -34,7 +34,7 @@ public class ConcreteProxyConfig {
      * */
     @Bean
     public OrderServiceV2 orderServiceV2(LogTrace logTrace) {
-        OrderServiceV2 serviceImpl = new OrderServiceV2(orderRepositoryV2(logTrace));
+        OrderServiceV2 serviceImpl = new OrderServiceV2(orderRepositoryV2(logTrace)); //proxy가 호출할 target 생성
         return new OrderServiceConcreteProxy(serviceImpl, logTrace);
     }
 
@@ -45,7 +45,7 @@ public class ConcreteProxyConfig {
      * */
     @Bean
     public OrderRepositoryV2 orderRepositoryV2(LogTrace logTrace) {
-        OrderRepositoryV2 repositoryImpl = new OrderRepositoryV2();
+        OrderRepositoryV2 repositoryImpl = new OrderRepositoryV2(); //proxy가 호출할 target 생성
         return new OrderRepositoryConcreteProxy(repositoryImpl, logTrace);
     }
 }
