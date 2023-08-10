@@ -26,6 +26,10 @@ public class ReflectionTest {
         //공통 로직 2 끝
     }
 
+
+    /*
+    * Reflection : 클래스나 메서드의 메타정보를 사용해서 동적으로 호출하는 메서드를 변경 할 수 있음
+    * */
     @Test
     void reflection1() throws Exception {
         //클래스 정보
@@ -35,8 +39,8 @@ public class ReflectionTest {
         Hello target = new Hello();
 
         //callA 메서드 정보
-        Method callA = classHello.getMethod("callA");
-        Object result1 = callA.invoke(target);
+        Method callA = classHello.getMethod("callA"); // 메서드 메타 정보 획득
+        Object result1 = callA.invoke(target); // 실제 메서드 호출
         log.info("result1: {}", result1);
 
         //callB 메서드 정보

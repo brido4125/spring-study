@@ -11,7 +11,7 @@ public class JdkDynamicProxyTest {
 
     @Test
     void dynamicA() {
-        A target = new AImpl();
+        A target = new AImpl(); // proxy가 호출할 대상
         TimeInvocationHandler handler = new TimeInvocationHandler(target);
 
         A proxy = (A) Proxy.newProxyInstance(A.class.getClassLoader(), new Class[]{A.class}, handler);

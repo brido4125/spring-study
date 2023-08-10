@@ -11,6 +11,10 @@ import java.lang.reflect.Proxy;
 @Configuration
 public class DynamicProxyBasicConfig {
 
+    /*
+    * 동적 Proxy 사용해서 Procy 객체 생성
+    * */
+
     @Bean
     public OrderControllerV1 orderControllerV1(LogTrace logTrace) {
         OrderControllerV1Impl orderController = new OrderControllerV1Impl(orderServiceV1(logTrace));

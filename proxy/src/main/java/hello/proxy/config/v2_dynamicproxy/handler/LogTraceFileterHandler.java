@@ -24,6 +24,7 @@ public class LogTraceFileterHandler implements InvocationHandler {
         //메서드 이름 필터
         String methodName = method.getName();
         if (!PatternMatchUtils.simpleMatch(patterns, methodName)) {
+            // 부가적인 proxy 기능 수행하지 않고 실제 타겟 메서드를 호출
             return method.invoke(target, args);
         }
         TraceStatus status = null;

@@ -20,6 +20,7 @@ public class LogTraceBasicHandler implements InvocationHandler {
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
         TraceStatus status = null;
         try {
+            // class.method() String 추출
             String methodString  = method.getDeclaringClass().getSimpleName() + "." + method.getName() + "()";
             status = logTrace.begin(methodString);
             //로직 호출
