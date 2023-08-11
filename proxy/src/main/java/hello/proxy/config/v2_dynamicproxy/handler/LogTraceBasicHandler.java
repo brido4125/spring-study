@@ -6,6 +6,10 @@ import hello.proxy.trace.logtrace.LogTrace;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 
+
+/*
+* Handler의 invoke 메서드에서 proxy가 수행할 로직을 구현
+* */
 public class LogTraceBasicHandler implements InvocationHandler {
 
     private final Object target;
