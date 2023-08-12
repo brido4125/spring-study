@@ -5,7 +5,6 @@ import hello.proxy.common.service.ConcreteService;
 import hello.proxy.common.service.ServiceImpl;
 import hello.proxy.common.service.ServiceInterface;
 import lombok.extern.slf4j.Slf4j;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.aop.framework.ProxyFactory;
@@ -13,6 +12,13 @@ import org.springframework.aop.support.AopUtils;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+
+/*
+* Proxy Factory를 생성할 때, 생성자에 실제 호출할 target 인스턴스를 parameter로 넘긴다.
+* proxy Factory는 해당 인스턴스 정보를 통해 proxy를 생성한다.
+* 여기서 target -> interface인 경우 JDK dynamic proxy
+* target -> concrete class인 경우는 CGLIB을 통해 proxy를 생성한다.
+* */
 @Slf4j
 public class ProxyFactoryTest {
 
@@ -26,9 +32,13 @@ public class ProxyFactoryTest {
         log.info("targetClass : {} ", target.getClass());
         log.info("proxyClass = {} ", proxy.getClass());
 
+        /*
+        * save와 find에 따라 proxy의 동작이 다르게 설정해보기
+        * */
         proxy.save();
+        proxy.find();
 
-        assertThat(AopUtils.isAopProxy(proxy)).isTrue();
+        assertThat(AopUtils.isAopProxy(proxy)).isTrue(); // proxy factory를 사용할 때만 가능
         assertThat(AopUtils.isJdkDynamicProxy(proxy)).isTrue();
         assertThat(AopUtils.isCglibProxy(proxy)).isFalse();
     }
