@@ -46,7 +46,7 @@ public class ProxyFactoryTest {
     @Test
     @DisplayName("구체 클래스가 있으면 CGLIB 사용")
     void concreteProxy() {
-        ConcreteService target = new ConcreteService();
+        ConcreteService target = new ConcreteService(); // 구체 클래스만 있는 경우
         ProxyFactory proxyFactory = new ProxyFactory(target);
         proxyFactory.addAdvice(new TimeAdvice());
         ConcreteService proxy = (ConcreteService) proxyFactory.getProxy();
@@ -61,11 +61,11 @@ public class ProxyFactoryTest {
     }
 
     @Test
-    @DisplayName("ProxyTargetClass 옵션을 true로 주면 CGLIB 사용")
+    @DisplayName("ProxyTargetClass 옵션을 true로 주면 Interface를 통해 타겟 인스턴스를 생성하더라도 CGLIB 사용")
     void proxyTargetClass() {
         ServiceInterface target = new ServiceImpl();
         ProxyFactory proxyFactory = new ProxyFactory(target);
-        proxyFactory.setProxyTargetClass(true);
+        proxyFactory.setProxyTargetClass(true); // CGLIB를 통해 proxy 기능 적용, 구체 클래스를 상속을 받아서 CGLIB 사용
         proxyFactory.addAdvice(new TimeAdvice());
         ServiceInterface proxy = (ServiceInterface) proxyFactory.getProxy();
         log.info("targetClass : {} ", target.getClass());

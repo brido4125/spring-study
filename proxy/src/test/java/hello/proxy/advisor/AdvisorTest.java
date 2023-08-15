@@ -15,6 +15,12 @@ import org.springframework.aop.support.NameMatchMethodPointcut;
 
 import java.lang.reflect.Method;
 
+
+/*
+* pointcut : proxy를 적용할 메서드 또는 클래스
+* advice : 적용할 proxy 기능
+* advisor : pointcut + advice
+* */
 @Slf4j
 public class AdvisorTest {
 
