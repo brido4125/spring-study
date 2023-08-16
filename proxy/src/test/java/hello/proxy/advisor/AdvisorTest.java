@@ -28,7 +28,8 @@ public class AdvisorTest {
     void advisorTest1() {
         ServiceInterface target = new ServiceImpl();
         ProxyFactory proxyFactory = new ProxyFactory(target);
-        DefaultPointcutAdvisor advisor = new DefaultPointcutAdvisor(Pointcut.TRUE, new TimeAdvice());
+        // DefaultPointcutAdvisor -> 가장 기본적인 구현체
+        DefaultPointcutAdvisor advisor = new DefaultPointcutAdvisor(Pointcut.TRUE, new TimeAdvice()); //항상 참인 PointCut 사용
         proxyFactory.addAdvisor(advisor);
         ServiceInterface proxy = (ServiceInterface) proxyFactory.getProxy();
         proxy.save();
@@ -52,6 +53,10 @@ public class AdvisorTest {
     void advisorTest3() {
         ServiceInterface  target = new ServiceImpl();
         ProxyFactory proxyFactory = new ProxyFactory(target);
+        /*
+        * Spring이 제공하는 NameMatchMethodPointcut을 사용
+        * AspectJExpressionPointcut을 주로 사용함
+        * */
         NameMatchMethodPointcut pointcut = new NameMatchMethodPointcut();
         pointcut.setMappedName("save");
         DefaultPointcutAdvisor advisor = new DefaultPointcutAdvisor(pointcut, new TimeAdvice());
@@ -73,18 +78,30 @@ public class AdvisorTest {
         }
     }
 
+
+    /*
+    * Method와 target Class 정보를 통해 어느 메서드에 proxy 적용할지 결정
+    * */
     static class MyMethodMatcher implements MethodMatcher {
 
         private final static String matchName = "save";
 
+
+        /*
+        * 정적인 정보가 parameter로 들어옴 -> caching 가능
+        * */
         @Override
         public boolean matches(Method method, Class<?> targetClass) {
-            boolean result = method.getName().equals(matchName);
+            boolean result = method.getName().equals(matchName); //save인 경우에만 Advice 적용
             log.info("포인터 컷 호출 method = {}, targetClass = {} ", method.getName(), targetClass);
             log.info("포인터 컷 결과 result = {} ", result);
             return result;
         }
 
+
+        /*
+        * isRuntime이 True를 리턴하면 matches(Method method, Class<?> targetClass, Object... args)를 호출함
+        * */
         @Override
         public boolean isRuntime() {
             return false;

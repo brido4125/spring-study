@@ -28,7 +28,7 @@ public class MultiAdvisorTest {
         ServiceInterface proxy1 = (ServiceInterface) proxyFactory1.getProxy();
 
         //proxy2 생성
-        ProxyFactory proxyFactory2 = new ProxyFactory(proxy1);
+        ProxyFactory proxyFactory2 = new ProxyFactory(proxy1); //proxy2 -> proxy1 호출
         DefaultPointcutAdvisor advisor2 = new DefaultPointcutAdvisor(Pointcut.TRUE, new Advice2());
         proxyFactory2.addAdvisor(advisor2);
         ServiceInterface proxy2 = (ServiceInterface) proxyFactory2.getProxy();
@@ -47,9 +47,15 @@ public class MultiAdvisorTest {
         //Proxy
         ServiceInterface target = new ServiceImpl();
         ProxyFactory proxyFactory = new ProxyFactory(target);
+        /*
+        * addAdvisor의 순서가 중요
+        * */
         proxyFactory.addAdvisor(advisor2);
         proxyFactory.addAdvisor(advisor1);
 
+        /*
+        * Proxy 인스턴스를 여러개 만들어야하는 단점을 해결할 수 있음. -> 하나의 Proxy를 통해 여러 advice를 적용할 수 있음
+        * */
         ServiceInterface proxy = (ServiceInterface) proxyFactory.getProxy();
 
         proxy.save();
@@ -59,7 +65,7 @@ public class MultiAdvisorTest {
         @Override
         public Object invoke(MethodInvocation invocation) throws Throwable {
             log.info("Advice1 호출");
-             return invocation.proceed();
+            return invocation.proceed();
         }
     }
 
