@@ -36,6 +36,10 @@ public class BeanPostProcessorTest {
         }
     }
 
+
+    /*
+    * 빈 후처리기 사용 -> BeanPostProcessor 구현
+    * */
     @Slf4j
     static class AToBPostProcessor implements BeanPostProcessor {
         @Override

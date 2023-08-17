@@ -8,27 +8,32 @@ import org.springframework.beans.factory.config.BeanPostProcessor;
 
 @Slf4j
 public class PackageLogTracePostProcessor implements BeanPostProcessor {
-    private final String basePackage;
+    private final String basePackage; // 로그를 적용할 패키지 범위
 
-    private final Advisor advisor;
+    private final Advisor advisor; // pointcut + advice
 
     public PackageLogTracePostProcessor(String basePackage, Advisor advisor) {
         this.basePackage = basePackage;
         this.advisor = advisor;
     }
 
+
+    /*
+    * Bean 초기화 이후에 후처리기 로직 적용
+    * */
     @Override
     public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
-        log.info("beanName = {}", beanName);
-        log.info("bean = {}", bean.getClass());
+        log.info("beanName = {}, bean = {}", beanName, bean.getClass());
 
         //프록시 대상 여부 체크
+        //프록시 대상이 아니면 원본을 그대로 bean 등록
         String packageName = bean.getClass().getPackageName();
         if (!packageName.startsWith(basePackage)) {
             return bean;
         }
 
         //프록시 대상이면 프록시 생성
+        // 원래 등록하려던 Bean이 Target
         ProxyFactory proxyFactory = new ProxyFactory(bean);
         proxyFactory.addAdvisor(advisor);
 

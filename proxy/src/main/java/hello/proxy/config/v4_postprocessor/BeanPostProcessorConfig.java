@@ -13,9 +13,13 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
+
+/*
+* ProxyFactoryConfig와 비교 했을 때, 수많은 프록시 설정 config를 전부 없앨 수 있다.
+* */
 @Configuration
 @Slf4j
-@Import({AppV1Config.class, AppV2Config.class})
+@Import({AppV1Config.class, AppV2Config.class}) // v1, v2는 수동 등록 필요
 public class BeanPostProcessorConfig {
 
     @Bean
