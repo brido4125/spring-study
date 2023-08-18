@@ -10,7 +10,7 @@ import org.aspectj.lang.annotation.Aspect;
 import java.lang.reflect.Method;
 
 @Slf4j
-@Aspect
+@Aspect // annotation을 통해 advisor를 생성
 public class LogTraceAspect {
     private final LogTrace logTrace;
 
@@ -21,10 +21,12 @@ public class LogTraceAspect {
 
     /*
     * @Around 사용 : pointCut 설정
+    * 메서드 바디 : advice 부분
     * excute의 내부 로직이 advice, 즉 추가하려는 부가 기능에 대한 로직이다.
     * */
     @Around("execution(* hello.proxy.app..*(..)) && !execution(* hello.proxy.app..noLog(..))")
     public Object excute(ProceedingJoinPoint joinPoint) throws Throwable {
+        // 내부 로직이 advice의 내용을 가진다.
         TraceStatus status = null;
         try {
             String message = joinPoint.getSignature().toShortString();
