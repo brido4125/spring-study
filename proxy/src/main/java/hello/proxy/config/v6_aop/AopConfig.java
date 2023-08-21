@@ -9,9 +9,13 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
 
-//AnnotationAwareAspectJAutoProxyCreator(빈 후처리기)가 @Aspect가 붙은 Advisor를 판단하고 pointcut을 통해 proxy 생성 여부 결정
+/*
+* AnnotationAwareAspectJAutoProxyCreator가 수행하는 2가지
+* 1. (사용자가 Bean으로 등록한 advisor + @Aspect 어드 바이저 빌더의 adivisor) 를 찾아와 proxy를 적용할지 말지 판단하고 proxy를 빈 등록
+* 2. @Aspect 어노테이션을 찾아 이것을 advisor로 만들고 @Aspect 어드 바이저 빌더에 해당 advisor 등록
+* */
 @Configuration
-@Import({AppV1Config.class, AppV2Config.class})
+@Import({AppV1Config.class, AppV2Config.class}) // 수동 빈 등록 대상들
 public class AopConfig {
 
     /*
