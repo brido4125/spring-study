@@ -10,7 +10,7 @@ import org.aspectj.lang.annotation.Aspect;
 import java.lang.reflect.Method;
 
 @Slf4j
-@Aspect
+@Aspect //LogTraceAspect 객체가 Advisor 역할을 수행
 public class LogTraceAspect {
     private final LogTrace logTrace;
 
