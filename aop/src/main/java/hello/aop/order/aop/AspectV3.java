@@ -17,8 +17,12 @@ public class AspectV3 {
     @Pointcut("execution(* hello.aop.order..*(..))")
     private void allOrder() {}
 
+
+    //클래스 이름 패턴이 *Service인 클래 -> Tx는 주로 Service Layer에 적용되기 때문에
     @Pointcut("execution(* *..*Service.*(..))")
     private void allService() {}
+
+    //hello.aop.order 패키지와 그 하위 패키지이면서 동시에 클래스 이름 끝이 Service로 끝나는 클래스의 모든 메서드를 지정
 
     @Around("allOrder()")
     public Object doLog(ProceedingJoinPoint joinPoint) throws Throwable {
@@ -26,7 +30,6 @@ public class AspectV3 {
         return joinPoint.proceed();
     }
 
-    //hello.aop.order 패키지와 그 하위 패키지이면서 동시에 클래스 이름 끝이 Service로 끝나는 클래스의 모든 메서드를 지정
     @Around("allService() && allOrder()") //PointCut은 and, or ,not 연산자를 사용하여 조합이 가능하다.
     public Object doTx(ProceedingJoinPoint joinPoint) throws Throwable {
         try {

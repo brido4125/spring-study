@@ -9,6 +9,8 @@ import org.springframework.core.annotation.Order;
 @Slf4j
 public class AspectV5Order {
 
+    //@Around가 붙은 advice를 @Aspect가 붙은 inner 클래스화 -> 하나의 Inner Class가 하나의 advisor
+
     @Aspect
     @Order(2)
     public static class LogAspect {
@@ -20,7 +22,7 @@ public class AspectV5Order {
     }
 
     @Aspect
-    @Order(1)
+    @Order(1) // 숫자가 낮을수록 우선순위가 높음
     public static class TxAspect {
         //hello.aop.order 패키지와 그 하위 패키지이면서 동시에 클래스 이름 끝이 Service로 끝나는 클래스의 모든 메서드를 지정
         @Around("Pointcuts.orderAndService()") //PointCut은 and, or ,not 연산자를 사용하여 조합이 가능하다.
