@@ -8,15 +8,14 @@ import org.aspectj.lang.annotation.Aspect;
 @Slf4j
 @Aspect
 public class AspectV1 {
-
-
     /*
     * * hello.aop.order..*(..)) : hello.aop.order 패키지와 그 하위 패키지에 속한 모든 메서드를 지정
     * AspectJ 포인트컷 표현식이다
     * */
     @Around("execution(* hello.aop.order..*(..))")
     public Object doLog(ProceedingJoinPoint joinPoint) throws Throwable {
-        log.info("[log] {}", joinPoint.getSignature()); //join point 시그니처
-        return joinPoint.proceed();
+        //join point 시그니처 -> String hello.aop.order.OrderRepository.save(String)처럼 호출될 target 메서드의 시그니처 정보
+        log.info("[log] {}", joinPoint.getSignature());
+        return joinPoint.proceed();//실제 Target이 호출되는 로직
     }
 }
