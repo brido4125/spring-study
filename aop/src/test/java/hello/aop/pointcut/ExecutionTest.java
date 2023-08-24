@@ -12,7 +12,7 @@ import java.lang.reflect.Method;
 @Slf4j
 public class ExecutionTest {
     AspectJExpressionPointcut pointcut = new AspectJExpressionPointcut();
-    Method helloMethod;
+    Method helloMethod; //메서드 메타정보
 
     @BeforeEach
     public void init() throws NoSuchMethodException {
@@ -28,6 +28,8 @@ public class ExecutionTest {
 
 
     /* 가장 정확하게 (specific) 하게 매칭하기*/
+    //service의 hello() 메서드만 정확하게 매칭
+    // 파라미터는 패키지 생략 가능
     @Test
     void exactMatch() {
         pointcut.setExpression("execution(public String hello.aop.member.MemberServiceImpl.hello(String))");
@@ -37,8 +39,8 @@ public class ExecutionTest {
 
     /* 가장 많이 생략한 execution*/
     /* 3가지만 넣으면 됨
-    * 1. 반환 타입
-    * 2. 메서드 이름
+    * 1. 반환 타입 : * 아무거나 가능
+    * 2. 메서드 이름 : * 아무 메서드
     * 3. 인자 -> .. -> 파라미터의 타입과 수가 상관없다는 설정
     * */
     @Test
@@ -56,6 +58,7 @@ public class ExecutionTest {
 
     /*
     * Pattern 매칭
+    * hello -> he*를 통해서 매칭
     * */
     @Test
     void nameMatchStar1() {
@@ -77,7 +80,7 @@ public class ExecutionTest {
 
     @Test
     void packageExactMatch1() {
-        pointcut.setExpression("execution(* hello.aop.member.MemberServiceImpl.*(..))");
+        pointcut.setExpression("execution(* hello.aop.member.MemberServiceImpl.hello(..))");
         Assertions.assertThat(pointcut.matches(helloMethod, MemberServiceImpl.class)).isTrue();
     }
 
@@ -87,15 +90,22 @@ public class ExecutionTest {
         Assertions.assertThat(pointcut.matches(helloMethod, MemberServiceImpl.class)).isTrue();
     }
 
+
+    /*
+    * hello.aop.* -> 정확인 aop 패키지 내의 클래스만 대상, 하위 패키지는 포함되지 않아 오류 발생
+    * */
     @Test
     void packageExactFalse() {
         pointcut.setExpression("execution(* hello.aop.*.* (..))");
         Assertions.assertThat(pointcut.matches(helloMethod, MemberServiceImpl.class)).isFalse();
     }
 
+    /*
+    * hello.aop..* -> aop 패키지의 하위 패키지까지 포함됨
+    * */
     @Test
-    void packageExactSubPackage() {
-        pointcut.setExpression("execution(* hello.aop..*.* (..))");
+    void packageExactSubPackage1() {
+        pointcut.setExpression("execution(* hello.aop..*(..))");
         Assertions.assertThat(pointcut.matches(helloMethod, MemberServiceImpl.class)).isTrue();
     }
 
@@ -123,6 +133,7 @@ public class ExecutionTest {
     @Test
     void typeMatchInternalNoSuperMatch() throws NoSuchMethodException{
         pointcut.setExpression("execution(* hello.aop.member.MemberService.*(..))");
+        //자식 클래스만 가지는 Internal 메서드 정보
         Method internal = MemberServiceImpl.class.getMethod("internal", String.class);
         Assertions.assertThat(pointcut.matches(internal, MemberServiceImpl.class)).isFalse();
     }
@@ -170,13 +181,11 @@ public class ExecutionTest {
 
     /*
     * String으로 시작하고 숫자와 무관하게 모든 파라미터 허용
+    * (String) , (String, Xxx), (String, Xxx, Xxx)
     * */
     @Test
     void argsMatchingComplex() {
-        pointcut.setExpression("execution(* *(String,..))");
+        pointcut.setExpression("execution(* *(String, ..))");
         Assertions.assertThat(pointcut.matches(helloMethod, MemberServiceImpl.class)).isTrue();
     }
-
-
-
 }

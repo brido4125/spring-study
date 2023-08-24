@@ -6,7 +6,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 @Target(ElementType.METHOD)
-@Retention(RetentionPolicy.RUNTIME) //실행 시점에 해당 에노테이션을 읽을 수 있음
+@Retention(RetentionPolicy.RUNTIME) //실행 시점에도 해당 에노테이션을 읽을 수 있음
 public @interface MethodAop {
-    String value();
+    String value(); // 어노테이션의 인자 String으로 설정
 }
