@@ -25,5 +25,4 @@ class CallServiceV1Test {
     void internal() {
         callServiceV1.internal();
     }
-
 }
