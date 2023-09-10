@@ -9,9 +9,10 @@ import org.springframework.stereotype.Service;
 @Component
 public class CallServiceV1 {
 
-    private CallServiceV1 callServiceV1;
+    private CallServiceV1 callServiceV1;// 자기 자신을 내부 Field로 가짐
 
     //setter 주입 사용
+    // setter 주입으로 container에 등록된 proxy 인스턴스를 주입시켜준다.
     @Autowired
     public void setCallServiceV1(CallServiceV1 callServiceV1) {
         this.callServiceV1 = callServiceV1;
