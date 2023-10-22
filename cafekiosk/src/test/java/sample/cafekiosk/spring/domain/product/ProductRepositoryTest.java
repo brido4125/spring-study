@@ -6,17 +6,15 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static sample.cafekiosk.spring.domain.product.ProductSellingStatus.*;
 import static sample.cafekiosk.spring.domain.product.ProductType.HANDMADE;
 
 @ActiveProfiles("test")
-//@SpringBootTest
+//@SpringBootTest -> 통합 테스트를 위한 어노테이션
 @DataJpaTest // JPA 관련 bean들만 등록해준다.
 class ProductRepositoryTest {
 
@@ -53,7 +51,7 @@ class ProductRepositoryTest {
         List<Product> products = productRepository.findAllBySellingStatusIn(List.of(SELLING, HOLD));
         //then -> List 테스트 할때 아래와 같이 사용하기
         Assertions.assertThat(products).hasSize(2)
-            .extracting("productNumber", "name", "sellingStatus")
+            .extracting("productNumber", "name", "sellingStatus") // Field 명 기입
             .containsExactlyInAnyOrder(
                 Tuple.tuple("001", "아메리카노", SELLING),
                 Tuple.tuple("002", "카페라떼", HOLD)
