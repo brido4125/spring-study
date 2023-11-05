@@ -17,6 +17,7 @@ public class MemberSaveServlet extends HttpServlet {
 
     @Override
     protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        //data parsing
         String username = request.getParameter("username");
         String age = request.getParameter("age");
 

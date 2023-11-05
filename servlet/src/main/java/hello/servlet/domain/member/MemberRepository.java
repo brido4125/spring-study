@@ -9,10 +9,11 @@ public class MemberRepository {
     private static Map<Long, Member> store = new HashMap<>();
     private static Long sequence = 0L;
 
-    private static final MemberRepository instance = new MemberRepository();
+    //singleton
+    private static final MemberRepository INSTANCE = new MemberRepository();
 
     public static MemberRepository getInstance() {
-        return instance;
+        return INSTANCE;
     }
 
     private MemberRepository() {}

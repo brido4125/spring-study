@@ -13,6 +13,8 @@ import java.io.PrintWriter;
 
 @WebServlet(name = "memberFormServlet",urlPatterns = "/servlet/members/new-form")
 public class MemberFormServlet extends HttpServlet {
+
+    //singleton
     private final MemberRepository memberRepository = MemberRepository.getInstance();
 
     @Override
