@@ -16,6 +16,7 @@ public class RequestHeaderServlet extends HttpServlet {
     protected void service(HttpServletRequest request, HttpServletResponse resp) throws ServletException, IOException {
         printStartLine(request);
         printHeaders(request);
+        printHeaderUtils(request);
         printEtc(request);
         printCookie(request,resp);
     }
@@ -53,7 +54,7 @@ public class RequestHeaderServlet extends HttpServlet {
         request.getLocales().asIterator()
                 .forEachRemaining(
                         locale -> System.out.println("locale = " + locale));
-        System.out.println("request.getLocale() = " + request.getLocale());
+        System.out.println("request.getLocale() = " + request.getLocale()); //우선순위가 가장 높은 locale이 get
         System.out.println();
         System.out.println("[Content 편의 조회]");
         System.out.println("request.getContentType() = " +

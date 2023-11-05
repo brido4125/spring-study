@@ -12,11 +12,13 @@ import java.io.IOException;
 public class ResponseHeaderServlet extends HttpServlet {
     @Override
     protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setStatus(HttpServletResponse.SC_OK);
+        response.setStatus(HttpServletResponse.SC_OK);//응답 코드 설정
         content(response);
+        // [response-header]
+        response.setContentType("text/plain;charset=utf-8");
         response.setHeader("Cache-Control", "no-cache,no-store,no-validate");
         response.setHeader("Pragma", "no-cache");
-        response.setHeader("my-header","brido");
+        response.setHeader("my-header","brido"); // 사용자 정의 header
         response.getWriter().write("성공");
         cookie(response);
         redirect(response);

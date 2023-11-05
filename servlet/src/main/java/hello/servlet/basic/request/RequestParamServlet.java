@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.util.Enumeration;
 
 /*
-* 1. parameter 전송 기능
+* 1. URL의 query parameter 전송 기능 -> 검색, 필터, 페이징 등에서 자주 사용되는 방식
 * http://localhost:8080/request-param?username=hong&age=25
 *
 * */

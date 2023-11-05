@@ -14,7 +14,7 @@ public class ResponseHtmlServlet extends HttpServlet {
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/html");
         resp.setCharacterEncoding("utf-8");
-
+        
         PrintWriter writer = resp.getWriter();
         writer.println("<html>");
         writer.println("<body>");
