@@ -1,14 +1,16 @@
 package vol1.springbook;
 
-import vol1.springbook.user.dao.NUserDao;
+import org.junit.jupiter.api.Test;
+import vol1.springbook.user.dao.SimpleConnectionMaker;
 import vol1.springbook.user.dao.UserDao;
 import vol1.springbook.user.domain.User;
 
 import java.sql.SQLException;
 
-public class Test {
-    public static void main(String[] args) throws SQLException, ClassNotFoundException {
-        UserDao dao = new NUserDao();
+public class UserDaoTest {
+    @Test
+    void main() throws SQLException, ClassNotFoundException {
+        UserDao dao = new UserDao(new SimpleConnectionMaker());
 
         User user = new User();
         user.setId("daeback");
@@ -16,6 +18,5 @@ public class Test {
         user.setPassword("hi");
 
         dao.add(user);
-
     }
 }
