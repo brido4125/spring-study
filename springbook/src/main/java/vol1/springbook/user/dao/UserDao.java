@@ -9,10 +9,10 @@ import java.sql.SQLException;
 
 public class UserDao {
 
-    private final SimpleConnectionMaker simpleConnectionMaker;
+    private final ConnectionMaker simpleConnectionMaker;
 
-    public UserDao(SimpleConnectionMaker simpleConnectionMaker) {
-        this.simpleConnectionMaker = simpleConnectionMaker;
+    public UserDao(ConnectionMaker connectionMaker) {
+        this.simpleConnectionMaker = connectionMaker;
     }
 
     public void add(User user) throws ClassNotFoundException, SQLException {
