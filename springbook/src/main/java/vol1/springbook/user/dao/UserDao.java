@@ -38,11 +38,9 @@ public class UserDao {
 
         ResultSet resultSet = ps.executeQuery();
         resultSet.next();
-        User user = new User();
-        user.setId(resultSet.getString("id"));
-        user.setId(resultSet.getString("name"));
-        user.setId(resultSet.getString("password"));
-
+        User user = new User(resultSet.getString("id"),
+            resultSet.getString("name"),
+            resultSet.getString("password"));
         resultSet.close();
         ps.close();
         connection.close();

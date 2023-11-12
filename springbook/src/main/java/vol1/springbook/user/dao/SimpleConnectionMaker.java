@@ -8,7 +8,7 @@ public class SimpleConnectionMaker implements ConnectionMaker {
     public Connection makeNewConnection() throws ClassNotFoundException, SQLException {
         Class.forName("com.mysql.jdbc.Driver");
         Connection connection = DriverManager.getConnection(
-            "jdbc:mysql://localhost/springBook", "spring", "book");
+            "jdbc:mysql://localhost/springbook", "root", "hcshcs");
         return connection;
     }
 }
