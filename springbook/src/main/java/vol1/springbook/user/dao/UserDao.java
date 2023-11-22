@@ -1,5 +1,6 @@
 package vol1.springbook.user.dao;
 
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import vol1.springbook.user.domain.User;
 
 import java.sql.Connection;
@@ -8,20 +9,23 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class UserDao {
-    private static UserDao INSTANCE;
 
     private final ConnectionMaker simpleConnectionMaker;
 
-    private UserDao(ConnectionMaker connectionMaker) {
+    public UserDao(ConnectionMaker connectionMaker) {
         this.simpleConnectionMaker = connectionMaker;
     }
 
-    public static synchronized UserDao getInstance() {
-        if (INSTANCE == null) {
-            INSTANCE = new UserDao(??);
-        }
-        return INSTANCE;
-    }
+    // 의존성 검색
+//    public UserDao() {
+//        DaoFactory daoFactory = new DaoFactory();
+//        this.simpleConnectionMaker = daoFactory.connectionMaker();
+//    }
+
+//    public UserDao() {
+//        AnnotationConfigApplicationContext ac = new AnnotationConfigApplicationContext(DaoFactory.class);
+//        simpleConnectionMaker  = ac.getBean("connectionMaker", ConnectionMaker.class);
+//    }
 
     public void add(User user) throws ClassNotFoundException, SQLException {
         Connection connection = simpleConnectionMaker.makeNewConnection();
