@@ -24,7 +24,7 @@ public class MvcMemberSaveServlet extends HttpServlet {
         Member member = new Member(username, age);
         memberRepository.save(member);
 
-        //Model에 데이터 보관하기
+        //Model에 데이터 보관하기 -> 해당 모델에 저장된 attribute를 view에서 사용
         request.setAttribute("member",member);
 
         String viewPath = "/WEB-INF/views/save-result.jsp";
