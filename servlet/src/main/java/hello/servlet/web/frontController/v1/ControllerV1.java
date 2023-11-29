@@ -6,5 +6,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public interface ControllerV1 {
+    //서블릿과 동일한 시그니쳐
     void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
 }
