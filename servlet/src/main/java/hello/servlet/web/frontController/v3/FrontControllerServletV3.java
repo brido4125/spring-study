@@ -39,8 +39,10 @@ public class FrontControllerServletV3 extends HttpServlet {
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);
             return;
         }
+        //requset에 담긴 parameter들은 전부 옮겨줘야함
         Map<String, String> paramMap = createParamMap(request);
 
+        //view의 논리 이름만 가져옴 -> 이를 물리 경로로 바꿔줘야함
         ModelView modelView = controller.process(paramMap);
         String viewName = modelView.getViewName();
 

@@ -21,10 +21,15 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @WebServlet(name = "frontControllerServletV5", urlPatterns = "/front-controller/v5/*")
 public class FrontControllerServletV5 extends HttpServlet {
+
+    //기존에는 특정 구현 타입이 value의 타입으로 설정 되었지만,
+    //V5에서는 여러 타입의 value 타입을 받을 수 있어야 하기에 Object로 설정
     private final Map<String, Object> handlerMappingMap = new HashMap<>();
+    //adaptor 보관용 List
     private final List<MyHandlerAdapter> handlerAdapters = new ArrayList<>();
 
     public FrontControllerServletV5() {
@@ -43,6 +48,7 @@ public class FrontControllerServletV5 extends HttpServlet {
         handlerMappingMap.put("/front-controller/v5/v4/members", new MemberListControllerV4());
     }
 
+    //직접 초기화 HandlerAdapter 인스턴스를 주입시켜주면서 초기화
     private void initHandlerAdapters() {
         handlerAdapters.add(new ControllerV3HandlerAdapter());
         handlerAdapters.add(new ControllerV4HandlerAdapter());
@@ -58,23 +64,21 @@ public class FrontControllerServletV5 extends HttpServlet {
         }
         MyHandlerAdapter adaptor = getHandlerAdaptor(handler);
         ModelView modelView = adaptor.handle(request, response, handler);
+
         String viewPath = modelView.getViewName();
         MyView myView = viewResolver(viewPath);
+
         myView.render(modelView.getModel(),request, response);
     }
 
     private Object getHandler(HttpServletRequest request) {
-        String requestURI = request.getRequestURI();
-        return handlerMappingMap.get(requestURI);
+        return handlerMappingMap.get(request.getRequestURI());
     }
 
     private MyHandlerAdapter getHandlerAdaptor(Object handler) {
-        for (MyHandlerAdapter handlerAdapter : handlerAdapters) {
-            if (handlerAdapter.supports(handler)) {
-                return handlerAdapter;
-            }
-        }
-        throw new IllegalArgumentException("handler adaptor 찾을 수 없음" + handler);
+        return handlerAdapters.stream()
+            .filter(myHandlerAdapter -> myHandlerAdapter.supports(handler))
+            .findAny().orElseThrow(() -> new IllegalArgumentException("handler adaptor 찾을 수 없음" + handler));
     }
 
     private MyView viewResolver(String viewName) {

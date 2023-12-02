@@ -21,9 +21,10 @@ public class ControllerV4HandlerAdapter implements MyHandlerAdapter {
     public ModelView handle(HttpServletRequest request, HttpServletResponse response, Object handler) throws ServletException, IOException {
         ControllerV4 controllerV4 = (ControllerV4) handler;
         Map<String, String> paramMap = createParamMap(request);
-        HashMap<String, Object> model = new HashMap<>();
+        HashMap<String, Object> model = new HashMap<>();//ModelView 객체에 있던 Model 생성
 
         String viewName = controllerV4.process(paramMap, model);
+        //Adpator에서 viewName을 통해 Modelview를 생성해서 리턴
         ModelView modelView = new ModelView(viewName);
         modelView.setModel(model);
         return modelView;

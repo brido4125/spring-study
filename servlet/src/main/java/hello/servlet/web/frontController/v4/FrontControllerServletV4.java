@@ -1,11 +1,6 @@
 package hello.servlet.web.frontController.v4;
 
-import hello.servlet.web.frontController.ModelView;
 import hello.servlet.web.frontController.MyView;
-import hello.servlet.web.frontController.v3.ControllerV3;
-import hello.servlet.web.frontController.v3.controller.MemberFormControllerV3;
-import hello.servlet.web.frontController.v3.controller.MemberListControllerV3;
-import hello.servlet.web.frontController.v3.controller.MemberSaveControllerV3;
 import hello.servlet.web.frontController.v4.controller.MemberFormControllerV4;
 import hello.servlet.web.frontController.v4.controller.MemberListControllerV4;
 import hello.servlet.web.frontController.v4.controller.MemberSaveControllerV4;
@@ -43,6 +38,9 @@ public class FrontControllerServletV4 extends HttpServlet {
         Map<String, Object> model = new HashMap<>(); // V3 대비 추가
         String viewPath = controller.process(paramMap, model);
 
+
+        //V3에서는 controller 구현체가 ModelView를 만들어서 리턴
+        //V4에서는 model이라는 Map의 refer를 전달
         MyView myView = viewResolver(viewPath);
         myView.render(model,request,response);
     }
