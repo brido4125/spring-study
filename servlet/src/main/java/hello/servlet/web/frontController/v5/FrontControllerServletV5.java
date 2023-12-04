@@ -10,7 +10,10 @@ import hello.servlet.web.frontController.v4.controller.MemberListControllerV4;
 import hello.servlet.web.frontController.v4.controller.MemberSaveControllerV4;
 import hello.servlet.web.frontController.v5.adapter.ControllerV3HandlerAdapter;
 import hello.servlet.web.frontController.v5.adapter.ControllerV4HandlerAdapter;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 
+import javax.annotation.Resource;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -24,28 +27,22 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @WebServlet(name = "frontControllerServletV5", urlPatterns = "/front-controller/v5/*")
+@Slf4j
 public class FrontControllerServletV5 extends HttpServlet {
 
     //기존에는 특정 구현 타입이 value의 타입으로 설정 되었지만,
     //V5에서는 여러 타입의 value 타입을 받을 수 있어야 하기에 Object로 설정
-    private final Map<String, Object> handlerMappingMap = new HashMap<>();
+    private Map<String, Object> handlerMappingMap;
     //adaptor 보관용 List
     private final List<MyHandlerAdapter> handlerAdapters = new ArrayList<>();
 
     public FrontControllerServletV5() {
-        initHandlerMappingMap();
         initHandlerAdapters();
     }
 
-    private void initHandlerMappingMap() {
-        handlerMappingMap.put("/front-controller/v5/v3/members/new-form", new MemberFormControllerV3());
-        handlerMappingMap.put("/front-controller/v5/v3/members/save", new MemberSaveControllerV3());
-        handlerMappingMap.put("/front-controller/v5/v3/members", new MemberListControllerV3());
-
-        //V4추가
-        handlerMappingMap.put("/front-controller/v5/v4/members/new-form", new MemberFormControllerV4());
-        handlerMappingMap.put("/front-controller/v5/v4/members/save", new MemberSaveControllerV4());
-        handlerMappingMap.put("/front-controller/v5/v4/members", new MemberListControllerV4());
+    @Resource
+    public void setHandlerMappingMap(Map<String, Object> handlerMappingMap) {
+        this.handlerMappingMap = handlerMappingMap;
     }
 
     //직접 초기화 HandlerAdapter 인스턴스를 주입시켜주면서 초기화
@@ -86,5 +83,7 @@ public class FrontControllerServletV5 extends HttpServlet {
     }
 
 }
+
+//아래 annotation이 frontControllerServletV5이라는 이름으로 빈 등록 하면서 생성자 호출
 
 
