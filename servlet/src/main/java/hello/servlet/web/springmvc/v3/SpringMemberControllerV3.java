@@ -15,7 +15,7 @@ public class SpringMemberControllerV3 {
 
     @GetMapping("/new-form")
     public String newForm() {
-        return "new-form";
+        return "new-form";//ModelAndView 대신 문자열 반환하여도 가능
     }
 
     @GetMapping
