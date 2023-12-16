@@ -15,7 +15,7 @@ public class MappingController {
     @RequestMapping(value = "/hello-basic", method = RequestMethod.GET)
     public String basic() {
         log.info("hello-basic");
-        return "OK";
+        return "OK"; //반환되는 문자열을 HTTP 응답 바디에 넣어서 리턴
     }
 
     @GetMapping("/mapping-get")
