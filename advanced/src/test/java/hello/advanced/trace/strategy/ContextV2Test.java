@@ -26,6 +26,8 @@ public class ContextV2Test {
         log.info("resultTime={}", resultTime);
     }
 
+
+    //execute를 호출하는 시점에 parameter로 strategy를 넘겨줌
     @Test
     void strategyV1() {
         ContextV2 context = new ContextV2();

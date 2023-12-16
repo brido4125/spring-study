@@ -11,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class ContextV2 {
 
+    //전략을 인자로 호출 시점에 주입 받는 형태 -> Template Callback (spring 내부에서만 사용되는 디자인 패턴)
     public void excute(Strategy strategy) {
         long startTime = System.currentTimeMillis();
         //biz logic start

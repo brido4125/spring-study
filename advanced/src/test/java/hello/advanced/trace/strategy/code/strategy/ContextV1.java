@@ -13,7 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class ContextV1 {
-    private final Strategy strategy;
+    private final Strategy strategy;//Context는 strategy 인터페이스에만 의존하고 있다 -> 내부 구현체에 대한 정보 필요 없음
 
     public ContextV1(Strategy strategy) {
         this.strategy = strategy;
