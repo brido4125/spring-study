@@ -14,6 +14,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
 
 
+//@Import -> 해당 Config 클래스를 스프링 빈으로 등록한다.
 //@Import(InterfaceProxyConfig.class)
 //@Import(ConcreteProxyConfig.class)
 //@Import(DynamicProxyBasicConfig.class)
@@ -21,7 +22,7 @@ import org.springframework.context.annotation.Import;
 //@Import(ProxyFactoryConfigV2.class)
 //@Import(BeanPostProcessorConfig.class)
 @Import(AopConfig.class)
-@SpringBootApplication(scanBasePackages = "hello.proxy.app") //주의
+@SpringBootApplication(scanBasePackages = "hello.proxy.app") //주의 app 패키지 하위한 컴포넌트 스캔의 대상으로 변경
 public class ProxyApplication {
 
 	public static void main(String[] args) {

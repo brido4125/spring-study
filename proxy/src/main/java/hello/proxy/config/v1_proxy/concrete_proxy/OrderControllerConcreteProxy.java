@@ -1,10 +1,10 @@
 package hello.proxy.config.v1_proxy.concrete_proxy;
 
 import hello.proxy.app.v2.OrderControllerV2;
-import hello.proxy.app.v2.OrderServiceV2;
 import hello.proxy.trace.TraceStatus;
 import hello.proxy.trace.logtrace.LogTrace;
 
+//OrderControllerV2
 public class OrderControllerConcreteProxy extends OrderControllerV2 {
     private final OrderControllerV2 target;
     private final LogTrace logTrace;

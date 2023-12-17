@@ -6,7 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class CacheProxy implements Subject {
 
-    private final Subject target;// 실제 Proxy가 요청을 전해야하는 대상, Proxy가 대신 및 호출하는 대상
+    private final Subject target;// 실제 Proxy가 요청을 전해야하는 대상, Proxy가 대신 및 호출하는 대상, 여기서는 RealServer
 
     private String cacheValue;
 

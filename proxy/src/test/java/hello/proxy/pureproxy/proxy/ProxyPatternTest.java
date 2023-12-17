@@ -21,8 +21,9 @@ public class ProxyPatternTest {
     @Test
     void cacheProxyTest() {
         RealSubject sub = new RealSubject();
-        CacheProxy cacheProxy = new CacheProxy(sub);
+        CacheProxy cacheProxy = new CacheProxy(sub);//접근 제어의 목적으로 사용되는 proxy
         ProxyPatternClient client = new ProxyPatternClient(cacheProxy); // proxy 주입
+        //실제 객체는 한번만 호출
         client.excute();
         client.excute();
         client.excute();

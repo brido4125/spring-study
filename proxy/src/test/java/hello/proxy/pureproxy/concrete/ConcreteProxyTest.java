@@ -9,7 +9,7 @@ public class ConcreteProxyTest {
 
 
     /*
-    * ConcreteLogic는 구체 클래스 not interface
+    * ConcreteLogic는 구체 클래스(not interface)
     * 다음 테스트는 해당 구체클래스에 프록시 적용
     * */
     @Test
@@ -22,7 +22,7 @@ public class ConcreteProxyTest {
     @Test
     void proxyWithConcreteClass() {
         ConcreteLogic concreteLogic = new ConcreteLogic();
-        TimeProxy proxy = new TimeProxy(concreteLogic);
+        TimeProxy proxy = new TimeProxy(concreteLogic);//실제 호출 대상을 인자로
         // Client의 생성자에 부모, 자식 타입 모두 주입 가능
         ConcreteClient concreteClient = new ConcreteClient(proxy);
 
