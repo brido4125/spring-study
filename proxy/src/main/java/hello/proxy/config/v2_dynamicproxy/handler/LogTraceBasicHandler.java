@@ -20,6 +20,10 @@ public class LogTraceBasicHandler implements InvocationHandler {
         this.logTrace = logTrace;
     }
 
+    /*
+    * Proxy의 모든 method에 invoke 내부의 로직이 적용되는 문제가 존재함 -> Filter 사용해서 nolog() 메서드 처리
+    * */
+
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
         TraceStatus status = null;

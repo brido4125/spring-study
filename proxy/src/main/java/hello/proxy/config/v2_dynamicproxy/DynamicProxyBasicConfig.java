@@ -12,7 +12,8 @@ import java.lang.reflect.Proxy;
 public class DynamicProxyBasicConfig {
 
     /*
-    * 동적 Proxy 사용해서 Procy 객체 생성
+    * 동적 Proxy 사용해서 Proxy 객체 생성
+    * 기존의 v1_proxy 패키지에서처럼 모든 Proxy 클래스를 생성하지 않아도 Proxy 객체 생성 가능
     * */
 
     @Bean
