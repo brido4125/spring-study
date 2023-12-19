@@ -4,7 +4,6 @@ package hello.proxy.jdkdynamic;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 @Slf4j
@@ -51,11 +50,16 @@ public class ReflectionTest {
 
     @Test
     void reflection2() throws Exception {
-        //클래스 정보
+        //클래스 meta 정보 획득
         //내부 클래스는 구분을 위해 $를 사용함
         Class classHello = Class.forName("hello.proxy.jdkdynamic.ReflectionTest$Hello");
 
         Hello target = new Hello();
+
+        /*
+        * 공통적으로 사용되는 로직은 dynamicCall로 메서드화 시킬 수 있음
+        * classHello.getMethod("잘못된함수명") -> 컴파일 타임에 해당 에러 잡아낼 수 없음, RuntimeException 발생
+        * */
 
         //callA 메서드 정보
         Method callA = classHello.getMethod("callA");
@@ -66,10 +70,10 @@ public class ReflectionTest {
         dynamicCall(callB, target);
     }
 
-    private void dynamicCall(Method method, Object target) throws Exception{
+    private void dynamicCall(Method method, Object target) throws Exception {
         log.info("start");
         Object result = method.invoke(target);
-        log.info("result1: {}", result);
+        log.info("result: {}", result);
     }
 
     @Slf4j
