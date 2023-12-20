@@ -10,6 +10,7 @@ import java.lang.reflect.Method;
 
 /*
 * JDK Dynamic Proxy의 Handler와 동일한 기능을 하는 MethodInterceptor 구현
+* JDK Dynamic Proxy에서는 InvocationHandler
 * */
 @Slf4j
 public class TimeMethodInterceptor implements MethodInterceptor {

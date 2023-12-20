@@ -22,7 +22,7 @@ public class CglibTest {
     void cglib() {
         ConcreteService target = new ConcreteService();
         Enhancer enhancer = new Enhancer();
-        enhancer.setSuperclass(ConcreteService.class);
+        enhancer.setSuperclass(ConcreteService.class);//CGLIB은 구체 클래스 기반의 프록시 생성 가능
         enhancer.setCallback(new TimeMethodInterceptor(target));
         //생성 되는 proxy 클래스는 ConcreteService를 상속받는다.
         ConcreteService proxy = (ConcreteService) enhancer.create();
