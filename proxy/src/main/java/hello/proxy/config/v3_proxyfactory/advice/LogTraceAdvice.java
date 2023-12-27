@@ -7,6 +7,11 @@ import org.aopalliance.intercept.MethodInvocation;
 
 import java.lang.reflect.Method;
 
+
+/*
+* Advice : 프록시에 적용하는 부가 기능 로직
+* CGLIB가 사용하는 MethodInterceptor와는 다른 패키지
+* */
 public class LogTraceAdvice implements MethodInterceptor {
 
     private final LogTrace logTrace;
@@ -22,7 +27,7 @@ public class LogTraceAdvice implements MethodInterceptor {
             Method method = invocation.getMethod();
             String methodString  = method.getDeclaringClass().getSimpleName() + "." + method.getName() + "()";
             status = logTrace.begin(methodString);
-            //로직 호출
+            //타겟의 로직 호출
             Object result = invocation.proceed();
             logTrace.end(status);
             return result;
