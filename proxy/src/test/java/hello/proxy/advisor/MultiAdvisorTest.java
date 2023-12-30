@@ -48,7 +48,7 @@ public class MultiAdvisorTest {
         ServiceInterface target = new ServiceImpl();
         ProxyFactory proxyFactory = new ProxyFactory(target);
         /*
-        * addAdvisor의 순서가 중요
+        * addAdvisor의 순서가 중요 advisor2 -> advisor1 -> target 순으로 호출됨
         * */
         proxyFactory.addAdvisor(advisor2);
         proxyFactory.addAdvisor(advisor1);

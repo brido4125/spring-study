@@ -8,6 +8,7 @@ import org.aopalliance.intercept.MethodInvocation;
 
 /*
 * JDK 동적 proxy의 InvocationHandler와 CGLIB이 제공하는 MethodInterceptor
+* 의 역할을 수행하는 클래스, 인프라 로직이 구현되는 곳
 * */
 @Slf4j
 public class TimeAdvice implements MethodInterceptor {
