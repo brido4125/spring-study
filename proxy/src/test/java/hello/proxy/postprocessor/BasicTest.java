@@ -13,10 +13,12 @@ public class BasicTest {
 
     @Test
     void basicConfig() {
+        //스프링 컨테이너에서 빈을 직접 등록
         ApplicationContext ac = new AnnotationConfigApplicationContext(BasicConfig.class);
         A a = ac.getBean("beanA", A.class);
         a.helloA();
 
+        //B 오브젝트는 스프링 빈으로 등록되지 않음
         Assertions.assertThrows(NoSuchBeanDefinitionException.class, () -> ac.getBean("beanB", B.class));
     }
 
@@ -37,7 +39,6 @@ public class BasicTest {
 
     @Configuration
     static class BasicConfig {
-
         @Bean(name = "beanA")
         public A a() {
             return new A();

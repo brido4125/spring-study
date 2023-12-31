@@ -12,6 +12,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
+
+//spring에서 제공해주는 빈 후처리기를 사용해서 프록시 생성 -> Advisor만 등록해주면 끝남
 @Configuration
 @Import({AppV1Config.class, AppV2Config.class})
 public class AutoProxyConfig {

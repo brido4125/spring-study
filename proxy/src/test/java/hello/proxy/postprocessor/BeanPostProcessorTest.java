@@ -38,7 +38,7 @@ public class BeanPostProcessorTest {
 
 
     /*
-    * 빈 후처리기 사용 -> BeanPostProcessor 구현
+    * 빈 후처리기 사용 -> BeanPostProcessor 인터페이스 구현
     * */
     @Slf4j
     static class AToBPostProcessor implements BeanPostProcessor {
@@ -61,6 +61,7 @@ public class BeanPostProcessorTest {
             return new A();
         }
 
+        //빈 후처리기도 스프링 빈으로 등록하여 사용
         @Bean
         public AToBPostProcessor aToBPostProcessor() {
             return new AToBPostProcessor();
