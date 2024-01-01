@@ -65,6 +65,7 @@ public class ProxyFactoryTest {
     void proxyTargetClass() {
         ServiceInterface target = new ServiceImpl();
         ProxyFactory proxyFactory = new ProxyFactory(target);
+        //인터페이스가 있지만, CGLIB을 사용하려고 하는 경우 사용되는 메서드
         proxyFactory.setProxyTargetClass(true); // CGLIB를 통해 proxy 기능 적용, 구체 클래스를 상속을 받아서 CGLIB 사용
         proxyFactory.addAdvice(new TimeAdvice());
         ServiceInterface proxy = (ServiceInterface) proxyFactory.getProxy();

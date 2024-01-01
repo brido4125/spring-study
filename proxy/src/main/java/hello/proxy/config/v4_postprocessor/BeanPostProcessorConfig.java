@@ -19,7 +19,7 @@ import org.springframework.context.annotation.Import;
 * */
 @Configuration
 @Slf4j
-@Import({AppV1Config.class, AppV2Config.class}) // v1, v2는 수동 등록 필요
+@Import({AppV1Config.class, AppV2Config.class}) // v1, v2는 수동 등록 필요, 해당 컨피그의 스프링 빈들에 대해 빈 후처리기가 프록시 적용 여부 결정
 public class BeanPostProcessorConfig {
 
     @Bean

@@ -1,6 +1,5 @@
 package hello.proxy.config.v3_proxyfactory;
 
-import hello.proxy.app.v1.*;
 import hello.proxy.app.v2.OrderControllerV2;
 import hello.proxy.app.v2.OrderRepositoryV2;
 import hello.proxy.app.v2.OrderServiceV2;
@@ -14,6 +13,9 @@ import org.springframework.aop.support.NameMatchMethodPointcut;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+/*
+* 구체 클래스 기반 프록시를 생성하는 V2
+* */
 @Slf4j
 @Configuration
 public class ProxyFactoryConfigV2 {
