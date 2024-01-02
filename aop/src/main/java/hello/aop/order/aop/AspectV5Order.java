@@ -6,11 +6,16 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.springframework.core.annotation.Order;
 
+
+/*
+* Advice 순서 지정 -> 클래스 단위로 @Order 지정
+* */
 @Slf4j
 public class AspectV5Order {
 
     //@Around가 붙은 advice를 @Aspect가 붙은 inner 클래스화 -> 하나의 Inner Class가 하나의 advisor
 
+    //순서 지정을 위해서 내부 클래스 생성
     @Aspect
     @Order(2)
     public static class LogAspect {
@@ -21,6 +26,7 @@ public class AspectV5Order {
         }
     }
 
+    //순서 지정을 위해서 내부 클래스 생성
     @Aspect
     @Order(1) // 숫자가 낮을수록 우선순위가 높음
     public static class TxAspect {

@@ -30,6 +30,7 @@ public class AspectV3 {
         return joinPoint.proceed();
     }
 
+    //hello.aop.order 패키지와 하위 패키지이면서 클래스 이름 패턴이 *Service인거
     @Around("allService() && allOrder()") //PointCut은 and, or ,not 연산자를 사용하여 조합이 가능하다.
     public Object doTx(ProceedingJoinPoint joinPoint) throws Throwable {
         try {
