@@ -8,7 +8,7 @@ import org.aspectj.lang.annotation.*;
 
 /*
 * @Around : 메서드 호출 전후에 수행, 쉽게 말해 proxy로 메서드의 모든 것을 조작 가능
-* ProceedingJoinPoint : target을 호출할 수 있음
+* ProceedingJoinPoint : 다음에 호츌될 다른 advice나 target을 호출할 수 있음
 * proceed()는 여러번 호출 가능함 -> retry 가능
 * */
 
@@ -16,6 +16,7 @@ import org.aspectj.lang.annotation.*;
 @Aspect
 public class AspectV6Advice {
     //@Around는 아래의 모든 구간에 Proxy의 기능을 weaving할 수 있음
+    //나머지 4개의 어노테이션은 @Around의 범위를 세분화 시킨 범위에서 위빙 하도록 해준다.
     @Around("Pointcuts.orderAndService()") //PointCut은 and, or ,not 연산자를 사용하여 조합이 가능하다.
     public Object doTx(ProceedingJoinPoint joinPoint) throws Throwable {
         try {
@@ -51,7 +52,7 @@ public class AspectV6Advice {
     * */
     @AfterReturning(value = "Pointcuts.orderAndService()", returning = "result")
     public void doAfterReturning(JoinPoint joinPoint, Object result) {
-        log.info("[Result] {}", result);//@AfterReturning은 리턴값을 수정할 수 없다. -> 조작만 가능
+        log.info("[Result] {}", result);//@AfterReturning은 리턴값을 수정할 수 없다. -> 읽기만 가능
         log.info("[AfterReturning] {}", joinPoint.getSignature());
     }
 

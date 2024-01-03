@@ -10,7 +10,7 @@ import org.aspectj.lang.annotation.Aspect;
 public class AspectV1 {
     /*
     * * hello.aop.order..*(..)) : hello.aop.order 패키지와 그 하위 패키지에 속한 모든 메서드를 지정
-    * AspectJ 포인트컷 표현식이다
+    * @Aroud 내의 String 값은 AspectJ 포인트컷 표현식이다
     * */
     @Around("execution(* hello.aop.order..*(..))")
     public Object doLog(ProceedingJoinPoint joinPoint) throws Throwable {
