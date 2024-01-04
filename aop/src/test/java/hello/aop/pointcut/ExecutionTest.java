@@ -14,6 +14,10 @@ public class ExecutionTest {
     AspectJExpressionPointcut pointcut = new AspectJExpressionPointcut();
     Method helloMethod; //메서드 메타정보
 
+    /*
+    * execution(접근제어자 반환타입 선언타입메서드이름(파라미터) 예외)
+    * */
+
     @BeforeEach
     public void init() throws NoSuchMethodException {
         //Reflection 단계에서 Method 정보를 가져온다.
@@ -49,6 +53,10 @@ public class ExecutionTest {
         Assertions.assertThat(pointcut.matches(helloMethod, MemberServiceImpl.class)).isTrue();
     }
 
+
+    /*
+    * 메서드 이름으로 매칭
+    * */
     @Test
     void nameMatch() {
         pointcut.setExpression("execution(* hello(..)");
@@ -57,7 +65,7 @@ public class ExecutionTest {
 
 
     /*
-    * Pattern 매칭
+    * 메서드 이름을 Pattern 매칭
     * hello -> he*를 통해서 매칭
     * */
     @Test
@@ -118,6 +126,7 @@ public class ExecutionTest {
 
     /*
     * 부모 타입으로도 타입 매칭 가능
+    * 상위 타입을 선언해도 해당 자식 타입은 매칭된다.
     * */
     @Test
     void typeMatchSuperType() {
@@ -161,7 +170,7 @@ public class ExecutionTest {
 
 
     /*
-    * 정확하게 한개의 파라미터만 허용
+    * 정확하게 한개의 파라미터만 허용, 모든 타입 허용
     * */
     @Test
     void argsMatchingOneArgs() {
@@ -171,7 +180,7 @@ public class ExecutionTest {
 
 
     /*
-    * 숫자와 상관없이 모든 파라미터 허용
+    * 숫자와 상관없이 모든 파라미터 허용, 모든 타입을 허용 -> (..) 사용
     * */
     @Test
     void argsMatchingAll() {
