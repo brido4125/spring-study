@@ -12,6 +12,7 @@ public class CallServiceV0 {
         internal(); //내부 메서드 호출
     }
 
+    //내부에서만 호출되는 메서드
     public void internal() {
         log.info("call internal");
     }

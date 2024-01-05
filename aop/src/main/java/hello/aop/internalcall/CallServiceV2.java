@@ -14,6 +14,7 @@ public class CallServiceV2 {
 
     //private final ApplicationContext ac;
 
+    //원하는 타입의 스프링 빈을 가져올 수 있다 -> 이러한 기능에 특화된 객체가 ObjectProvider
     private final ObjectProvider<CallServiceV2> callServiceProvider;
 
     public CallServiceV2(ObjectProvider<CallServiceV2> callServiceProvider) {
