@@ -11,6 +11,5 @@ public class ProxyDIAspect {
     @Before("execution(* hello.aop..*.*(..))")
     public void doTrace(JoinPoint joinPoint) {
         log.info("proxy di advice : {}", joinPoint.getSignature());
-
     }
 }

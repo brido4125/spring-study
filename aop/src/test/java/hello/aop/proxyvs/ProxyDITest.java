@@ -9,7 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
 
 @Slf4j
-@SpringBootTest
+@SpringBootTest(properties = {"spring.aop.proxy-target-class=false"}) //JDK 동적 프록시적용
 @Import(ProxyDITest.class)
 public class ProxyDITest {
 
@@ -21,6 +21,8 @@ public class ProxyDITest {
 
     @Test
     void go() {
-        log.info("memberService class = {}", memberService);
+        log.info("memberService class = {}", memberService.getClass());
+        log.info("memberService Impl class = {}", memberServiceImpl.getClass());
+        memberService.hello("hello");
     }
 }
