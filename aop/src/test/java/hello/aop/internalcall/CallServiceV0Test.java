@@ -14,10 +14,15 @@ import org.springframework.context.annotation.Import;
 class CallServiceV0Test {
 
     @Autowired
-    CallServiceV0 callServiceV0;
+    CallServiceV0 callServiceV0;//proxy 적용됨
 
     @Test
     void external() {
+        /*
+        * external() 내부에서 호출되는 internal() 로직은 AOP에 의해서 프록시를 거치치 않고 호출된다.
+        * 즉, Advice가 적용되지 않는다.
+        * -> Proxy 방식의 한계점이다.
+        * */
         callServiceV0.external();
     }
 
