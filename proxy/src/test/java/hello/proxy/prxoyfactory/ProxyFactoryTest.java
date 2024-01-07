@@ -4,6 +4,8 @@ import hello.proxy.common.advice.TimeAdvice;
 import hello.proxy.common.service.ConcreteService;
 import hello.proxy.common.service.ServiceImpl;
 import hello.proxy.common.service.ServiceInterface;
+import hello.proxy.jdkdynamic.code.A;
+import hello.proxy.jdkdynamic.code.AImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -73,6 +75,22 @@ public class ProxyFactoryTest {
         log.info("proxyClass = {} ", proxy.getClass());
 
         proxy.save();
+
+        assertThat(AopUtils.isAopProxy(proxy)).isTrue();
+        assertThat(AopUtils.isJdkDynamicProxy(proxy)).isFalse();
+        assertThat(AopUtils.isCglibProxy(proxy)).isTrue();
+    }
+
+    @Test
+    void logAdviceTest() {
+        A target = new AImpl();
+        ProxyFactory proxyFactory = new ProxyFactory(target);
+        proxyFactory.addAdvice(new LogAdvice());
+        A proxy = (A) proxyFactory.getProxy();
+        log.info("targetClass : {} ", target.getClass());
+        log.info("proxyClass = {} ", proxy.getClass());
+
+        proxy.call();
 
         assertThat(AopUtils.isAopProxy(proxy)).isTrue();
         assertThat(AopUtils.isJdkDynamicProxy(proxy)).isFalse();
