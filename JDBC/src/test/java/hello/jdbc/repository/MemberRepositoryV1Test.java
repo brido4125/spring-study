@@ -1,8 +1,7 @@
 package hello.jdbc.repository;
 
 import com.zaxxer.hikari.HikariDataSource;
-import com.zaxxer.hikari.util.DriverDataSource;
-import hello.jdbc.donmain.Member;
+import hello.jdbc.domain.Member;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;

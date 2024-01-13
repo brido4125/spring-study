@@ -1,6 +1,6 @@
 package hello.jdbc.exception.translator;
 
-import hello.jdbc.donmain.Member;
+import hello.jdbc.domain.Member;
 import hello.jdbc.repository.ex.MyDbException;
 import hello.jdbc.repository.ex.MyDuplicateKeyException;
 import lombok.RequiredArgsConstructor;

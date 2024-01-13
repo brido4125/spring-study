@@ -1,8 +1,7 @@
 package hello.jdbc.repository;
 
-import hello.jdbc.donmain.Member;
+import hello.jdbc.domain.Member;
 
-import javax.sql.DataSource;
 import java.sql.SQLException;
 
 public interface MemberRepositoryEx {

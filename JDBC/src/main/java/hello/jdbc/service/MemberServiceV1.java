@@ -1,6 +1,6 @@
 package hello.jdbc.service;
 
-import hello.jdbc.donmain.Member;
+import hello.jdbc.domain.Member;
 import hello.jdbc.repository.MemberRepositoryV1;
 import lombok.RequiredArgsConstructor;
 

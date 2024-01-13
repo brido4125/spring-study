@@ -1,8 +1,6 @@
 package hello.jdbc.repository;
 
-import hello.jdbc.donmain.Member;
-
-import java.sql.SQLException;
+import hello.jdbc.domain.Member;
 
 public interface MemberRepository {
     Member save(Member member);

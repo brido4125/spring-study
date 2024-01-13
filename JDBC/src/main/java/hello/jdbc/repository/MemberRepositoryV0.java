@@ -1,12 +1,16 @@
 package hello.jdbc.repository;
 
 import hello.jdbc.connection.DBConnectionUtil;
-import hello.jdbc.donmain.Member;
+import hello.jdbc.domain.Member;
 import lombok.extern.slf4j.Slf4j;
 
 import java.sql.*;
 import java.util.NoSuchElementException;
 
+
+/*
+* JDBC -> DriverManager 사용
+* */
 @Slf4j
 public class MemberRepositoryV0 {
     public Member save(Member member) throws SQLException {

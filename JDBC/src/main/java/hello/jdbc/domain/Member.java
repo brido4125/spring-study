@@ -1,9 +1,9 @@
-package hello.jdbc.donmain;
+package hello.jdbc.domain;
 
 import lombok.Data;
 
 @Data
-public class Member {
+public class  Member {
     private String memberId;
     private int money;
 
