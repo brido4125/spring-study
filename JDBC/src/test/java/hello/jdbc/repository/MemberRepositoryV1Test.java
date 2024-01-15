@@ -27,7 +27,7 @@ class MemberRepositoryV1Test {
         hikariDataSource.setJdbcUrl(URL);
         hikariDataSource.setUsername(USERNAME);
         hikariDataSource.setPassword(PASSWORD);
-        repository = new MemberRepositoryV1(hikariDataSource);
+        repository = new MemberRepositoryV1(hikariDataSource);//MemberRepositoryV1에 DriverManagerDataSource 타입으로 갈아끼울 수 있음
     }
 
     @Test
