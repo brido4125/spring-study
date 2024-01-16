@@ -25,6 +25,15 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class ProxyFactoryTest {
 
     @Test
+    void test() {
+        A target = new AImpl();
+        ProxyFactory proxyFactory = new ProxyFactory(target);
+        proxyFactory.addAdvice(new LogAdvice());
+        A proxy = (A) proxyFactory.getProxy();
+        proxy.call();
+    }
+
+    @Test
     @DisplayName("인터페이스가 있으면 JDK 동적 프록시 사용")
     void interfaceProxy() {
         ServiceInterface target = new ServiceImpl();

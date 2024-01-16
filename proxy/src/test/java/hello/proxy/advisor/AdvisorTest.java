@@ -3,6 +3,9 @@ package hello.proxy.advisor;
 import hello.proxy.common.advice.TimeAdvice;
 import hello.proxy.common.service.ServiceImpl;
 import hello.proxy.common.service.ServiceInterface;
+import hello.proxy.jdkdynamic.code.A;
+import hello.proxy.jdkdynamic.code.AImpl;
+import hello.proxy.prxoyfactory.LogAdvice;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -34,6 +37,16 @@ public class AdvisorTest {
         ServiceInterface proxy = (ServiceInterface) proxyFactory.getProxy();
         proxy.save();
         proxy.find();
+    }
+
+    @Test
+    void test() {
+        A target = new AImpl();
+        ProxyFactory proxyFactory = new ProxyFactory(target);
+        DefaultPointcutAdvisor advisor = new DefaultPointcutAdvisor(Pointcut.TRUE, new LogAdvice()); //항상 참인 PointCut 사용
+        proxyFactory.addAdvisor(advisor);
+        A proxy = (A) proxyFactory.getProxy();
+        proxy.call();
     }
 
     @Test
