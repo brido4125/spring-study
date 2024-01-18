@@ -30,6 +30,7 @@ class MemberServiceV1Test {
         memberServiceV1 = new MemberServiceV1(memberRepositoryV1);
     }
 
+    //테스트 케이스 각각이 수행되고 난 뒤에 실행되는 로직 -> 리소스 정리 로직
     @AfterEach
     void afterEach() throws SQLException {
         memberRepositoryV1.delete(MEMBER_A);
@@ -62,7 +63,7 @@ class MemberServiceV1Test {
         Member memberEx = new Member(MEMBER_EX, 10000);
         memberRepositoryV1.save(memberA);
         memberRepositoryV1.save(memberEx);
-        //when A -> B로 2000원 송금
+        //when A -> EX로 2000원 송금 -> 예외가 발생하는것을 검증
         assertThatThrownBy(() -> memberServiceV1
                 .accountTransfer(memberA.getMemberId(), memberEx.getMemberId(), 2000))
                 .isInstanceOf(IllegalStateException.class);
