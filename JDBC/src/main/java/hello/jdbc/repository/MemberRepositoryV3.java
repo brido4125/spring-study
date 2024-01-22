@@ -118,7 +118,6 @@ public class MemberRepositoryV3 {
         //트랜잭션 동기화를 사용하려면 DataSourceUtils 사용해야함
         DataSourceUtils.releaseConnection(con,dataSource);
     }
-
     private Connection getConnection() throws SQLException {
         //앞서 Connection을 Parameter로 넘겨서 유지하는 방식 대신
         // -> 트랜잭션 동기화 사용하려면 DataSourceUtils 사용

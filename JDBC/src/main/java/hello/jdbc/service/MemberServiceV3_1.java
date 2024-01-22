@@ -12,6 +12,7 @@ import java.sql.SQLException;
 
 /*
 * Transaction - 트랜잭션 매니저 사용
+* DataSource 관련 코드 제거 (JDBC 의존성 제거)
 * */
 @Slf4j
 @RequiredArgsConstructor
@@ -21,8 +22,10 @@ public class MemberServiceV3_1 {
     private final PlatformTransactionManager transactionManager;
 
     public void accountTransfer(String fromId, String toId, int money) throws SQLException {
+        //트랜잭션 시작
         TransactionStatus status = transactionManager.getTransaction(new DefaultTransactionDefinition());
 
+        //release 로직 더 이상 필요 없게됨
         try {
             bizLogic(fromId, toId, money);
             transactionManager.commit(status);
