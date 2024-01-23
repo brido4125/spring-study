@@ -39,6 +39,7 @@ class MemberServiceV3_3Test {
     @Autowired
     private MemberServiceV3_3 memberService;
 
+    // 필요한 빈 등록
     @TestConfiguration
     static class TestConfig{
         @Bean

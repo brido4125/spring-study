@@ -24,7 +24,10 @@ public class MemberServiceV3_2 {
         this.txTemplate = new TransactionTemplate(transactionManager);
     }
 
+    //기존의 accountTransfer가 void 타입이라서
+    //TransactionStatus는 txManager로부터 getTransaction 시 반환받는 오브젝트
     public void accountTransfer(String fromId, String toId, int money) throws SQLException {
+        //executeWithoutResult는 default method이고 해당 메서드가 rollback,commit 호출하는 execute() 추상 메서드 호출함
         txTemplate.executeWithoutResult((status) -> {
             try {
                 bizLogic(fromId, toId, money);

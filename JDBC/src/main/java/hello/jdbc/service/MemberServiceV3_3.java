@@ -9,6 +9,7 @@ import java.sql.SQLException;
 
 /*
 * Transaction - @Transactional AOP
+* Service Layer에는 biz 로직만 남겨 두도록 가능
 * */
 @Slf4j
 public class MemberServiceV3_3 {
