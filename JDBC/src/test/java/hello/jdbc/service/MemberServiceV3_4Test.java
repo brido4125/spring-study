@@ -40,6 +40,7 @@ class MemberServiceV3_4Test {
 
         private final DataSource dataSource;
 
+        //container에 자동으로 등록된 빈 가져옴
         public TestConfig(DataSource dataSource) {
             this.dataSource = dataSource;
         }
