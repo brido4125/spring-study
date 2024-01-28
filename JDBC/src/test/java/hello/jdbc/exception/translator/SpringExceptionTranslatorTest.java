@@ -35,15 +35,16 @@ public class SpringExceptionTranslatorTest {
             Connection connection = dataSource.getConnection();
             PreparedStatement pstmt = connection.prepareStatement(sql);
             pstmt.executeQuery();
-        } catch (SQLException e) {int errorCode = e.getErrorCode();
-            log.info("errorCode = {}", errorCode);
-            log.info("Error",e);
+        } catch (SQLException e) {
+            //DB마다 해당 에러코드는 모두 다르게 설정됨
             assertThat(e.getErrorCode()).isEqualTo(42122);
-
-
+            int errorCode = e.getErrorCode();
+            log.info("errorCode = {}", errorCode);
+            log.info("Error", e);
         }
     }
 
+    //스프링이 제공하는 예외 변환기 사용
     @Test
     void exceptionTranslator() {
         String sql = "select bad grammer";

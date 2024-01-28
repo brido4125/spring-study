@@ -13,6 +13,7 @@ import java.util.NoSuchElementException;
 
 /*
 * SQL ExceptionTranslator 추가
+* 예외 추상화 기능 사용 -> DB 벤더마다 서로 다른 에러코드를 공통 적인 예외로 처리해줌
 * */
 @Slf4j
 public class MemberRepositoryV4_2 implements MemberRepository{
@@ -40,6 +41,8 @@ public class MemberRepositoryV4_2 implements MemberRepository{
             pstmt.executeUpdate();
             return member;
         } catch (SQLException e) {
+            //발생한 체크 예외를 보고 스프링 예외(런타임)로 변경해서 throw
+            //해당 예외들의 최상위 예외는 DataAccessException
             throw translator.translate("save", sql, e);
         } finally {
             closing(con,pstmt,null);
