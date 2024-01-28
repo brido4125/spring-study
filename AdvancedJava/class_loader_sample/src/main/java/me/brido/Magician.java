@@ -10,17 +10,16 @@ import java.io.IOException;
 
 import static net.bytebuddy.matcher.ElementMatchers.named;
 
-public class Magicain {
+public class Magician {
     public static void main(String[] args) throws IOException {
         ClassLoader classLoader = Nike.class.getClassLoader();
         TypePool typePool = TypePool.Default.of(classLoader);
         new ByteBuddy()
-                .redefine(typePool
-                                .describe("me.brido.Nike")
+                .redefine(typePool.describe("me.brido.Nike")
                                 .resolve(),
                         ClassFileLocator.ForClassLoader.of(classLoader))
                 .method(named("out")).intercept(FixedValue.value("Newbalance"))
-                .make().saveIn(new File("/Users/hongchangsub/Desktop/study/spring-study/AdvancedJava/class_loader_sample/target/classes"));
+                .make().saveIn(new File("/Users/jam2in/Desktop/projects/spring-study/AdvancedJava/class_loader_sample/target/classes"));
 
         System.out.println(new Nike().out());
 
