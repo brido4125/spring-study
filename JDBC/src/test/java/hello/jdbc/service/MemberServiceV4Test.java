@@ -15,7 +15,6 @@ import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
 
 import javax.sql.DataSource;
-import java.sql.SQLException;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -61,7 +60,7 @@ class MemberServiceV4Test {
     }
 
     @AfterEach
-    void afterEach() throws SQLException {
+    void afterEach() {
         memberRepository.delete(MEMBER_A);
         memberRepository.delete(MEMBER_B);
         memberRepository.delete(MEMBER_EX);
@@ -77,7 +76,7 @@ class MemberServiceV4Test {
 
     @Test
     @DisplayName("Success")
-    void accountTransfer() throws SQLException {
+    void accountTransfer() {
         //given
         Member memberA = new Member(MEMBER_A, 10000);
         Member memberB = new Member(MEMBER_B, 10000);
@@ -97,7 +96,7 @@ class MemberServiceV4Test {
 
     @Test
     @DisplayName("Fail")
-    void accountTransferFail() throws SQLException {
+    void accountTransferFail() {
         //given
         Member memberA = new Member(MEMBER_A, 10000);
         Member memberEx = new Member(MEMBER_EX, 10000);

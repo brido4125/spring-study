@@ -26,7 +26,7 @@ public class MemberRepositoryV4_1 implements MemberRepository{
     }
 
     @Override
-    public Member save(Member member){
+    public Member save(Member member) {
         String sql = "insert into member(member_id,money) values (?, ?)";
         Connection con = null;
         PreparedStatement pstmt = null;
@@ -39,6 +39,7 @@ public class MemberRepositoryV4_1 implements MemberRepository{
             pstmt.executeUpdate();
             return member;
         } catch (SQLException e) {
+            //체크 예외인 SQL Exception 잡고 런타임으로 변경해서 throw
             throw new MyDbException(e);
         } finally {
             closing(con,pstmt,null);

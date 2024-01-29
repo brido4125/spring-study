@@ -34,14 +34,14 @@ public class CheckedAppTest {
 
     static class NetworkClient {
         public void call() throws ConnectException {
-            throw new ConnectException("연결 실패");
+            throw new ConnectException("연결 실패"); //checked exception
         }
 
     }
 
     static class Repository {
         public void call() throws SQLException {
-            throw new SQLException("ex");
+            throw new SQLException("ex"); //checked exception
         }
 
     }

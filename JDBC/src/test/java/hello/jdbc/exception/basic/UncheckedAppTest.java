@@ -56,7 +56,8 @@ public class UncheckedAppTest {
             try {
                 runSQL();
             } catch (SQLException e) {
-                throw new RuntimeSQLException();
+                //기존 예외를 생성자의 인자로 넣어줘서 언체크 예외 발생
+                throw new RuntimeSQLException(e);
             }
         }
 

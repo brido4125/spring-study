@@ -9,9 +9,10 @@ import javax.sql.DataSource;
 
 /*
 * JDBC Template 사용
+* -> connection 조회하고 pstm 만들고 등등의 중복되는 로직 제거
 * */
 @Slf4j
-public class MemberRepositoryV5 implements MemberRepository{
+public class MemberRepositoryV5 implements MemberRepository {
 
     private final JdbcTemplate template;
 
