@@ -10,6 +10,7 @@ import static net.bytebuddy.matcher.ElementMatchers.*;
 
 public class JavaAgent {
   public static void premain(String agentArgs, Instrumentation instrumentation) {
+    //ByteBuddy를 통해서 바이트 코드 조작
     new AgentBuilder.Default()
             .type(ElementMatchers.any())
             .transform(((builder, typeDescription, classLoader, javaModule)
