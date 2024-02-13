@@ -6,7 +6,25 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 public class App {
-  public static void main(String[] args) throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException, NoSuchFieldException {
+  public static void main(String[] args) throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException, NoSuchFieldException, InterruptedException {
+
+    System.out.println(Thread.currentThread().getName());
+
+    Thread thread = new Thread(() -> {
+      int cnt = 0 ;
+      while (cnt < 5) {
+        System.out.println("hello");
+        try {
+          Thread.sleep(1000);
+        } catch (InterruptedException e) {
+          throw new RuntimeException(e);
+        }
+        cnt += 1;
+      }
+    });
+    thread.start();
+    Thread.currentThread().join();
+
     Class<?> aClass = Class.forName("reflection.Book");
     Constructor<?> constructor = aClass.getConstructor(String.class);
     Book o = (Book) constructor.newInstance("hello");
