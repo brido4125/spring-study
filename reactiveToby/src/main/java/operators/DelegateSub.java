@@ -3,11 +3,11 @@ package operators;
 import java.util.concurrent.Flow;
 import java.util.concurrent.Flow.Subscriber;
 
-public class DelegateSub implements Subscriber<Integer> {
+public class DelegateSub<T, R> implements Subscriber<T> {
 
   private final Subscriber subscriber;
 
-  public DelegateSub(Subscriber subscriber) {
+  public DelegateSub(Subscriber<? super R> subscriber) {
     this.subscriber = subscriber;
   }
 
@@ -17,7 +17,7 @@ public class DelegateSub implements Subscriber<Integer> {
   }
 
   @Override
-  public void onNext(Integer item) {
+  public void onNext(T item) {
     subscriber.onNext(item);
   }
 
