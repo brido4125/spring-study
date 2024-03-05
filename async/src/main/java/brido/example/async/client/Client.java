@@ -29,8 +29,8 @@ public class Client {
 
   public void callCmplFutureMethod() {
     CompletableFuture<Integer> future = basicService.returnCmplFuture();
-    System.out.println("non-blocking1...");
+    System.out.println("non-blocking...");
     future.thenAccept(i -> System.out.println("callBack log result = " + i));
-    System.out.println("non-blocking2...");
+    System.out.println("Main Thread Do another things...");
   }
 }
