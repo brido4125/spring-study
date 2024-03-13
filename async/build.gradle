@@ -18,6 +18,8 @@ repositories {
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+	implementation 'com.jam2in.arcus:arcus-java-client:1.13.4'
 }
 
 tasks.named('test') {

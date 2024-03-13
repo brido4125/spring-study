@@ -1,5 +1,6 @@
 package brido.example.async.client;
 
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -23,6 +24,13 @@ public class ClientTest {
   void testFuture() throws ExecutionException, InterruptedException {
     Integer res = client.callFutureMethod();
     System.out.println("res = " + res);
+  }
+
+  @Test
+  void testValue() {
+    Assertions.assertThatThrownBy(() -> {
+      client.callInteger();
+    });
   }
 
   @Test
