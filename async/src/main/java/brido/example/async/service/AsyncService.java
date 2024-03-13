@@ -67,7 +67,7 @@ public class AsyncService {
   @SuppressWarnings("deprecation")
   @Async
   public ListenableFuture<Boolean> returnListenableFuture() {
-    final ArcusClientPool clientPool = ArcusClient.createArcusClientPool("test", new ConnectionFactoryBuilder(), 2);
+    ArcusClientPool clientPool = ArcusClient.createArcusClientPool("test", new ConnectionFactoryBuilder(), 2);
     return new ListenableFutureTask<>(() -> clientPool.set("test", 3, "value").get());
   }
 

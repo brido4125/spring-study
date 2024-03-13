@@ -34,7 +34,14 @@ public class ClientTest {
   }
 
   @Test
-  void testComlFuture() {
+  void testComlFuture() throws InterruptedException {
     client.callCmplFutureMethod();
+    Thread.sleep(500); // prevent shutdown
+  }
+
+  @Test
+  void testAsyncLf() throws InterruptedException {
+    client.listenalbeFuture();
+    Thread.sleep(500); // prevent shutdown
   }
 }

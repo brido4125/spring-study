@@ -45,11 +45,14 @@ public class Client {
   @SuppressWarnings("deprecation")
   public void listenalbeFuture() {
     ListenableFuture<Boolean> lf = basicService.returnListenableFuture();
-    lf.addCallback(r -> System.out.println("r = " + r), t -> System.out.println("t = " + t));
-    System.out.println("Main Thread do another...");
+    // callback spring에서 제공되는 pool 사용
+    lf.addCallback(r -> {
+      System.out.println("Thread.currentThread().getName() in Callback = " + Thread.currentThread().getName());
+      System.out.println("r = " + r);
+    }, t -> System.out.println("t = " + t));
+    System.out.println("Main Thread can do another things...");
   }
 
-  @SuppressWarnings("deprecation")
   public void completableFuture() {
     CompletableFuture<Boolean> cf = basicService.completableFuture();
 
@@ -57,6 +60,6 @@ public class Client {
             .exceptionallyAsync(t -> {System.out.println("t = " + t);
               return null;
     });
-    System.out.println("Main Thread do another...");
+    System.out.println("Main Thread can do another things...");
   }
 }
