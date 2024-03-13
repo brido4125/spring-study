@@ -43,6 +43,7 @@ public class CallbackEx {
   public static void main(String[] args) {
     ExecutorService es = Executors.newCachedThreadPool();
 
+    // Biz 로직과 비동기 로직이 섞여있는 형태
     CallbackFutureTask f = new CallbackFutureTask(() -> {
       Thread.sleep(2000);
       if (1 == 1) {
