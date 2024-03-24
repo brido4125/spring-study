@@ -1,6 +1,7 @@
 package brido.example.async.service;
 
 import brido.example.async.result.FutureImpl;
+import lombok.extern.slf4j.Slf4j;
 import net.spy.memcached.ArcusClient;
 import net.spy.memcached.ArcusClientPool;
 import net.spy.memcached.ConnectionFactoryBuilder;
@@ -16,12 +17,15 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
+@Slf4j
 @Service
 public class AsyncService {
 
   @Async
   public void returnVoid() {
-    System.out.println("Thread.currentThread().getName() = " + Thread.currentThread().getName());
+    log.info("Thread name = {}", Thread.currentThread().getName());
+    log.info("Thread group name = {}", Thread.currentThread().getId());
+
     try {
       Thread.sleep(3000);
     } catch (InterruptedException e) {
@@ -32,7 +36,8 @@ public class AsyncService {
 
   @Async
   public Future<Integer> returnFuture() {
-    System.out.println("Thread.currentThread().getName() = " + Thread.currentThread().getName());
+    log.info("Thread name = {}", Thread.currentThread().getName());
+    log.info("Thread group name = {}", Thread.currentThread().getId());
     try {
       Thread.sleep(3000);
     } catch (InterruptedException e) {
@@ -43,7 +48,8 @@ public class AsyncService {
 
   @Async
   public Integer returnValue() {
-    System.out.println("Thread.currentThread().getName() = " + Thread.currentThread().getName());
+    log.info("Thread name = {}", Thread.currentThread().getName());
+    log.info("Thread group name = {}", Thread.currentThread().getId());
     try {
       Thread.sleep(3000);
     } catch (InterruptedException e) {
@@ -52,9 +58,10 @@ public class AsyncService {
     return new FutureImpl<>(1500).get();
   }
 
-  @Async
+  @Async(value = "asyncThreadPool1")
   public CompletableFuture<Integer> returnCmplFuture() {
-    System.out.println("Thread.currentThread().getName() = " + Thread.currentThread().getName());
+    log.info("Thread name = {}", Thread.currentThread().getName());
+    log.info("Thread group name = {}", Thread.currentThread().getId());
     try {
       Thread.sleep(3000);
     } catch (InterruptedException e) {

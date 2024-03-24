@@ -19,6 +19,11 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
+	// https://mvnrepository.com/artifact/org.projectlombok/lombok
+	annotationProcessor 'org.projectlombok:lombok'
+	compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.12'
+	testCompileOnly(group: 'org.projectlombok', name: 'lombok', version: '1.18.12')
+
 	implementation 'com.jam2in.arcus:arcus-java-client:1.13.4'
 }
 
