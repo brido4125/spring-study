@@ -8,7 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.util.concurrent.ExecutionException;
 
 @SpringBootTest
-public class ClientTest {
+public class ClientForkJoinTest {
 
   @Autowired
   private Client client;
