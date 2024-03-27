@@ -9,7 +9,10 @@ public class ReactorEx {
             e.next(2);
             e.next(3);
             e.next(4);
-            e.complete();
-        }).log().map(s -> s * 10).log().subscribe(System.out::println);
+            e.complete();})
+                .log()
+                .map(s -> s * 10)
+                .log()
+                .subscribe(System.out::println);
     }
 }

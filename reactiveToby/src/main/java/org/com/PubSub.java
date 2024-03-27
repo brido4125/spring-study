@@ -2,7 +2,6 @@ package org.com;
 
 import java.util.Arrays;
 import java.util.Iterator;
-import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Flow.*;
@@ -48,7 +47,7 @@ public class PubSub {
 
           @Override
           public void cancel() {
-
+            
           }
         });
       }
@@ -58,10 +57,11 @@ public class PubSub {
 
       Subscription subscription;
 
+      //onSubscribe == Observer의 update
       @Override
       public void onSubscribe(Subscription subscription) {
         System.out.println("PubSub.onSubscribe");
-        this.subscription = subscription;
+        this.subscription = subscription;//Ref 저장
         this.subscription.request(1);
       }
 
@@ -82,7 +82,7 @@ public class PubSub {
         System.out.println("PubSub.onComplete");
       }
     };
-    p.subscribe(s);
+    p.subscribe(s); //Publisher.subscribe(Subscriber) 호출
     boolean b = es.awaitTermination(1, TimeUnit.SECONDS);
     es.shutdown();
   }
