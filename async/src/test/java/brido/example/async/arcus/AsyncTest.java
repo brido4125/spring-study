@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
+import java.util.stream.IntStream;
 
 @Slf4j
 public class AsyncTest {
@@ -57,6 +58,13 @@ public class AsyncTest {
 
     System.out.println("main thread done.");
     Thread.sleep(300);// prevent interrupt to common pool.
+  }
+
+  @Test
+  public void test() {
+    IntStream.range(1, 10).parallel().peek(i -> {
+      System.out.println(Thread.currentThread().getName());
+    }).sum();
   }
 
 }
