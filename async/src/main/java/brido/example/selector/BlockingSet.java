@@ -5,11 +5,18 @@ import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
 import java.nio.channels.SocketChannel;
 
-public class BlockingPingPong {
+public class BlockingSet {
 
     static Integer count = 0;
+    private static final String SET_BASE = "*3\r\n$3\r\nSET\r\n";
+    private static final String SET_KEY = "$43\r\ntoLongestMyKey123456789year2024month04day02\r\n";
+    private static final String SET_VALUE = "$7\r\nmyValue\r\n";
 
     public static void main(String[] args) {
+
+        StringBuilder sb = new StringBuilder();
+        sb.append(SET_BASE + SET_KEY + SET_VALUE);
+
         try {
             // Redis 서버에 연결할 SocketChannel 생성 및 Blocking 모드로 설정
             SocketChannel channel = SocketChannel.open(new InetSocketAddress("localhost", 6379));
@@ -18,7 +25,7 @@ public class BlockingPingPong {
             long start = System.currentTimeMillis();
             while (System.currentTimeMillis() - start < 1000) { // 1초 동안 반복
                 // Redis 서버에 PING 명령 전송
-                channel.write(ByteBuffer.wrap("PING\r\n".getBytes()));
+                channel.write(ByteBuffer.wrap(sb.toString().getBytes()));
 
                 // 데이터 읽기 처리
                 ByteBuffer buffer = ByteBuffer.allocate(1024);

@@ -8,9 +8,16 @@ import java.nio.channels.Selector;
 import java.nio.channels.SocketChannel;
 import java.util.Iterator;
 
-public class NonBlockingPingPong {
+public class NonBlockingSet {
     static Integer count = 0;
+    private static final String SET_BASE = "*3\r\n$3\r\nSET\r\n";
+    private static final String SET_KEY = "$43\r\ntoLongestMyKey123456789year2024month04day02\r\n";
+    private static final String SET_VALUE = "$7\r\nmyValue\r\n";
     public static void main(String[] args) throws IOException {
+
+        StringBuilder sb = new StringBuilder();
+        sb.append(SET_BASE + SET_KEY + SET_VALUE);
+        String cmd = sb.toString();
         // Selector 생성
         Selector selector = Selector.open();
 
@@ -38,7 +45,7 @@ public class NonBlockingPingPong {
                         // 연결 성공 후, 읽기 작업을 위한 SelectionKey 등록
                         socketChannel.register(selector, SelectionKey.OP_WRITE);
                         // Redis 서버에 PING 명령 전송
-                        socketChannel.write(ByteBuffer.wrap("PING\r\n".getBytes()));
+                        socketChannel.write(ByteBuffer.wrap(cmd.getBytes()));
                     }
                 } else if (key.isReadable()) {
                     // 데이터 읽기 처리
@@ -56,7 +63,7 @@ public class NonBlockingPingPong {
                 } else if (key.isWritable()) {
                     SocketChannel socketChannel = (SocketChannel) key.channel();
                     // PING 명령 보내기
-                    socketChannel.write(ByteBuffer.wrap("PING\r\n".getBytes()));
+                    socketChannel.write(ByteBuffer.wrap(cmd.getBytes()));
                     // 다시 읽기 상태로 전환
                     socketChannel.register(selector, SelectionKey.OP_READ);
                 }
