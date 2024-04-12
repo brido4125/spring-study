@@ -4,15 +4,19 @@ import org.reactivestreams.Subscriber;
 import org.reactivestreams.Subscription;
 
 public class MySubscriber<T> implements Subscriber<T> {
-  //Publisher 내에서 만든 Subscription 인스턴스 내의 메서드 호출
+  private Subscription subscription;
+
   @Override
   public void onSubscribe(Subscription s) {
-    s.request(Integer.MAX_VALUE);
+    System.out.println("MySubscriber.onSubscribe");
+    this.subscription = s;
+    s.request(2);
   }
 
   @Override
   public void onNext(T t) {
     System.out.println("OnNext item = " + t);
+    subscription.request(2);
   }
 
   @Override
