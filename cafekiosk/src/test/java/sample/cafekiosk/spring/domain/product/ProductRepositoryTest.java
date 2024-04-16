@@ -14,8 +14,7 @@ import static sample.cafekiosk.spring.domain.product.ProductSellingStatus.*;
 import static sample.cafekiosk.spring.domain.product.ProductType.HANDMADE;
 
 @ActiveProfiles("test")
-//@SpringBootTest -> 통합 테스트를 위한 어노테이션
-@DataJpaTest // JPA 관련 bean들만 등록해준다.
+@DataJpaTest // JPA 관련 bean들만 등록해준다. -> data rollback
 class ProductRepositoryTest {
 
     @Autowired
