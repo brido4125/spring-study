@@ -1,10 +1,11 @@
 package sample.cafekiosk.spring.api.controller;
 
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import sample.cafekiosk.spring.api.service.ProductService;
+import sample.cafekiosk.spring.domain.product.dto.ProductCreateRequest;
 import sample.cafekiosk.spring.domain.product.response.ProductResponse;
 
 import java.util.List;
@@ -14,6 +15,11 @@ import java.util.List;
 public class ProductController {
 
     private final ProductService productService;
+
+    @PostMapping("/api/v1/products/new")
+    public void createProduct(ProductCreateRequest productCreateRequest) {
+        productService.createProduct(productCreateRequest);
+    }
 
     @GetMapping("/api/v1/products/selling")
     public List<ProductResponse> getSellingProducts() {
