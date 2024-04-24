@@ -1,12 +1,14 @@
 package hellojpa;
 
-import hellojpa.domain.Member;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+
+import static org.hibernate.annotations.CascadeType.*;
 
 @Getter
 @Setter
@@ -16,7 +18,8 @@ public class Team extends BaseEntity{
     private Long id;
     private String name;
 
-    @OneToMany @JoinColumn(name = "TEAM_ID")
+    @OneToMany(mappedBy = "team")
+    @Cascade(ALL)
     private List<User> userList = new ArrayList<>();
 
 }
