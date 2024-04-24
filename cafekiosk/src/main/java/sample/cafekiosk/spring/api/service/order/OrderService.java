@@ -1,9 +1,9 @@
-package sample.cafekiosk.spring.api.service;
+package sample.cafekiosk.spring.api.service.order;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import sample.cafekiosk.spring.api.controller.requset.OrderCreateRequest;
-import sample.cafekiosk.spring.api.service.reponse.OrderResponse;
+import sample.cafekiosk.spring.api.service.order.reponse.OrderResponse;
+import sample.cafekiosk.spring.api.service.order.request.OrderCreateServiceRequest;
 import sample.cafekiosk.spring.domain.order.Order;
 import sample.cafekiosk.spring.domain.order.OrderRepository;
 import sample.cafekiosk.spring.domain.product.Product;
@@ -28,7 +28,7 @@ public class OrderService {
   private final OrderRepository orderRepository;
   private final StockRepository stockRepository;
 
-  public OrderResponse createOrder(OrderCreateRequest request, LocalDateTime registeredDateTime) {
+  public OrderResponse createOrder(OrderCreateServiceRequest request, LocalDateTime registeredDateTime) {
     List<String> productNumbers = request.getProductNumbers();
     List<Product> products = findProductsBy(productNumbers);
 

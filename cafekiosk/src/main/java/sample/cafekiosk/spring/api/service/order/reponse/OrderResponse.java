@@ -1,8 +1,8 @@
-package sample.cafekiosk.spring.api.service.reponse;
+package sample.cafekiosk.spring.api.service.order.reponse;
 
 import lombok.Getter;
 import sample.cafekiosk.spring.domain.order.Order;
-import sample.cafekiosk.spring.domain.product.response.ProductResponse;
+import sample.cafekiosk.spring.api.service.product.reponse.ProductResponse;
 
 import java.time.LocalDateTime;
 import java.util.List;

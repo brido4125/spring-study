@@ -7,7 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import sample.cafekiosk.spring.api.controller.requset.OrderCreateRequest;
-import sample.cafekiosk.spring.api.service.reponse.OrderResponse;
+import sample.cafekiosk.spring.api.service.order.OrderService;
+import sample.cafekiosk.spring.api.service.order.reponse.OrderResponse;
 import sample.cafekiosk.spring.domain.order.OrderRepository;
 import sample.cafekiosk.spring.domain.orderproduct.OrderProductRepository;
 import sample.cafekiosk.spring.domain.product.Product;
@@ -71,7 +72,7 @@ class OrderServiceTest {
             .build();
     //when
     LocalDateTime now = LocalDateTime.now();
-    OrderResponse orderResponse = orderService.createOrder(request, now);
+    OrderResponse orderResponse = orderService.createOrder(request.toServiceRequest(), now);
     //then
     assertThat(orderResponse.getId()).isNotNull();
     assertThat(orderResponse)
@@ -101,7 +102,7 @@ class OrderServiceTest {
             .build();
       //when
       LocalDateTime now = LocalDateTime.now();
-      OrderResponse orderResponse = orderService.createOrder(request, now);
+      OrderResponse orderResponse = orderService.createOrder(request.toServiceRequest(), now);
       //then
       assertThat(orderResponse.getId()).isNotNull();
       assertThat(orderResponse)
@@ -138,7 +139,7 @@ class OrderServiceTest {
             .build();
         //when
         LocalDateTime now = LocalDateTime.now();
-        OrderResponse orderResponse = orderService.createOrder(request, now);
+        OrderResponse orderResponse = orderService.createOrder(request.toServiceRequest(), now);
         //then
         assertThat(orderResponse.getId()).isNotNull();
         assertThat(orderResponse)
@@ -182,7 +183,7 @@ class OrderServiceTest {
             .build();
 
         // when // then
-        assertThatThrownBy(() -> orderService.createOrder(request, registeredDateTime))
+        assertThatThrownBy(() -> orderService.createOrder(request.toServiceRequest(), registeredDateTime))
             .isInstanceOf(IllegalArgumentException.class)
             .hasMessage("재고가 부족한 상품이 있습니다.");
     }

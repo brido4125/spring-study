@@ -1,13 +1,13 @@
-package sample.cafekiosk.spring.api.service;
+package sample.cafekiosk.spring.api.service.product;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import sample.cafekiosk.spring.api.service.product.reponse.ProductResponse;
+import sample.cafekiosk.spring.api.service.product.request.ProductCreateServiceRequest;
 import sample.cafekiosk.spring.domain.product.Product;
 import sample.cafekiosk.spring.domain.product.ProductRepository;
 import sample.cafekiosk.spring.domain.product.ProductSellingStatus;
-import sample.cafekiosk.spring.domain.product.dto.ProductCreateRequest;
-import sample.cafekiosk.spring.domain.product.response.ProductResponse;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -26,7 +26,7 @@ public class ProductService {
     private final ProductRepository productRepository;
 
     @Transactional
-    public ProductResponse createProduct(ProductCreateRequest request) {
+    public ProductResponse createProduct(ProductCreateServiceRequest request) {
         String latestProductNumber = createNextProductNumber();
         Product product = request.toEntity(latestProductNumber);
         Product save = productRepository.save(product);
