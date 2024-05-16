@@ -1,4 +1,4 @@
-package com.example.security;
+package org.brido.security;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
