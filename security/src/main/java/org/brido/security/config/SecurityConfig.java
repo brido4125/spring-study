@@ -31,27 +31,8 @@ public class SecurityConfig {
   @Bean
   public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
     httpSecurity
-            .authorizeHttpRequests(auth -> auth.anyRequest().authenticated())
-            .formLogin(form -> {
-              form.loginPage("/loginPage")
-                  .loginProcessingUrl("/loginProc")
-                  .defaultSuccessUrl("/", true)
-                  // true면 무조건 defaultSuccessUrl로 이동,
-                  // false이면 인증을 요청했던 그 경로로 이동 /home에서 인증 요청을 하면 /home으로 보낸다. -> 이전 위치로 리다이렉트
-                  .failureUrl("/failed")
-                  .usernameParameter("userId")
-                  .passwordParameter("passwd")
-                  //Handler가 앞서 설정된 값들보다 우선순위가 높다
-                  .successHandler((request, response, authentication) -> {
-                    System.out.println("authentication = " + authentication);
-                    response.sendRedirect("/home");
-                  })
-                  .failureHandler((request, response, exception) -> {
-                    System.out.println("exception = " + exception.getMessage());
-                    response.sendRedirect("/login");
-                  })
-                  .permitAll();
-            });
+        .authorizeHttpRequests(auth -> auth.anyRequest().authenticated())
+        .httpBasic(basic -> basic.authenticationEntryPoint(new CustomAuthenticationEntryPoint()));
     return httpSecurity.build();
   }
 
