@@ -104,7 +104,7 @@ class OrderServiceTest {
       LocalDateTime now = LocalDateTime.now();
       OrderResponse orderResponse = orderService.createOrder(request.toServiceRequest(), now);
       //then
-      assertThat(orderResponse.getId()).isNotNull();
+      assertThat(orderResponse.getId()).isNotNull(); 
       assertThat(orderResponse)
             .extracting("registeredDateTime", "totalPrice")
             .contains(now, 2000);
