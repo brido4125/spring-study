@@ -24,9 +24,10 @@ public class InternalCallV2Test {
 
     @TestConfiguration
     static class TxApplyBasicConfig{
+
         @Bean
         CallService CallService() {
-            return new CallService();
+            return new CallService(new InternalService());
         }
 
         @Bean
