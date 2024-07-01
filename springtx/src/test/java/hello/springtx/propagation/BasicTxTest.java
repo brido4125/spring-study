@@ -71,4 +71,20 @@ public class BasicTxTest {
     log.info("TX2 rollback");
     txManager.rollback(tx2);
   }
+
+  @Test
+  void inner_commit() {
+    log.info("외부 TX 시작");
+    TransactionStatus outer = txManager.getTransaction(new DefaultTransactionAttribute());
+    log.info("outer.isNewTx() = {}", outer.isNewTransaction()); // 처음 수행되는 TX ?
+
+    log.info("내부 TX 시작");
+    TransactionStatus inner = txManager.getTransaction(new DefaultTransactionAttribute());
+    log.info("inner.isNewTx() = {}", inner.isNewTransaction());
+    log.info("내부 TX 커밋");
+    txManager.commit(inner); // 아무런 동작 수행하지 않음
+
+    log.info("외부 TX 커밋");
+    txManager.commit(outer);
+  }
 }
