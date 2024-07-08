@@ -5,6 +5,10 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.UnexpectedRollbackException;
+
+import static org.assertj.core.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 
 @Slf4j
@@ -31,8 +35,8 @@ class MemberServiceTest {
 
         memberService.joinV1(username);
 
-        Assertions.assertTrue(memberRepository.find(username).isPresent());
-        Assertions.assertTrue(logRepository.find(username).isPresent());
+        assertTrue(memberRepository.find(username).isPresent());
+        assertTrue(logRepository.find(username).isPresent());
     }
 
     /**
@@ -44,12 +48,12 @@ class MemberServiceTest {
     void outerTxOff_fail() {
         String username = "로그예외_outerTxOff_fail";
 
-        org.assertj.core.api.Assertions.assertThatThrownBy(() -> {
+        assertThatThrownBy(() -> {
             memberService.joinV1(username);
         }).isInstanceOf(RuntimeException.class);
 
 
-        Assertions.assertTrue(memberRepository.find(username).isPresent());
+        assertTrue(memberRepository.find(username).isPresent());
         Assertions.assertFalse(logRepository.find(username).isPresent());
     }
 
@@ -62,8 +66,8 @@ class MemberServiceTest {
 
         memberService.joinV1(username);
 
-        Assertions.assertTrue(memberRepository.find(username).isPresent());
-        Assertions.assertTrue(logRepository.find(username).isPresent());
+        assertTrue(memberRepository.find(username).isPresent());
+        assertTrue(logRepository.find(username).isPresent());
     }
 
     /**
@@ -75,12 +79,44 @@ class MemberServiceTest {
     void outerTxOn_fail() {
         String username = "로그예외_outerTxOn_fail";
 
-        org.assertj.core.api.Assertions.assertThatThrownBy(() -> {
+        assertThatThrownBy(() -> {
             memberService.joinV1(username);
         }).isInstanceOf(RuntimeException.class);
 
 
-        Assertions.assertTrue(memberRepository.find(username).isEmpty());
-        Assertions.assertTrue(logRepository.find(username).isEmpty());
+        assertTrue(memberRepository.find(username).isEmpty());
+        assertTrue(logRepository.find(username).isEmpty());
+    }
+
+    /**
+     * memberService        @Transactional: ON
+     * memberRepository     @Transactional: ON
+     * logRepository        @Transactional: ON Exception
+     */
+    @Test
+    void recoverException_fail() {
+        String username = "로그예외_recoverException_fail";
+
+        assertThatThrownBy(() -> {
+            memberService.joinV2(username);
+        }).isInstanceOf(UnexpectedRollbackException.class);
+
+        assertTrue(memberRepository.find(username).isEmpty());
+        assertTrue(logRepository.find(username).isEmpty());
+    }
+
+    /**
+     * memberService        @Transactional: ON
+     * memberRepository     @Transactional: ON
+     * logRepository        @Transactional: ON(REQUIRES_NEW) Exception
+     */
+    @Test
+    void recoverException_success() {
+        String username = "로그예외_recoverException_success";
+
+        memberService.joinV2(username);
+
+        assertTrue(memberRepository.find(username).isPresent());
+        assertTrue(logRepository.find(username).isEmpty());
     }
 }
