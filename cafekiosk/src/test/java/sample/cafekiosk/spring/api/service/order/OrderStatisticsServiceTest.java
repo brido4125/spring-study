@@ -44,7 +44,7 @@ class OrderStatisticsServiceTest {
     @Autowired
     private MailSendHistoryRepository mailSendHistoryRepository;
 
-    // 모킹 처리
+    // SpringContext 환경 내에서 빈을 Mock 처리
     @MockBean
     private MailSendClient mailSendClient;
 
