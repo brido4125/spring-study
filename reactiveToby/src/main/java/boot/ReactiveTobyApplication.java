@@ -14,10 +14,6 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Component;
 import org.springframework.util.concurrent.ListenableFuture;
 
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Future;
-import java.util.concurrent.ThreadPoolExecutor;
-
 @Slf4j
 @SpringBootApplication
 @EnableAsync
@@ -33,7 +29,7 @@ public class ReactiveTobyApplication {
     }
   }
 
-  @Bean
+//  @Bean
   ThreadPoolTaskExecutor threadPool() {
     ThreadPoolTaskExecutor te = new ThreadPoolTaskExecutor();
     te.setCorePoolSize(10); // 첫번째 요청이 들어오며 그때 core 숫자 만큼 스레드 생성
@@ -52,7 +48,7 @@ public class ReactiveTobyApplication {
   @Autowired
   MyService myService;
 
-  @Bean
+//  @Bean
   ApplicationRunner run() {
     return args -> {
       log.info("run()");
