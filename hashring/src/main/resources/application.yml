@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: hashring
+  jpa:
+    database: mysql
+    hibernate:
+      ddl-auto: update
+    generate-ddl: true
+    show-sql: true
+
+datasource:
+  db1:
+    url: jdbc:mysql://localhost:3306/basic?useSSL=false&allowPublicKeyRetrieval=true
+    username: root
+    password: 1234
+  db2:
+    url: jdbc:mysql://localhost:3307/basic?useSSL=false&allowPublicKeyRetrieval=true
+    username: root
+    password: 1234
+  db3:
+    url: jdbc:mysql://localhost:3308/basic?useSSL=false&allowPublicKeyRetrieval=true
+    username: root
+    password: 1234
