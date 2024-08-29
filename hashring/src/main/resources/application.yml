@@ -8,16 +8,14 @@ spring:
     generate-ddl: true
     show-sql: true
 
-datasource:
-  db1:
-    url: jdbc:mysql://localhost:3306/basic?useSSL=false&allowPublicKeyRetrieval=true
-    username: root
-    password: 1234
-  db2:
-    url: jdbc:mysql://localhost:3307/basic?useSSL=false&allowPublicKeyRetrieval=true
-    username: root
-    password: 1234
-  db3:
-    url: jdbc:mysql://localhost:3308/basic?useSSL=false&allowPublicKeyRetrieval=true
-    username: root
-    password: 1234
+  datasource:
+    primary:
+      jdbc-url: jdbc:mysql://localhost:3306/basic?useSSL=false&allowPublicKeyRetrieval=true
+      username: root
+      password: 1234
+      driver-class-name: com.mysql.cj.jdbc.Driver
+    secondary:
+      jdbc-url: jdbc:mysql://localhost:3307/basic?useSSL=false&allowPublicKeyRetrieval=true
+      username: root
+      password: 1234
+      driver-class-name: com.mysql.cj.jdbc.Driver
